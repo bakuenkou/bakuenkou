@@ -2159,7 +2159,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     root: '/',
     debug: "env",
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1698642609930),
+    lastupdate: new Date(1698644039686),
     cdn: {
       izitoast_css: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/css/iziToast.min.css',
       izitoast_js: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/js/iziToast.min.js',
@@ -2257,7 +2257,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
                   
                     active-action="action-home"
                   >
-                  <i class='fa-solid fa-rss fa-fw'></i>博客
+                  <i class='fa fa-th-list fa-fw'></i>博客
                 </a>
                 
               </li>
@@ -2361,7 +2361,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
                   
                     active-action="action-home"
                   >
-                  <i class='fa-solid fa-rss fa-fw'></i>博客
+                  <i class='fa fa-th-list fa-fw'></i>博客
                 </a>
                 
               </li>
@@ -2487,7 +2487,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             
 <div class='new-meta-item author' itemprop="author" itemscope itemtype="http://schema.org/Person">
   <a itemprop="url" class='author' href="bakuenkou.gitee.io/" rel="nofollow">
-    <img itemprop="image" src="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/apple-touch-icon.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/apple-touch-icon.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+    <img itemprop="image" src="/picture/log.png" class="lazyload" data-srcset="/picture/log.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
     <p itemprop="name">Baku</p>
   </a>
 </div>
@@ -2546,6 +2546,20 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             
 
 
+<div class="new-meta-item browse">
+  <a class='notlink'>
+    <p>
+      <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
+      
+      <span id="busuanzi_value_page_pv">
+        <i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i>
+      </span>
+        
+      <span>次浏览</span>
+    </p>
+  </a>
+</div>
+
 
           
         
@@ -2579,7 +2593,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cmake 最低版本</span></span><br><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="comment"># 输出CMake的版本信息</span></span><br><span class="line"><span class="keyword">message</span>(STATUS <span class="string">&quot;cmake version $&#123;CMAKE_VERSION&#125;&quot;</span>)</span><br><span class="line"><span class="comment"># 交叉编译工具链的路径</span></span><br><span class="line"><span class="keyword">set</span>(TOOLCHAIN_DIR /opt/atk-dlrk356x-toolchain)</span><br><span class="line"><span class="comment"># C++编译器和C编译器的路径</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_COMPILER <span class="variable">$&#123;TOOLCHAIN_DIR&#125;</span>/bin/aarch64-buildroot-linux-gnu-g++)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_C_COMPILER <span class="variable">$&#123;TOOLCHAIN_DIR&#125;</span>/bin/aarch64-buildroot-linux-gnu-gcc)</span><br><span class="line"><span class="comment"># 设置系统根目录（sysroot）路径，包含目标系统的头文件和库文件</span></span><br><span class="line"><span class="keyword">set</span>(SYSROOT <span class="variable">$&#123;TOOLCHAIN_DIR&#125;</span>/aarch64-buildroot-linux-gnu/sysroot/usr/<span class="keyword">include</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_SYSROOT <span class="variable">$&#123;TOOLCHAIN_DIR&#125;</span>/aarch64-buildroot-linux-gnu/sysroot)</span><br><span class="line"><span class="comment"># C++11标准</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">11</span>)</span><br><span class="line"><span class="comment"># 链接的OpenCV库的名称</span></span><br><span class="line"><span class="keyword">set</span>(OPENCV_LIBS opencv_core opencv_videoio opencv_video opencv_highgui opencv_imgcodecs opencv_imgproc)</span><br><span class="line"><span class="comment"># 将交叉编译环境中的头文件目录添加到项目</span></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;SYSROOT&#125;</span>)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;SYSROOT&#125;</span>/opencv4)</span><br><span class="line"><span class="comment">#生成 opencv_test 执行程序</span></span><br><span class="line"><span class="keyword">project</span>(opencv)</span><br><span class="line"><span class="keyword">add_executable</span>(opencvTest opencvTest.cpp)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(opencvTest <span class="variable">$&#123;OPENCV_LIBS&#125;</span>)</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>在CMakeLists.txt目录下创建build文件夹，进入build中，输入make ..创建Makefile，随后输入make编译程序。使用scp（scp opencvTest <a href="mailto:&#114;&#x6f;&#x6f;&#116;&#x40;&#49;&#54;&#x39;&#46;&#x32;&#53;&#52;&#46;&#120;&#120;&#x78;&#x2e;&#x78;&#120;&#x78;">&#114;&#x6f;&#x6f;&#116;&#x40;&#49;&#54;&#x39;&#46;&#x32;&#53;&#52;&#46;&#120;&#120;&#x78;&#x2e;&#x78;&#120;&#x78;</a>:&#x2F;opt&#x2F;apps&#x2F;src&#x2F;mySrc）传输<strong>可执行文件</strong>和<strong>图片</strong>到开发板，运行代码。效果如图。</p>
+<p>在CMakeLists.txt目录下创建build文件夹，进入build中，输入make ..创建Makefile，随后输入make编译程序。使用scp（scp opencvTest <a href="mailto:&#114;&#x6f;&#111;&#x74;&#x40;&#49;&#x36;&#57;&#x2e;&#x32;&#x35;&#x34;&#46;&#x78;&#x78;&#120;&#x2e;&#x78;&#x78;&#120;">&#114;&#x6f;&#111;&#x74;&#x40;&#49;&#x36;&#57;&#x2e;&#x32;&#x35;&#x34;&#46;&#x78;&#x78;&#120;&#x2e;&#x78;&#x78;&#120;</a>:&#x2F;opt&#x2F;apps&#x2F;src&#x2F;mySrc）传输<strong>可执行文件</strong>和<strong>图片</strong>到开发板，运行代码。效果如图。</p>
 </blockquote>
 <p><img src="/picture/usb_video3.png" class="lazyload" data-srcset="/picture/usb_video3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="运行代码显示图片"></p>
 <h2 id="OpenCV视频常见保存格式"><a href="#OpenCV视频常见保存格式" class="headerlink" title="OpenCV视频常见保存格式"></a>OpenCV视频常见保存格式</h2><ol>
@@ -2617,7 +2631,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <i class="fa-solid fa-bookmark fa-fw" aria-hidden="true"></i><span>相关文章</span>
     </section>
     <section class='body'>
-      <div class="vlts-rps"><a class="item" href="\2023\10\01\【RK3568】Buildroot开发\" title="【RK3568】Buildroot开发" rel="bookmark "><img src="/picture/buidroot1.png" class="lazyload" data-srcset="/picture/buidroot1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【RK3568】Buildroot开发</span></a><a class="item" href="\2023\10\02\【RK3568】U-BOOT启动流程\" title="【RK3568】U-BOOT启动流程" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【RK3568】U-BOOT启动流程</span></a><a class="item" href="\2023\10\03\【RK3568】U盘锁\" title="【RK3568】U盘锁" rel="bookmark "><img src="/picture/upan_lock1.png" class="lazyload" data-srcset="/picture/upan_lock1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【RK3568】U盘锁</span></a><a class="item" href="\2023\10\06\【RK3568】使用MMP采集USB摄像头数据\" title="【RK3568】使用MPP采集USB摄像头数据" rel="bookmark "><img src="/picture/rk_mpp1.png" class="lazyload" data-srcset="/picture/rk_mpp1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【RK3568】使用MPP采集USB摄像头数据</span></a><a class="item" href="\2023\10\04\【RK3568】采集并保存USB音频\" title="【RK3568】采集并保存USB音频" rel="bookmark "><img src="/picture/usb_audio1.png" class="lazyload" data-srcset="/picture/usb_audio1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【RK3568】采集并保存USB音频</span></a></div></section></div>
+      <div class="vlts-rps"><a class="item" href="\2023\10\01\【RK3568】Buildroot开发\" title="【RK3568】Buildroot开发" rel="bookmark "><img src="/picture/buidroot1.png" class="lazyload" data-srcset="/picture/buidroot1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【RK3568】Buildroot开发</span></a><a class="item" href="\2023\10\06\【RK3568】使用MMP采集USB摄像头数据\" title="【RK3568】使用MPP采集USB摄像头数据" rel="bookmark "><img src="/picture/rk_mpp1.png" class="lazyload" data-srcset="/picture/rk_mpp1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【RK3568】使用MPP采集USB摄像头数据</span></a><a class="item" href="\2023\10\02\【RK3568】U-BOOT启动流程\" title="【RK3568】U-BOOT启动流程" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【RK3568】U-BOOT启动流程</span></a><a class="item" href="\2023\10\03\【RK3568】U盘锁\" title="【RK3568】U盘锁" rel="bookmark "><img src="/picture/upan_lock1.png" class="lazyload" data-srcset="/picture/upan_lock1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【RK3568】U盘锁</span></a><a class="item" href="\2023\10\04\【RK3568】采集并保存USB音频\" title="【RK3568】采集并保存USB音频" rel="bookmark "><img src="/picture/usb_audio1.png" class="lazyload" data-srcset="/picture/usb_audio1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【RK3568】采集并保存USB音频</span></a></div></section></div>
       
       <!-- 版权声明组件 -->
       
@@ -2689,6 +2703,20 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
 
+
+<div class="new-meta-item browse">
+  <a class='notlink'>
+    <p>
+      <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
+      
+      <span id="busuanzi_value_page_pv">
+        <i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i>
+      </span>
+        
+      <span>次浏览</span>
+    </p>
+  </a>
+</div>
 
 
         
@@ -2861,6 +2889,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="social-wrapper" itemprop="about" itemscope itemtype="http://schema.org/Thing">
           
             
+              <a href="mailto:maiyanhao.myh@foxmail.com"
+                class="social fa fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer" itemprop="url">
+                
+              </a>
+            
           
             
           
@@ -2872,12 +2907,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
-      
-    
-      
-        Use
-        <a href="https://github.com/volantis-x/hexo-theme-volantis/#6.0.0-alpha.1" target="_blank" class="codename">Volantis</a>
-        as theme
       
     
       
@@ -3488,6 +3517,8 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
 
 
+
+  <script defer src="https://npm.elemecdn.com/penndu@1.0.0/bsz.js"></script>
 
 
 <!-- optional -->
