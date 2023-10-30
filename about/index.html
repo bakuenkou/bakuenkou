@@ -213,6 +213,14 @@ button {
     backdrop-filter: saturate(200%) blur(20px);
   }
 }
+@supports (backdrop-filter: blur(20px)) {
+  .blur#comments {
+    backdrop-filter: unset;
+  }
+}
+#layoutHelper-comments {
+  margin-bottom: 100px;
+}
 .shadow {
   box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
   -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
@@ -2158,7 +2166,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     root: '/',
     debug: "env",
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1698644936728),
+    lastupdate: new Date(1698679876206),
     cdn: {
       izitoast_css: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/css/iziToast.min.css',
       izitoast_js: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/js/iziToast.min.js',
@@ -2331,6 +2339,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             
           
           
+            
+            
+              <li>
+                <a class="menuitem flat-box header toggle-mode-btn">
+                  <i class='fa-solid fa-sun fa-fw'></i>日/夜
+                </a>
+              <li>
+            
+          
+          
 				</ul>
 			</div>
       
@@ -2435,6 +2453,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             
           
             
+              
+            
+              <li>
+                <a class="menuitem flat-box header toggle-mode-btn">
+                  <i class='fa-solid fa-sun fa-fw'></i>日/夜
+                </a>
+              <li>
+            
+          
+            
           </ul>
         </li>
 			</ul>
@@ -2536,7 +2564,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <p>
       <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
       
-      <span id="busuanzi_value_page_pv">
+      <span id="twikoo_visitors">
         <i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i>
       </span>
         
@@ -2563,7 +2591,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><strong>I work in a famous industrial Internet company in China as an embedded software development engineer.</strong></li>
 <li><strong>I am good at Linux and FreeRTOS software development, and have rich experience in the development of soft PLC and automation control products. Familiar with the whole process of software development, testing and mass production.</strong></li>
 <li><strong>If you don’t understand the content of this article or want to cooperate with me, please feel free to contact me.</strong><ul>
-<li><strong>My Email :  <a href="mailto:&#x6d;&#x61;&#x69;&#121;&#97;&#110;&#x68;&#x61;&#x6f;&#46;&#109;&#x79;&#104;&#x40;&#x66;&#111;&#120;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x6d;&#x61;&#x69;&#121;&#97;&#110;&#x68;&#x61;&#x6f;&#46;&#109;&#x79;&#104;&#x40;&#x66;&#111;&#120;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></strong></li>
+<li><strong>My Email :  <a href="mailto:&#109;&#97;&#x69;&#121;&#x61;&#110;&#104;&#97;&#x6f;&#46;&#109;&#x79;&#x68;&#x40;&#x66;&#x6f;&#x78;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#109;&#97;&#x69;&#121;&#x61;&#110;&#104;&#97;&#x6f;&#46;&#109;&#x79;&#x68;&#x40;&#x66;&#x6f;&#x78;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a></strong></li>
 </ul>
 </li>
 </ul>
@@ -3324,46 +3352,37 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
 
       <script>
-  volantis.layoutHelper("comments",`<div id="utterances"></div>`)
-  volantis.utterances={}
-  volantis.utterances.ThemeLight='github-light';
-  volantis.utterances.ThemeDark='github-dark';
-  volantis.utterances.Theme=volantis.utterances.ThemeLight;
-  function p_utterances(){
-    if(!document.getElementById("utterances"))return;
-    
-      if(volantis.dark.mode=="dark"){
-        volantis.utterances.Theme=volantis.utterances.ThemeDark;
-      }else{
-        volantis.utterances.Theme=volantis.utterances.ThemeLight;
-      }
-    
-    setTimeout(function() {
-      var checkUtterances = setInterval(function () {
-        var HEAD = document.getElementById("utterances");
-        if (!HEAD) return
-        clearInterval(checkUtterances)
-        try {
-          document.getElementById("utterances").innerHTML="";
-        } catch (error) {}
-        var script = document.createElement('script');
-        script.setAttribute('src','https://utteranc.es/client.js');
-        script.setAttribute('repo','bakuenkou/bakuenkou.github.io');
-        let issuenumber = '';
-        if (issuenumber) {
-          script.setAttribute('issue-number', issuenumber);
-        } else {
-          script.setAttribute('issue-term', 'title');
-        }
-        script.setAttribute('theme', volantis.utterances.Theme );
-        script.setAttribute('label','✨💬✨');
-        script.setAttribute('crossorigin', "anonymous");
-        HEAD.appendChild(script);
-      }, 200)
-    });
+  volantis.layoutHelper("comments",`<div id="twikoo_container"><i class="fa-solid fa-cog fa-spin fa-fw fa-2x"></i></div>`)
+  function load_twikoo() {
+    if(!document.querySelectorAll("#twikoo_container")[0])return;
+    volantis.js("https://cdn.bootcdn.net/ajax/libs/twikoo/1.6.10/twikoo.min.js", p_twikoo)
   }
-  p_utterances();
-  volantis.dark.push(p_utterances);
+  function p_twikoo() {
+    if(!document.querySelectorAll("#twikoo_container")[0])return;
+    let path = pdata.commentPath;
+    let placeholder = pdata.commentPlaceholder || "aaaaa" || "";
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    twikoo.init(Object.assign(Object.assign({"path":null,"envId":"https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo","placeholder":"aaaaa","visitor":true}, {
+      el: '#twikoo_container',
+      path: path,
+      placeholder: placeholder,
+      onCommentLoaded: function() {
+        if(typeof VolantisFancyBox === "undefined") {
+          const checkFancyBox = setInterval(() => {
+            if(typeof VolantisFancyBox === "undefined") return;
+            clearInterval(checkFancyBox);
+            VolantisFancyBox.groupBind('.tk-content img:not([class*="emo"])', 'Comments');
+          })
+        } else {
+          VolantisFancyBox.groupBind('.tk-content img:not([class*="emo"])', 'Comments');
+        }
+      }
+    }),pdata.commentConfig))
+  }
+  load_twikoo();
 </script>
 
     

@@ -214,6 +214,14 @@ button {
     backdrop-filter: saturate(200%) blur(20px);
   }
 }
+@supports (backdrop-filter: blur(20px)) {
+  .blur#comments {
+    backdrop-filter: unset;
+  }
+}
+#layoutHelper-comments {
+  margin-bottom: 100px;
+}
 .shadow {
   box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
   -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
@@ -2159,7 +2167,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     root: '/',
     debug: "env",
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1698644936728),
+    lastupdate: new Date(1698679876206),
     cdn: {
       izitoast_css: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/css/iziToast.min.css',
       izitoast_js: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/js/iziToast.min.js',
@@ -2332,6 +2340,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             
           
           
+            
+            
+              <li>
+                <a class="menuitem flat-box header toggle-mode-btn">
+                  <i class='fa-solid fa-sun fa-fw'></i>日/夜
+                </a>
+              <li>
+            
+          
+          
 				</ul>
 			</div>
       
@@ -2433,6 +2451,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
                 </a>
                 
               </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box header toggle-mode-btn">
+                  <i class='fa-solid fa-sun fa-fw'></i>日/夜
+                </a>
+              <li>
             
           
             
@@ -2551,7 +2579,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <p>
       <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
       
-      <span id="busuanzi_value_page_pv">
+      <span id="twikoo_visitors">
         <i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i>
       </span>
         
@@ -2594,7 +2622,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <i class="fa-solid fa-bookmark fa-fw" aria-hidden="true"></i><span>相关文章</span>
     </section>
     <section class='body'>
-      <div class="vlts-rps"><a class="item" href="\2023\05\01\【Life】51劳动节の上海\" title="【Life】51劳动节の上海" rel="bookmark "><img src="/picture/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B71.jpg" class="lazyload" data-srcset="/picture/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B71.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【Life】51劳动节の上海</span></a><a class="item" href="\2023\04\29\【Life】51劳动节の千岛湖\" title="【Life】51劳动节の千岛湖" rel="bookmark "><img src="/picture/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%964.jpg" class="lazyload" data-srcset="/picture/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%964.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【Life】51劳动节の千岛湖</span></a><a class="item" href="\2023\08\12\【Life】仙英座流星雨\" title="【Life】仙英座流星雨" rel="bookmark "><img src="/picture/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A81.jpg" class="lazyload" data-srcset="/picture/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A81.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【Life】仙英座流星雨</span></a><a class="item" href="\2023\02\04\【Life】十五拆弹\" title="【Life】十五拆弹" rel="bookmark "><img src="/picture/%E5%8D%81%E4%BA%94%E6%8B%86%E5%BC%B91.jpg" class="lazyload" data-srcset="/picture/%E5%8D%81%E4%BA%94%E6%8B%86%E5%BC%B91.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【Life】十五拆弹</span></a><a class="item" href="\2022\12\31\【Life】元旦の黄山\" title="【Life】元旦の黄山" rel="bookmark "><img src="/picture/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B11.jpg" class="lazyload" data-srcset="/picture/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B11.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【Life】元旦の黄山</span></a></div></section></div>
+      <div class="vlts-rps"><a class="item" href="\2023\05\01\【Life】51劳动节の上海\" title="【Life】51劳动节の上海" rel="bookmark "><img src="/picture/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B71.jpg" class="lazyload" data-srcset="/picture/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B71.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【Life】51劳动节の上海</span></a><a class="item" href="\2023\04\29\【Life】51劳动节の千岛湖\" title="【Life】51劳动节の千岛湖" rel="bookmark "><img src="/picture/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%964.jpg" class="lazyload" data-srcset="/picture/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%964.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【Life】51劳动节の千岛湖</span></a><a class="item" href="\2023\08\12\【Life】仙英座流星雨\" title="【Life】仙英座流星雨" rel="bookmark "><img src="/picture/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A81.jpg" class="lazyload" data-srcset="/picture/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A81.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【Life】仙英座流星雨</span></a><a class="item" href="\2022\12\31\【Life】元旦の黄山\" title="【Life】元旦の黄山" rel="bookmark "><img src="/picture/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B11.jpg" class="lazyload" data-srcset="/picture/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B11.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【Life】元旦の黄山</span></a><a class="item" href="\2023\02\04\【Life】十五拆弹\" title="【Life】十五拆弹" rel="bookmark "><img src="/picture/%E5%8D%81%E4%BA%94%E6%8B%86%E5%BC%B91.jpg" class="lazyload" data-srcset="/picture/%E5%8D%81%E4%BA%94%E6%8B%86%E5%BC%B91.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【Life】十五拆弹</span></a></div></section></div>
       
       <!-- 版权声明组件 -->
       
@@ -3430,46 +3458,37 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
 
       <script>
-  volantis.layoutHelper("comments",`<div id="utterances"></div>`)
-  volantis.utterances={}
-  volantis.utterances.ThemeLight='github-light';
-  volantis.utterances.ThemeDark='github-dark';
-  volantis.utterances.Theme=volantis.utterances.ThemeLight;
-  function p_utterances(){
-    if(!document.getElementById("utterances"))return;
-    
-      if(volantis.dark.mode=="dark"){
-        volantis.utterances.Theme=volantis.utterances.ThemeDark;
-      }else{
-        volantis.utterances.Theme=volantis.utterances.ThemeLight;
-      }
-    
-    setTimeout(function() {
-      var checkUtterances = setInterval(function () {
-        var HEAD = document.getElementById("utterances");
-        if (!HEAD) return
-        clearInterval(checkUtterances)
-        try {
-          document.getElementById("utterances").innerHTML="";
-        } catch (error) {}
-        var script = document.createElement('script');
-        script.setAttribute('src','https://utteranc.es/client.js');
-        script.setAttribute('repo','bakuenkou/bakuenkou.github.io');
-        let issuenumber = '';
-        if (issuenumber) {
-          script.setAttribute('issue-number', issuenumber);
-        } else {
-          script.setAttribute('issue-term', 'title');
-        }
-        script.setAttribute('theme', volantis.utterances.Theme );
-        script.setAttribute('label','✨💬✨');
-        script.setAttribute('crossorigin', "anonymous");
-        HEAD.appendChild(script);
-      }, 200)
-    });
+  volantis.layoutHelper("comments",`<div id="twikoo_container"><i class="fa-solid fa-cog fa-spin fa-fw fa-2x"></i></div>`)
+  function load_twikoo() {
+    if(!document.querySelectorAll("#twikoo_container")[0])return;
+    volantis.js("https://cdn.bootcdn.net/ajax/libs/twikoo/1.6.10/twikoo.min.js", p_twikoo)
   }
-  p_utterances();
-  volantis.dark.push(p_utterances);
+  function p_twikoo() {
+    if(!document.querySelectorAll("#twikoo_container")[0])return;
+    let path = pdata.commentPath;
+    let placeholder = pdata.commentPlaceholder || "aaaaa" || "";
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    twikoo.init(Object.assign(Object.assign({"path":null,"envId":"https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo","placeholder":"aaaaa","visitor":true}, {
+      el: '#twikoo_container',
+      path: path,
+      placeholder: placeholder,
+      onCommentLoaded: function() {
+        if(typeof VolantisFancyBox === "undefined") {
+          const checkFancyBox = setInterval(() => {
+            if(typeof VolantisFancyBox === "undefined") return;
+            clearInterval(checkFancyBox);
+            VolantisFancyBox.groupBind('.tk-content img:not([class*="emo"])', 'Comments');
+          })
+        } else {
+          VolantisFancyBox.groupBind('.tk-content img:not([class*="emo"])', 'Comments');
+        }
+      }
+    }),pdata.commentConfig))
+  }
+  load_twikoo();
 </script>
 
     

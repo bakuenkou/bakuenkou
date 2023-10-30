@@ -214,6 +214,14 @@ button {
     backdrop-filter: saturate(200%) blur(20px);
   }
 }
+@supports (backdrop-filter: blur(20px)) {
+  .blur#comments {
+    backdrop-filter: unset;
+  }
+}
+#layoutHelper-comments {
+  margin-bottom: 100px;
+}
 .shadow {
   box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
   -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
@@ -2159,7 +2167,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     root: '/',
     debug: "env",
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1698644936728),
+    lastupdate: new Date(1698679876206),
     cdn: {
       izitoast_css: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/css/iziToast.min.css',
       izitoast_js: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/js/iziToast.min.js',
@@ -2332,6 +2340,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             
           
           
+            
+            
+              <li>
+                <a class="menuitem flat-box header toggle-mode-btn">
+                  <i class='fa-solid fa-sun fa-fw'></i>日/夜
+                </a>
+              <li>
+            
+          
+          
 				</ul>
 			</div>
       
@@ -2433,6 +2451,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
                 </a>
                 
               </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box header toggle-mode-btn">
+                  <i class='fa-solid fa-sun fa-fw'></i>日/夜
+                </a>
+              <li>
             
           
             
@@ -2551,7 +2579,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <p>
       <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
       
-      <span id="busuanzi_value_page_pv">
+      <span id="twikoo_visitors">
         <i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i>
       </span>
         
@@ -2806,7 +2834,7 @@ int main() &#123;
       <i class="fa-solid fa-bookmark fa-fw" aria-hidden="true"></i><span>相关文章</span>
     </section>
     <section class='body'>
-      <div class="vlts-rps"><a class="item" href="\2023\08\02\【C++】Virtual functions  Pure virtual functions\" title="【C++】Virtual functions | Pure virtual functions" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【C++】Virtual functions | Pure virtual functions</span></a><a class="item" href="\2023\08\05\【C++】智能指针（Smart Pointer）\" title="【C++】智能指针（Smart Pointer）" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【C++】智能指针（Smart Pointer）</span></a><a class="item" href="\2023\08\03\【C++】高频问题（C和C+的区别）\" title="【C/C++】高频问题（C和C+的区别）" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【C/C++】高频问题（C和C+的区别）</span></a><a class="item" href="\2023\08\01\【C++】lambda：匿名函数的用法\" title="【C++】lambda：匿名函数的用法" rel="bookmark "><img src="http://s1lcia52i.bkt.gdipper.com/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-09-23%20202917.png?e=1695809622&token=Pz2y7VaKVenNEaUUo-TufB9J-F6kbcB5wjl0Fmkb:sQGpf-_7UmKZJEIet756maIoYnc=" class="lazyload" data-srcset="http://s1lcia52i.bkt.gdipper.com/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-09-23%20202917.png?e=1695809622&token=Pz2y7VaKVenNEaUUo-TufB9J-F6kbcB5wjl0Fmkb:sQGpf-_7UmKZJEIet756maIoYnc=" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【C++】lambda：匿名函数的用法</span></a></div></section></div>
+      <div class="vlts-rps"><a class="item" href="\2023\08\01\【C++】lambda：匿名函数的用法\" title="【C++】lambda：匿名函数的用法" rel="bookmark "><img src="http://s1lcia52i.bkt.gdipper.com/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-09-23%20202917.png?e=1695809622&token=Pz2y7VaKVenNEaUUo-TufB9J-F6kbcB5wjl0Fmkb:sQGpf-_7UmKZJEIet756maIoYnc=" class="lazyload" data-srcset="http://s1lcia52i.bkt.gdipper.com/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-09-23%20202917.png?e=1695809622&token=Pz2y7VaKVenNEaUUo-TufB9J-F6kbcB5wjl0Fmkb:sQGpf-_7UmKZJEIet756maIoYnc=" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【C++】lambda：匿名函数的用法</span></a><a class="item" href="\2023\08\02\【C++】Virtual functions  Pure virtual functions\" title="【C++】Virtual functions | Pure virtual functions" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【C++】Virtual functions | Pure virtual functions</span></a><a class="item" href="\2023\08\05\【C++】智能指针（Smart Pointer）\" title="【C++】智能指针（Smart Pointer）" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【C++】智能指针（Smart Pointer）</span></a><a class="item" href="\2023\08\03\【C++】高频问题（C和C+的区别）\" title="【C/C++】高频问题（C和C+的区别）" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【C/C++】高频问题（C和C+的区别）</span></a></div></section></div>
       
       <!-- 版权声明组件 -->
       
@@ -3628,46 +3656,37 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
 
       <script>
-  volantis.layoutHelper("comments",`<div id="utterances"></div>`)
-  volantis.utterances={}
-  volantis.utterances.ThemeLight='github-light';
-  volantis.utterances.ThemeDark='github-dark';
-  volantis.utterances.Theme=volantis.utterances.ThemeLight;
-  function p_utterances(){
-    if(!document.getElementById("utterances"))return;
-    
-      if(volantis.dark.mode=="dark"){
-        volantis.utterances.Theme=volantis.utterances.ThemeDark;
-      }else{
-        volantis.utterances.Theme=volantis.utterances.ThemeLight;
-      }
-    
-    setTimeout(function() {
-      var checkUtterances = setInterval(function () {
-        var HEAD = document.getElementById("utterances");
-        if (!HEAD) return
-        clearInterval(checkUtterances)
-        try {
-          document.getElementById("utterances").innerHTML="";
-        } catch (error) {}
-        var script = document.createElement('script');
-        script.setAttribute('src','https://utteranc.es/client.js');
-        script.setAttribute('repo','bakuenkou/bakuenkou.github.io');
-        let issuenumber = '';
-        if (issuenumber) {
-          script.setAttribute('issue-number', issuenumber);
-        } else {
-          script.setAttribute('issue-term', 'title');
-        }
-        script.setAttribute('theme', volantis.utterances.Theme );
-        script.setAttribute('label','✨💬✨');
-        script.setAttribute('crossorigin', "anonymous");
-        HEAD.appendChild(script);
-      }, 200)
-    });
+  volantis.layoutHelper("comments",`<div id="twikoo_container"><i class="fa-solid fa-cog fa-spin fa-fw fa-2x"></i></div>`)
+  function load_twikoo() {
+    if(!document.querySelectorAll("#twikoo_container")[0])return;
+    volantis.js("https://cdn.bootcdn.net/ajax/libs/twikoo/1.6.10/twikoo.min.js", p_twikoo)
   }
-  p_utterances();
-  volantis.dark.push(p_utterances);
+  function p_twikoo() {
+    if(!document.querySelectorAll("#twikoo_container")[0])return;
+    let path = pdata.commentPath;
+    let placeholder = pdata.commentPlaceholder || "aaaaa" || "";
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    twikoo.init(Object.assign(Object.assign({"path":null,"envId":"https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo","placeholder":"aaaaa","visitor":true}, {
+      el: '#twikoo_container',
+      path: path,
+      placeholder: placeholder,
+      onCommentLoaded: function() {
+        if(typeof VolantisFancyBox === "undefined") {
+          const checkFancyBox = setInterval(() => {
+            if(typeof VolantisFancyBox === "undefined") return;
+            clearInterval(checkFancyBox);
+            VolantisFancyBox.groupBind('.tk-content img:not([class*="emo"])', 'Comments');
+          })
+        } else {
+          VolantisFancyBox.groupBind('.tk-content img:not([class*="emo"])', 'Comments');
+        }
+      }
+    }),pdata.commentConfig))
+  }
+  load_twikoo();
 </script>
 
     
