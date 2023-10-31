@@ -5,8 +5,8 @@
   <meta name="Volantis" content="6.0.0-alpha.1">
   <meta charset="utf-8">
   <!-- SEO相关 -->
-  <meta name="robots" content="noindex,follow">
-  <link rel="canonical" href="https://bakuenkou.gitee.io/archives/2023/11/"/>
+  
+  <link rel="canonical" href="https://bakuenkou.gitee.io/2023/10/30/【codesys】添加自己代码库/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -33,18 +33,21 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>Archive: 2023/11 - Baku加油站</title>
-  <meta name="keywords" content="null">
+  <title>【CodeSys】添加自己的代码库 - Baku加油站</title>
+  <meta name="keywords" content="CodeSys,null">
   <meta desc name="description" content="力学如力耕，勤惰尔自知。但使书种多，会有岁稔时 - Baku - Baku加油站">
   
-<meta property="og:type" content="website">
-<meta property="og:title" content="Baku加油站">
-<meta property="og:url" content="https://bakuenkou.gitee.io/archives/2023/11/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CodeSys】添加自己的代码库">
+<meta property="og:url" content="https://bakuenkou.gitee.io/2023/10/30/%E3%80%90CodeSys%E3%80%91%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E4%BB%A3%E7%A0%81%E5%BA%93/index.html">
 <meta property="og:site_name" content="Baku加油站">
-<meta property="og:description" content="力学如力耕，勤惰尔自知。但使书种多，会有岁稔时">
+<meta property="og:description" content="测试第一个程序测试之前提几点：  runtime还未适配刷flash的功能，所以IDE无法把程序刷到板子中，只能把程序加载到RAM中运行。IDE让程序在RAM中跑需要设置一下：Derive-&gt;属性-&gt;启动应用-&gt;取消勾选下载时隐式创建启动应用，让IDE不下载到Flash。 sysdefines.h中的&amp;#123;&quot;CmpAppEmbedded&quot;, &quot;">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2023-10-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-31T14:06:15.570Z">
 <meta property="article:author" content="Baku">
+<meta property="article:tag" content="CodeSys">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   <style>
@@ -2156,7 +2159,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
+  pdata.ispage=true;
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   pdata.commentConfig={};
@@ -2164,7 +2167,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     root: '/',
     debug: "env",
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1698679876206),
+    lastupdate: new Date(1698761606438),
     cdn: {
       izitoast_css: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/css/iziToast.min.css',
       izitoast_js: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/js/iziToast.min.js',
@@ -2223,7 +2226,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <!-- Custom Files bodyBegin begin-->
     
     <!-- Custom Files bodyBegin end-->
-    <header itemscope itemtype="http://schema.org/WPHeader" id="l_header" class="l_header auto shadow floatable blur " style='opacity: 0' >
+    <header itemscope itemtype="http://schema.org/WPHeader" id="l_header" class="l_header auto shadow floatable blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -2476,95 +2479,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div id="l_body">
       <div id="l_cover">
   
-    
-      <div class="cover-wrapper  search" id='half'>
-        
-  <div class='cover-bg lazyload placeholder' data-bg="/picture/封面.jpg"></div>
-
-<div class='cover-body'>
-  <div class='top'>
-    
-    
-      <p class="title">Baku加油站</p>
-    
-    
-  </div>
-  <div class='bottom'>
-    
-      <div class="m_search">
-        <form name="searchform" class="form u-search-form">
-          <input type="text" class="input u-search-input" placeholder="请输入搜索内容" />
-          <i class="icon fa-solid fa-search fa-fw"></i>
-        </form>
-      </div>
-    
-    <div class='menu navigation'>
-      <div class='list-h'>
-        
-          
-            <a href="/mylist/"
-              
-              
-              active-action="action-mylist">
-              <p>技术</p>
-            </a>
-          
-            <a href="/categories/Life/"
-              
-              
-              active-action="action-categoriesLife">
-              <p>生活</p>
-            </a>
-          
-            <a href="/archives/"
-              
-              
-              active-action="action-archives">
-              <p>归档</p>
-            </a>
-          
-            <a href="/about/"
-              
-              
-              active-action="action-about">
-              <p>关于</p>
-            </a>
-          
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-      </div>
-    
-  
 </div>
 
       <div id="safearea">
         <div class="body-wrapper">
           
 <div id="l_main" class=''>
-	
-		
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://bakuenkou.gitee.io/2023/11/03/【CodeSys】适配FreeRTOS/">
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="https://bakuenkou.gitee.io/2023/10/30/【CodeSys】添加自己代码库/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="Baku加油站">
   </span>
@@ -2573,185 +2495,328 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <meta itemprop="description" content="力学如力耕，勤惰尔自知。但使书种多，会有岁稔时">
   </span>
   
-  
+
+
   
     <span hidden>
       <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
     </span>
   
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title" itemprop="name headline">
+        【CodeSys】添加自己的代码库
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author' itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <a itemprop="url" class='author' href="bakuenkou.gitee.io/" rel="nofollow">
+    <img itemprop="image" src="/picture/log.png" class="lazyload" data-srcset="/picture/log.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+    <p itemprop="name">Baku</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  
+  
+  <div class='new-meta-item category'>
+    <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
+    <a class="category-link" href="/categories/CodeSys/">CodeSys</a>
+    
+      <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/CodeSys/" itemprop="url"><span itemprop="name">CodeSys</span></a>
+      </span>
+    
+  </div>
+  
+
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-10-30T00:00:00+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Oct 30, 2023</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>500 words</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fa-solid fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>1 min</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+
+<div class="new-meta-item browse">
+  <a class='notlink'>
+    <p>
+      <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
+      
+      <span id="twikoo_visitors">
+        <i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i>
+      </span>
+        
+      <span>次浏览</span>
+    </p>
+  </a>
+</div>
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
+      </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <h1 id="测试第一个程序"><a href="#测试第一个程序" class="headerlink" title="测试第一个程序"></a>测试第一个程序</h1><p>测试之前提几点：</p>
+<ol>
+<li>runtime还未适配刷flash的功能，所以IDE无法把程序刷到板子中，只能把程序加载到RAM中运行。<br>IDE让程序在RAM中跑需要设置一下：<code>Derive-&gt;属性-&gt;启动应用-&gt;取消勾选下载时隐式创建启动应用</code>，让IDE不下载到Flash。</li>
+<li><code>sysdefines.h</code>中的<code>&#123;&quot;CmpAppEmbedded&quot;, &quot;Bootproject.RunInFlash&quot;, 0&#125;, \</code>,0则是板子上电在Ram跑、1到Flash跑。</li>
+<li>测试程序还需要更改一下Runtime源码中的RAM位置，设置了才能让IDE把程序放到正确的RAM中运行。<br><img src="/picture/codesys11.png" class="lazyload" data-srcset="/picture/codesys11.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></li>
+<li>使用串口扫描成功设备后，可以在IDE中编写一个简单的程序，比如让某个值++，然后刷程序，进行Debug。这个IDE界面还是比较简单的不放图了。</li>
+</ol>
+<h1 id="添加自己代码库（Code-Lib）"><a href="#添加自己代码库（Code-Lib）" class="headerlink" title="添加自己代码库（Code Lib）"></a>添加自己代码库（Code Lib）</h1><ol>
+<li><p>IDE新建Lib工程，选择CODESYS Lib。</p>
+</li>
+<li><p>删除工程中的库管理器和、xxx。新建POU对象。</p>
+</li>
+<li><p>在POU中添加变量。<br><img src="/picture/codesys12.png" class="lazyload" data-srcset="/picture/codesys12.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+</li>
+<li><p>编译-&gt;生成运行时系统文件。为code提供接口。</p>
+</li>
+<li><p>随后在\Templates\复制一个CmpTemplateEmpty模板。把名字全部替换成自己的lib名字。替换生成运行时系统文件中的m4文件到新模板。把<code>myhLibDep.m4</code>、<code>myhLibDep_m4.bat</code>、<code>myhLibItf_m4.bat</code><strong>文件里面的名字</strong>也要修改成自己的lib名字。<br><img src="/picture/codesys9.png" class="lazyload" data-srcset="/picture/codesys9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+</li>
+<li><p>完成上面步骤后,运行bat文件生成<code>myhLibItf.h</code>、<code>myhLibDep.h</code>、<code>myhLib.c</code>。把这三个文件放到自己的工程中。<br><img src="/picture/codesys8.png" class="lazyload" data-srcset="/picture/codesys8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+</li>
+<li><p>修改组件宏头文件，添加<code>int myhLib__Entry(INIT_STRUCT *pInitStruct); \</code>、<code>&#123;&quot;myhLib&quot;, myhLib__Entry, 0&#125;, \</code>。c组件宏头文件指的是【CodeSys】移植Runtime中的 <code>myProject.h</code> 和 <code>myProject_Notlmpl.h</code></p>
+</li>
+<li><p>把生成运行时系统文件中的.c文件里面的函数复制添加到自己工程中的myhLib.c中。<br><img src="/picture/codesys10.png" class="lazyload" data-srcset="/picture/codesys10.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+</li>
+<li><p>在函数中调用p指针访问接口，实现自己的算法！！ done<br><img src="/picture/codesys13.png" class="lazyload" data-srcset="/picture/codesys13.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+</li>
+</ol>
+<h2 id="测试代码库"><a href="#测试代码库" class="headerlink" title="测试代码库"></a>测试代码库</h2><p>和上面测试同理，IDE编写代码，调用代码库的接口。Debug看看值是否变化~</p>
+
+  </div>
+  
   
     
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/11/03/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8DFreeRTOS/"  itemprop="url">
-        【CodeSys】适配FreeRTOS（未完成）
-      </a>
-    </h2>
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
+      
+       <!-- 相关文章 -->
+      
+        
+  <div class="related_posts">
+    <section class='header'>
+      <i class="fa-solid fa-bookmark fa-fw" aria-hidden="true"></i><span>相关文章</span>
+    </section>
+    <section class='body'>
+      <div class="vlts-rps"><a class="item" href="\2023\10\28\【CodeSys】移植Runtime\" title="【CodeSys】移植Runtime" rel="bookmark "><img src="/picture/codesys1.png" class="lazyload" data-srcset="/picture/codesys1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【CodeSys】移植Runtime</span></a><a class="item" href="\2023\10\29\【CodeSys】适配串口驱动\" title="【CodeSys】适配串口驱动" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【CodeSys】适配串口驱动</span></a></div></section></div>
+      
+      <!-- 版权声明组件 -->
+      
+        
+          <div class='copyright'>
+            <blockquote>
+              
+                
+                  <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+                
+              
+                
+                  <p>[ 转载请保留本文转载地址 著作权归作者所有！]</p>
+
+                
+              
+                
+                  <p>本文链接：<a href="https://bakuenkou.gitee.io/2023/10/30/【CodeSys】添加自己代码库/">https://bakuenkou.gitee.io/2023/10/30/【CodeSys】添加自己代码库/</a></p>
+                
+              
+            </blockquote>
+          </div>
+        
+      
+      <!-- 打赏组件 -->
+      
+    </div>
   
-  <div class='md article-desc' itemprop="articleBody">
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          
+  
+  
+  
+  <div class='new-meta-item category'>
+    <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
+    <a class="category-link" href="/categories/CodeSys/">CodeSys</a>
+    
+      <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/CodeSys/" itemprop="url"><span itemprop="name">CodeSys</span></a>
+      </span>
+    
+  </div>
+  
+
+
+
+        
+      
+        
+          
+  
+  
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/CodeSys/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>CodeSys</p></a></div>
+  <span hidden itemprop="keywords">CodeSys</span>
+  
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://bakuenkou.gitee.io/2023/10/30/%E3%80%90CodeSys%E3%80%91%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E4%BB%A3%E7%A0%81%E5%BA%93/&title=【CodeSys】添加自己的代码库 - Baku加油站&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qq.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qq.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://bakuenkou.gitee.io/2023/10/30/%E3%80%90CodeSys%E3%80%91%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E4%BB%A3%E7%A0%81%E5%BA%93/&title=【CodeSys】添加自己的代码库 - Baku加油站&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qzone.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/qzone.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://bakuenkou.gitee.io/2023/10/30/%E3%80%90CodeSys%E3%80%91%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E4%BB%A3%E7%A0%81%E5%BA%93/&title=【CodeSys】添加自己的代码库 - Baku加油站&summary="
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/weibo.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/logo/128/weibo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
     
       
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+</div>
+
+
+
         
-        <time itemprop="dateCreated datePublished" datetime="2023-11-03T00:00:00+08:00">2023-11-03</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/CodeSys/">CodeSys</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/CodeSys/" itemprop="url"><span itemprop="name">CodeSys</span></a>
-            </span>
-          
-        
-      </div>
       
-        <div>
-          <a class='readmore' href='/2023/11/03/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8DFreeRTOS/' itemprop="url">
-            Read More
-          </a>
-        </div>
+    </div>
+    <!-- Custom Files bottomMeta begin -->
+    
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2023/10/29/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8D%E4%B8%B2%E5%8F%A3%E9%A9%B1%E5%8A%A8/'>
+          <p class='title'>【CodeSys】适配串口驱动<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>适配时间组件 (SysTime)适配SysTimeOS.c的下列函数，为codesys提供系统ms、us的tick。可以参考代码中的例子。
+
+RTS_UI32 CDECL SysTimeGetM...</p>
+        </a>
       
     </div>
   
+  <!-- 文章推荐 -->
+  
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://bakuenkou.gitee.io/2023/11/02/【CodeSys】适配网络驱动/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Baku加油站">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="Baku加油站">
-    <meta itemprop="description" content="力学如力耕，勤惰尔自知。但使书种多，会有岁稔时">
-  </span>
   
-  
-  
+
+
+  <article class="post white-box shadow floatable blur" id="comments">
     <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+      <meta itemprop="discussionUrl" content="/2023/10/30/%E3%80%90CodeSys%E3%80%91%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E4%BB%A3%E7%A0%81%E5%BA%93/index.html#comments">
     </span>
-  
-  
+    <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/11/02/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8D%E7%BD%91%E7%BB%9C%E9%A9%B1%E5%8A%A8/"  itemprop="url">
-        【CodeSys】适配网络驱动（未完成）
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2023-11-02T00:00:00+08:00">2023-11-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/CodeSys/">CodeSys</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/CodeSys/" itemprop="url"><span itemprop="name">CodeSys</span></a>
-            </span>
-          
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2023/11/02/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8D%E7%BD%91%E7%BB%9C%E9%A9%B1%E5%8A%A8/' itemprop="url">
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
 
-</div>
+    <div id="layoutHelper-comments"></div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://bakuenkou.gitee.io/2023/11/01/【CodeSys】适配Flash驱动/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Baku加油站">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="Baku加油站">
-    <meta itemprop="description" content="力学如力耕，勤惰尔自知。但使书种多，会有岁稔时">
-  </span>
-  
-  
-  
-    <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-    </span>
-  
-  
-    
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2023/11/01/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8DFlash%E9%A9%B1%E5%8A%A8/"  itemprop="url">
-        【CodeSys】适配Flash驱动（未完成）
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2023-11-01T00:00:00+08:00">2023-11-01</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/CodeSys/">CodeSys</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/CodeSys/" itemprop="url"><span itemprop="name">CodeSys</span></a>
-            </span>
-          
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2023/11/01/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8DFlash%E9%A9%B1%E5%8A%A8/' itemprop="url">
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-  
+  </article>
 
 
-	
+
+
+
+
 </div>
 <aside id='l_side' itemscope itemtype="http://schema.org/WPSideBar">
   
@@ -2760,223 +2825,31 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       
-<section class="widget blogger desktop mobile ">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='/picture/123.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-          <p>“力学如力耕，勤惰尔自知”</p>
-
-        
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/"
-              class="social fa-solid fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:maiyanhao.myh@foxmail.com"
-              class="social fa-solid fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fa-solid fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
-
-    
-  
-
-  
-    
-    
-      
-  
-  <section class="widget category desktop">
-    
-  <header>
-    
-      <a href='/categories/'><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/C/" href="/categories/C/"
-            active-action="action-categoriesC"
-            ><div class='name'>C++</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/CodeSys/" href="/categories/CodeSys/"
-            active-action="action-categoriesCodeSys"
-            ><div class='name'>CodeSys</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Life/" href="/categories/Life/"
-            active-action="action-categoriesLife"
-            ><div class='name'>Life</div><div class='badge'>(11)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            active-action="action-categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/RK3568/" href="/categories/RK3568/"
-            active-action="action-categoriesRK3568"
-            ><div class='name'>RK3568</div><div class='badge'>(6)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Tool/" href="/categories/Tool/"
-            active-action="action-categoriesTool"
-            ><div class='name'>Tool</div><div class='badge'>(2)</div></a></li>
-        
-      </ul>
-    </div>
-  </section>
-
-
-    
-  
-
-  
-    
-    
-      
-  
-  <section class="widget tagcloud desktop mobile">
-    
-  <header>
-    
-      <a href='/tags/'><i class="fa-solid fa-tags fa-fw" aria-hidden="true"></i><span class='name'>博文标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/CodeSys/" style="font-size: 21.5px; color: #666">CodeSys</a> <a href="/tags/Life/" style="font-size: 24px; color: #555">Life</a> <a href="/tags/c-plus/" style="font-size: 19px; color: #777">c-plus</a> <a href="/tags/linux/" style="font-size: 16.5px; color: #888">linux</a> <a href="/tags/rk3568/" style="font-size: 19px; color: #777">rk3568</a> <a href="/tags/tool/" style="font-size: 14px; color: #999">tool</a>
-    </div>
-  </section>
-
-
-    
-  
-
-  
-    
-    
-      
-<section class="widget desktop">
-  
-  <header>
-    
-      <i class="fa-solid fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>36 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count"></div>
-        </div>
-      
-
-
-      
-        <div class="webinfo-item">
-          <div>本站总字数：</div>
-          <div>36k 字</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站访客数：</div>
-          <div>
-            <span id="busuanzi_value_site_uv">
-              <i class="fa-solid fa-fan fa-spin fa-fw" aria-hidden="true"></i>
-            </span> 
-            人
-          </div>
-        </div>
-        <div class="webinfo-item">
-          <div>本站总访问量：</div>
-          <div>
-            <span id="busuanzi_value_site_pv">
-              <i class="fa-solid fa-fan fa-spin fa-fw" aria-hidden="true"></i>
-            </span> 
-            次
-          </div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          <div id="last-update-show">2023-10-30 日</div>
-        </div>
-      
-    </div>
-  </div>
-</section>
-
     
   
 
 
 <div class="widget-sticky">
+
+  
+  
+
+
+<section class="widget toc-wrapper desktop mobile" id="toc-div" >
+  
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81%E5%BA%93"><span class="toc-text">测试代码库</span></a></li></ol>
+  </div>
+</section>
+
+  
 
 </div>
 
@@ -2984,6 +2857,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   <!-- Custom Files side end -->
 </aside>
+
 
 
         </div>
@@ -3595,12 +3469,12 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   function p_twikoo() {
     if(!document.querySelectorAll("#twikoo_container")[0])return;
     let path = pdata.commentPath;
-    let placeholder = pdata.commentPlaceholder || "aaaaa" || "";
+    let placeholder = pdata.commentPlaceholder || "欢迎大佬们评论，若文中有错误，烦请指正~ 昵称输入QQ号会自动使用QQ头像。～" || "";
     if (path.length == 0) {
       let defaultPath = '';
       path = defaultPath || decodeURI(window.location.pathname);
     }
-    twikoo.init(Object.assign(Object.assign({"path":null,"envId":"https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo","placeholder":"aaaaa","visitor":true}, {
+    twikoo.init(Object.assign(Object.assign({"path":null,"envId":"https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo","placeholder":"欢迎大佬们评论，若文中有错误，烦请指正~ 昵称输入QQ号会自动使用QQ头像。～","visitor":true}, {
       el: '#twikoo_container',
       path: path,
       placeholder: placeholder,
@@ -3891,7 +3765,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/","sameAs":["https://github.com/volantis-x"],"description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://bakuenkou.gitee.io/","name":"Baku加油站"}},{"@type":"ListItem","position":2,"item":{"@id":"https://bakuenkou.gitee.io/archives/","name":"Archive"}},{"@type":"ListItem","position":3,"item":{"@id":"https://bakuenkou.gitee.io/archives/2023/","name":"2023"}},{"@type":"ListItem","position":4,"item":{"@id":"https://bakuenkou.gitee.io/archives/2023/11/","name":"11"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","keywords":null,"description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时","author":{"@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/","description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时"},"publisher":{"@type":"Organization","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://bakuenkou.gitee.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时","inLanguage":["en","zh-CN","default"],"mainEntityOfPage":{"@type":"WebPage"},"author":{"@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/"},"publisher":{"@type":"Organization","name":"Baku加油站","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"wordCount":0,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/","sameAs":["https://github.com/volantis-x"],"description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://bakuenkou.gitee.io/","name":"Baku加油站"}},{"@type":"ListItem","position":2,"item":{"@id":"https://bakuenkou.gitee.io/categories/CodeSys/","name":"CodeSys"}},{"@type":"ListItem","position":3,"item":{"@id":"https://bakuenkou.gitee.io/2023/10/30/【CodeSys】添加自己代码库/","name":"【CodeSys】添加自己的代码库"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","keywords":null,"description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时","author":{"@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/","description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时"},"publisher":{"@type":"Organization","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://bakuenkou.gitee.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"【CodeSys】添加自己的代码库","description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时","inLanguage":["en","zh-CN","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://bakuenkou.gitee.io/2023/10/30/%E3%80%90CodeSys%E3%80%91%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E4%BB%A3%E7%A0%81%E5%BA%93/"},"author":{"@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/"},"publisher":{"@type":"Organization","name":"Baku加油站","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://bakuenkou.gitee.io/2023/10/30/%E3%80%90CodeSys%E3%80%91%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E4%BB%A3%E7%A0%81%E5%BA%93/","wordCount":0,"datePublished":"2023-10-29T16:00:00.000Z","dateModified":"2023-10-31T14:06:15.570Z","articleSection":"CodeSys","keywords":"CodeSys","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
-  <link rel="canonical" href="https://bakuenkou.gitee.io/2023/11/03/【codesys】适配freertos/"/>
+  <link rel="canonical" href="https://bakuenkou.gitee.io/2023/09/07/【linux】新字符设备驱动/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -33,21 +33,21 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>【CodeSys】适配FreeRTOS（未完成） - Baku加油站</title>
-  <meta name="keywords" content="CodeSys,null">
+  <title>【Linux】新字符设备驱动 - Baku加油站</title>
+  <meta name="keywords" content="Linux,null">
   <meta desc name="description" content="力学如力耕，勤惰尔自知。但使书种多，会有岁稔时 - Baku - Baku加油站">
   
 <meta property="og:type" content="article">
-<meta property="og:title" content="【CodeSys】适配FreeRTOS（未完成）">
-<meta property="og:url" content="https://bakuenkou.gitee.io/2023/11/03/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8DFreeRTOS/index.html">
+<meta property="og:title" content="【Linux】新字符设备驱动">
+<meta property="og:url" content="https://bakuenkou.gitee.io/2023/09/07/%E3%80%90Linux%E3%80%91%E6%96%B0%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8/index.html">
 <meta property="og:site_name" content="Baku加油站">
-<meta property="og:description" content="适配FreeRTOS手册：6.2.2.3">
+<meta property="og:description" content="新旧字符设备驱动的差别 注册设备方式  旧：用register_chrdev函数来注册字符设备。这个函数需要设备号、设备名和一个指向file_operations结构体的指针 新：使用alloc_chrdev_region、cdev_init和cdev_add等函数来注册字符设备。   设备文件  旧：设备文件（通常位于&#x2F;dev目录）需要手动创建。这可以使用mknod命令来完成。 新：利">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-<meta property="article:published_time" content="2023-11-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-29T18:25:04.977Z">
+<meta property="article:published_time" content="2023-09-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-31T14:12:49.185Z">
 <meta property="article:author" content="Baku">
-<meta property="article:tag" content="CodeSys">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   <style>
@@ -2167,7 +2167,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     root: '/',
     debug: "env",
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1698679876206),
+    lastupdate: new Date(1698761606438),
     cdn: {
       izitoast_css: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/css/iziToast.min.css',
       izitoast_js: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/js/iziToast.min.js',
@@ -2486,7 +2486,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 <div id="l_main" class=''>
   <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
-  <link itemprop="mainEntityOfPage" href="https://bakuenkou.gitee.io/2023/11/03/【CodeSys】适配FreeRTOS/">
+  <link itemprop="mainEntityOfPage" href="https://bakuenkou.gitee.io/2023/09/07/【Linux】新字符设备驱动/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="Baku加油站">
   </span>
@@ -2507,7 +2507,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title" itemprop="name headline">
-        【CodeSys】适配FreeRTOS（未完成）
+        【Linux】新字符设备驱动
       </h1>
       <div class='new-meta-box'>
         
@@ -2529,10 +2529,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   <div class='new-meta-item category'>
     <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
-    <a class="category-link" href="/categories/CodeSys/">CodeSys</a>
+    <a class="category-link" href="/categories/Linux/">Linux</a>
     
       <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-        <a href="/categories/CodeSys/" itemprop="url"><span itemprop="name">CodeSys</span></a>
+        <a href="/categories/Linux/" itemprop="url"><span itemprop="name">Linux</span></a>
       </span>
     
   </div>
@@ -2543,10 +2543,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-11-03T00:00:00+08:00">
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-09-07T00:00:00+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Nov 3, 2023</p>
+    <p>发布于：Sep 7, 2023</p>
   </a>
 </div>
 
@@ -2557,13 +2557,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>9 words</p>
+      <p>1.3k words</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fa-solid fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>1 min</p>
+      <p>5 min</p>
     </a>
   </div>
 
@@ -2601,7 +2601,69 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <h2 id="适配FreeRTOS"><a href="#适配FreeRTOS" class="headerlink" title="适配FreeRTOS"></a>适配FreeRTOS</h2><p>手册：6.2.2.3</p>
+    <h1 id="新旧字符设备驱动的差别"><a href="#新旧字符设备驱动的差别" class="headerlink" title="新旧字符设备驱动的差别"></a>新旧字符设备驱动的差别</h1><ol>
+<li><p>注册设备方式</p>
+<ul>
+<li>旧：用register_chrdev函数来注册字符设备。这个函数需要设备号、设备名和一个指向file_operations结构体的指针</li>
+<li>新：使用alloc_chrdev_region、cdev_init和cdev_add等函数来注册字符设备。</li>
+</ul>
+</li>
+<li><p>设备文件</p>
+<ul>
+<li>旧：设备文件（通常位于&#x2F;dev目录）需要手动创建。这可以使用mknod命令来完成。</li>
+<li>新：利用udev系统自动创建设备文件。</li>
+</ul>
+</li>
+<li><p>设备号</p>
+<ul>
+<li>旧：旧式驱动通常使用静态设备号。静态设备号可能会导致设备号冲突，且浪费。</li>
+<li>新：新式驱动使用动态分配的设备号，这减少了设备号冲突的可能性。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="新字符设备驱动实现方式"><a href="#新字符设备驱动实现方式" class="headerlink" title="新字符设备驱动实现方式"></a>新字符设备驱动实现方式</h1><h2 id="设备号"><a href="#设备号" class="headerlink" title="设备号"></a>设备号</h2><p>分配设备号有动态和静态两个方式。<br>如果给定了主次设备号，使用静态分配，调用如下函数：</p>
+<p><code>int register_chrdev_region(dev_t from, unsigned count, const char *name)  // 不建议使用</code></p>
+<p>静态分配设备号存在以下问题：</p>
+<ul>
+<li>需要主动确定未被使用的主设备号。</li>
+<li>一个字符设备会消耗掉一个住设备号下所有的次设备号。（浪费）</li>
+</ul>
+<p>为了解决了这个问题，最好使用动态方式，在需要使用设备号时候向Linux内核申请，需要几个申请几个。由 Linux 内核分配设备可以使用的设备号，调用的函数如下：</p>
+<p><code>int alloc_chrdev_region(dev_t *dev, unsigned baseminor, unsigned count, const char *name)</code></p>
+<p>销毁字符设备时候释放设备号都是调用以下函数。</p>
+<p><code>void unregister_chrdev_region(dev_t from, unsigned count)</code></p>
+<hr>
+<h2 id="新字符设备注册方法"><a href="#新字符设备注册方法" class="headerlink" title="新字符设备注册方法"></a>新字符设备注册方法</h2><h3 id="字符设备结构体"><a href="#字符设备结构体" class="headerlink" title="字符设备结构体"></a>字符设备结构体</h3><p>Linux 中使用 cdev 结构体表示一个字符设备，cdev 结构体在 include&#x2F;linux&#x2F;cdev.h 文件中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cdev</span> &#123;</span></span><br><span class="line">    <span class="comment">// 用于管理内核对象的生命周期以及提供设备模型（Device Model）支持</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kobject</span> <span class="title">kobj</span>;</span> </span><br><span class="line">    <span class="comment">//指向拥有这个字符设备的内核模块，防止在字符设备仍在使用时卸载内核模块</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">module</span> *<span class="title">owner</span>;</span> </span><br><span class="line">    <span class="comment">// 操作函数集合</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> *<span class="title">ops</span>;</span> </span><br><span class="line">    <span class="comment">// 用于将字符设备插入到内核管理的字符设备链表中的链表头。通过这个链表，内核能够管理和查找系统中的所有字符设备。</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">list</span>;</span> </span><br><span class="line">    <span class="comment">//设备号</span></span><br><span class="line">    <span class="type">dev_t</span> dev;  </span><br><span class="line">    <span class="comment">// 记录字符设备占用的设备号范围的大小</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> count; </span><br><span class="line">&#125; __randomize_layout;<span class="comment">//编译时布局进行随机化处理，安全</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="注册和添加设备函数：cdev-init-和cdev-add"><a href="#注册和添加设备函数：cdev-init-和cdev-add" class="headerlink" title="注册和添加设备函数：cdev_init()和cdev_add()"></a>注册和添加设备函数：cdev_init()和cdev_add()</h3><p>定义好 cdev 变量以后就要使用 cdev_init 函数对其进行初始化。随后使和cdev_add函数向 Linux 系统添加这个字符设备。用例如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cdev</span> <span class="title">myCdev</span>;</span>、</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> <span class="title">myFops</span> =</span> &#123; </span><br><span class="line">    .owner =    THIS_MODULE, </span><br><span class="line">    <span class="comment">/* 其他具体的初始项 */</span></span><br><span class="line">&#125;;</span><br><span class="line">myCdev.owner = THIS_MODULE;</span><br><span class="line"></span><br><span class="line">cdev_init(&amp;myCdev, &amp;myFops); <span class="comment">/* 初始化 cdev 结构体变量 */</span></span><br><span class="line">cdev_add(&amp;myCdev, devid, <span class="number">1</span>); <span class="comment">/* 添加字符设备 */</span></span><br></pre></td></tr></table></figure>
+<p>如果再加上面中分配设备号的程序，相当于 <code>register_chrdev</code> 函数的功能。</p>
+<h3 id="卸载驱动函数：cdev-del"><a href="#卸载驱动函数：cdev-del" class="headerlink" title="卸载驱动函数：cdev_del()"></a>卸载驱动函数：cdev_del()</h3><p>卸载驱动的时候要使用 cdev_del 函数从 Linux 内核中删除相应的字符设备。</p>
+<p>函数：<code>cdev_del(&amp;myCdev); /* 删除 cdev */</code></p>
+<p><code>cdev_del </code>和 <code>unregister_chrdev_region </code>这两个函数合起来的功能相当于 <code>unregister_chrdev</code> 函<br>数。</p>
+<hr>
+<h2 id="自动创建设备节点"><a href="#自动创建设备节点" class="headerlink" title="自动创建设备节点"></a>自动创建设备节点</h2><h3 id="启用udev"><a href="#启用udev" class="headerlink" title="启用udev"></a>启用udev</h3><p>这个不需要我们主动开启，开机会自动开启的，此处仅介绍他的用处~</p>
+<p>udev 是 Linux 系统中用于管理设备节点的守护进程，运行在用户空间。<br>其作用可粗略分为以下：</p>
+<ol>
+<li>管理 &#x2F;dev&#x2F; 目录下的设备节点：当新设备被添加到系统时，udev 会根据规则文件来创建相应的设备节点。相应地，当设备被移除时，udev 会删除设备节点。</li>
+<li>设备持久命名：通过创建持久的、一致的设备节点名称，udev 确保了设备名称在系统重启或设备重新插拔后保持不变。</li>
+<li>运行设备特定的初始化和配置脚本：udev 可以根据规则文件配置设备或运行初始化脚本。</li>
+<li>加载或关闭额外的设备驱动或固件。（modprobe、rmmod）</li>
+</ol>
+<h3 id="创建和删除类"><a href="#创建和删除类" class="headerlink" title="创建和删除类"></a>创建和删除类</h3><p>自动创建设备节点的工作是在驱动程序的入口函数中完成的，一般在 cdev_add 函数后面添<br>加自动创建设备节点相关代码。首先要创建一个 class 类。定义在<code>include/linux/device.h</code>。<br>创建和删除的函数如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> class *<span class="title function_">class_create</span> <span class="params">(<span class="keyword">struct</span> module *owner, <span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">class_destroy</span><span class="params">(<span class="keyword">struct</span> class *cls)</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建设备"><a href="#创建设备" class="headerlink" title="创建设备"></a>创建设备</h3><p>创建类后，还需要创建设备。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 此为可变参函数</span></span><br><span class="line"><span class="keyword">struct</span> device *<span class="title function_">device_create</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="keyword">struct</span> class *class,    <span class="comment">// 创建到哪个class</span></span></span><br><span class="line"><span class="params">    <span class="keyword">struct</span> device *parent,  <span class="comment">// 父设备，一般为NULL</span></span></span><br><span class="line"><span class="params">    <span class="type">dev_t</span> devt,             <span class="comment">// 设备号</span></span></span><br><span class="line"><span class="params">    <span class="type">void</span> *drvdata,          <span class="comment">// 可以用来传递设备驱动的私有数据，不需要则NULL</span></span></span><br><span class="line"><span class="params">    <span class="type">const</span> <span class="type">char</span> *fmt, ...    <span class="comment">//设备名字，如果设置 fmt=xxx，会生成/dev/xxx设备文件</span></span></span><br><span class="line"><span class="params">)</span></span><br></pre></td></tr></table></figure>
+<p>如果需要卸载，则使用删除函数：</p>
+<p><code>void device_destroy(struct class *cls, dev_t devt)</code></p>
+<h3 id="参考示例"><a href="#参考示例" class="headerlink" title="参考示例"></a>参考示例</h3><p>在入口函数中创建类与设备，出口函数删除类和设备：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="keyword">class</span> *<span class="keyword">class</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">device</span> *<span class="title">device</span>;</span></span><br><span class="line"><span class="type">dev_t</span> devid;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> __init <span class="title function_">my_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123; </span><br><span class="line">    <span class="comment">// 创建类</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> =</span> class_create(THIS_MODULE, <span class="string">&quot;XXXX&quot;</span>)</span><br><span class="line">    <span class="comment">// 创建设备</span></span><br><span class="line">    device = device_create(class, <span class="literal">NULL</span>, devid, <span class="literal">NULL</span>, <span class="string">&quot;XXXX&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> __exit <span class="title function_">my_exit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 删除设备</span></span><br><span class="line">    device_destroy(newchrled.class, newchrled.devid);</span><br><span class="line">    <span class="comment">// 删除类</span></span><br><span class="line">    class_destroy(newchrled.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(my_init);</span><br><span class="line">module_exit(my_exit);</span><br></pre></td></tr></table></figure>
+<hr>
 
   </div>
   
@@ -2618,7 +2680,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <i class="fa-solid fa-bookmark fa-fw" aria-hidden="true"></i><span>相关文章</span>
     </section>
     <section class='body'>
-      <div class="vlts-rps"><a class="item" href="\2023\10\30\【CodeSys】测试第一个程序、添加自己代码库（未完成）\" title="【CodeSys】测试第一个程序、添加自己的代码库" rel="bookmark "><img src="/picture/codesys11.png" class="lazyload" data-srcset="/picture/codesys11.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【CodeSys】测试第一个程序、添加自己的代码库</span></a><a class="item" href="\2023\10\28\【CodeSys】移植Runtime\" title="【CodeSys】移植Runtime" rel="bookmark "><img src="/picture/codesys1.png" class="lazyload" data-srcset="/picture/codesys1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【CodeSys】移植Runtime</span></a><a class="item" href="\2023\11\01\【CodeSys】适配Flash驱动\" title="【CodeSys】适配Flash驱动（未完成）" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【CodeSys】适配Flash驱动（未完成）</span></a><a class="item" href="\2023\10\31\【CodeSys】适配IO驱动\" title="【CodeSys】适配IO驱动（未完成）" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【CodeSys】适配IO驱动（未完成）</span></a><a class="item" href="\2023\11\02\【CodeSys】适配网络驱动\" title="【CodeSys】适配网络驱动（未完成）" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【CodeSys】适配网络驱动（未完成）</span></a></div></section></div>
+      <div class="vlts-rps"><a class="item" href="\2023\09\05\【Linux】GDB调试\" title="【Linux】GDB调试" rel="bookmark "><img src="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" class="lazyload" data-srcset="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><span class="title">【Linux】GDB调试</span></a></div></section></div>
       
       <!-- 版权声明组件 -->
       
@@ -2637,7 +2699,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
                 
               
                 
-                  <p>本文链接：<a href="https://bakuenkou.gitee.io/2023/11/03/【CodeSys】适配FreeRTOS/">https://bakuenkou.gitee.io/2023/11/03/【CodeSys】适配FreeRTOS/</a></p>
+                  <p>本文链接：<a href="https://bakuenkou.gitee.io/2023/09/07/【Linux】新字符设备驱动/">https://bakuenkou.gitee.io/2023/09/07/【Linux】新字符设备驱动/</a></p>
                 
               
             </blockquote>
@@ -2662,10 +2724,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   <div class='new-meta-item category'>
     <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
-    <a class="category-link" href="/categories/CodeSys/">CodeSys</a>
+    <a class="category-link" href="/categories/Linux/">Linux</a>
     
       <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-        <a href="/categories/CodeSys/" itemprop="url"><span itemprop="name">CodeSys</span></a>
+        <a href="/categories/Linux/" itemprop="url"><span itemprop="name">Linux</span></a>
       </span>
     
   </div>
@@ -2680,8 +2742,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/CodeSys/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>CodeSys</p></a></div>
-  <span hidden itemprop="keywords">CodeSys</span>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Linux/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>Linux</p></a></div>
+  <span hidden itemprop="keywords">Linux</span>
   
 
 
@@ -2695,7 +2757,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://bakuenkou.gitee.io/2023/11/03/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8DFreeRTOS/&title=【CodeSys】适配FreeRTOS（未完成） - Baku加油站&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://bakuenkou.gitee.io/2023/09/07/%E3%80%90Linux%E3%80%91%E6%96%B0%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8/&title=【Linux】新字符设备驱动 - Baku加油站&summary="
           
           >
           
@@ -2707,7 +2769,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://bakuenkou.gitee.io/2023/11/03/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8DFreeRTOS/&title=【CodeSys】适配FreeRTOS（未完成） - Baku加油站&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://bakuenkou.gitee.io/2023/09/07/%E3%80%90Linux%E3%80%91%E6%96%B0%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8/&title=【Linux】新字符设备驱动 - Baku加油站&summary="
           
           >
           
@@ -2719,7 +2781,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://bakuenkou.gitee.io/2023/11/03/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8DFreeRTOS/&title=【CodeSys】适配FreeRTOS（未完成） - Baku加油站&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://bakuenkou.gitee.io/2023/09/07/%E3%80%90Linux%E3%80%91%E6%96%B0%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8/&title=【Linux】新字符设备驱动 - Baku加油站&summary="
           
           >
           
@@ -2752,11 +2814,44 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
+        <a class='prev' href='/2023/10/01/%E3%80%90RK3568%E3%80%91Buildroot%E5%BC%80%E5%8F%91/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>【RK3568】Buildroot开发</p>
+          <p class='content'>【RK3568】Buildroot开发Buildroot目录介绍
+
+
+说明
+顶层目录名
+
+
+
+arch
+存放 buildroot 支持的所有 CPU 架构相关的配置文件及构建脚本
+
+
+board...</p>
+        </a>
       
-        <a class='next' href='/2023/11/02/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8D%E7%BD%91%E7%BB%9C%E9%A9%B1%E5%8A%A8/'>
-          <p class='title'>【CodeSys】适配网络驱动（未完成）<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>适配UDP手册：6.2.2.3
-</p>
+      
+        <a class='next' href='/2023/09/05/%E3%80%90Linux%E3%80%91GDB%E8%B0%83%E8%AF%95/'>
+          <p class='title'>【Linux】GDB调试<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>GDB指令介绍启动和退出
+
+
+语句
+作用
+
+
+
+gdb &lt;program&gt;
+启动gdb并加载要调试的程序
+
+
+strat
+停放在main函数第一行前面，等待指令
+
+
+quit
+退出g...</p>
         </a>
       
     </div>
@@ -2775,7 +2870,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <article class="post white-box shadow floatable blur" id="comments">
     <span hidden>
-      <meta itemprop="discussionUrl" content="/2023/11/03/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8DFreeRTOS/index.html#comments">
+      <meta itemprop="discussionUrl" content="/2023/09/07/%E3%80%90Linux%E3%80%91%E6%96%B0%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8/index.html#comments">
     </span>
     <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
@@ -2817,7 +2912,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
   <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E9%85%8DFreeRTOS"><span class="toc-text">适配FreeRTOS</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E5%8F%B7"><span class="toc-text">设备号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E6%B3%A8%E5%86%8C%E6%96%B9%E6%B3%95"><span class="toc-text">新字符设备注册方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">字符设备结构体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E5%92%8C%E6%B7%BB%E5%8A%A0%E8%AE%BE%E5%A4%87%E5%87%BD%E6%95%B0%EF%BC%9Acdev-init-%E5%92%8Ccdev-add"><span class="toc-text">注册和添加设备函数：cdev_init()和cdev_add()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD%E9%A9%B1%E5%8A%A8%E5%87%BD%E6%95%B0%EF%BC%9Acdev-del"><span class="toc-text">卸载驱动函数：cdev_del()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E8%AE%BE%E5%A4%87%E8%8A%82%E7%82%B9"><span class="toc-text">自动创建设备节点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E7%94%A8udev"><span class="toc-text">启用udev</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%92%8C%E5%88%A0%E9%99%A4%E7%B1%BB"><span class="toc-text">创建和删除类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%AE%BE%E5%A4%87"><span class="toc-text">创建设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E7%A4%BA%E4%BE%8B"><span class="toc-text">参考示例</span></a></li></ol></li></ol>
   </div>
 </section>
 
@@ -3441,12 +3536,12 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
   function p_twikoo() {
     if(!document.querySelectorAll("#twikoo_container")[0])return;
     let path = pdata.commentPath;
-    let placeholder = pdata.commentPlaceholder || "aaaaa" || "";
+    let placeholder = pdata.commentPlaceholder || "欢迎大佬们评论，若文中有错误，烦请指正~ 昵称输入QQ号会自动使用QQ头像。～" || "";
     if (path.length == 0) {
       let defaultPath = '';
       path = defaultPath || decodeURI(window.location.pathname);
     }
-    twikoo.init(Object.assign(Object.assign({"path":null,"envId":"https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo","placeholder":"aaaaa","visitor":true}, {
+    twikoo.init(Object.assign(Object.assign({"path":null,"envId":"https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo","placeholder":"欢迎大佬们评论，若文中有错误，烦请指正~ 昵称输入QQ号会自动使用QQ头像。～","visitor":true}, {
       el: '#twikoo_container',
       path: path,
       placeholder: placeholder,
@@ -3737,7 +3832,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/","sameAs":["https://github.com/volantis-x"],"description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://bakuenkou.gitee.io/","name":"Baku加油站"}},{"@type":"ListItem","position":2,"item":{"@id":"https://bakuenkou.gitee.io/categories/CodeSys/","name":"CodeSys"}},{"@type":"ListItem","position":3,"item":{"@id":"https://bakuenkou.gitee.io/2023/11/03/【CodeSys】适配FreeRTOS/","name":"【CodeSys】适配FreeRTOS（未完成）"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","keywords":null,"description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时","author":{"@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/","description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时"},"publisher":{"@type":"Organization","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://bakuenkou.gitee.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"【CodeSys】适配FreeRTOS（未完成）","description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时","inLanguage":["en","zh-CN","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://bakuenkou.gitee.io/2023/11/03/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8DFreeRTOS/"},"author":{"@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/"},"publisher":{"@type":"Organization","name":"Baku加油站","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://bakuenkou.gitee.io/2023/11/03/%E3%80%90CodeSys%E3%80%91%E9%80%82%E9%85%8DFreeRTOS/","wordCount":0,"datePublished":"2023-11-02T16:00:00.000Z","dateModified":"2023-10-29T18:25:04.977Z","articleSection":"CodeSys","keywords":"CodeSys","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/","sameAs":["https://github.com/volantis-x"],"description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://bakuenkou.gitee.io/","name":"Baku加油站"}},{"@type":"ListItem","position":2,"item":{"@id":"https://bakuenkou.gitee.io/categories/Linux/","name":"Linux"}},{"@type":"ListItem","position":3,"item":{"@id":"https://bakuenkou.gitee.io/2023/09/07/【Linux】新字符设备驱动/","name":"【Linux】新字符设备驱动"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","keywords":null,"description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时","author":{"@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/","description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时"},"publisher":{"@type":"Organization","name":"Baku加油站","url":"https://bakuenkou.gitee.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://bakuenkou.gitee.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"【Linux】新字符设备驱动","description":"力学如力耕，勤惰尔自知。但使书种多，会有岁稔时","inLanguage":["en","zh-CN","default"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://bakuenkou.gitee.io/2023/09/07/%E3%80%90Linux%E3%80%91%E6%96%B0%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8/"},"author":{"@type":"Person","name":"Baku","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://bakuenkou.gitee.io/"},"publisher":{"@type":"Organization","name":"Baku加油站","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://bakuenkou.gitee.io/2023/09/07/%E3%80%90Linux%E3%80%91%E6%96%B0%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8/","wordCount":0,"datePublished":"2023-09-06T16:00:00.000Z","dateModified":"2023-10-31T14:12:49.185Z","articleSection":"Linux","keywords":"Linux","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
