@@ -13,7 +13,7 @@
   LA51: undefined,
   greetingBox: undefined,
   twikooEnvId: 'https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo',
-  commentBarrageConfig:{"enable":true,"maxBarrage":1,"barrageTime":4000,"accessToken":"","mailMd5":""},
+  commentBarrageConfig:{"enable":true,"maxBarrage":3,"barrageTime":4000,"accessToken":"","mailMd5":""},
   root: '/',
   preloader: {"source":3},
   friends_vue_info: undefined,
@@ -21,7 +21,7 @@
   mainTone: undefined,
   authorStatus: {"skills":["🤖️ 卷，往死里卷！","🔍 熟悉Linux","🏠 熟悉Rtos","🔨 设计开发一条龙","🤝 善于交流","🏃 行动派","🧱 团队发动机","💢 干就完了(╯▔皿▔)╯"]},
   algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
   translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
   noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
   highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500},
@@ -295,22 +295,14 @@ queueMicrotask(() => {
   const days = (now1 - grt) / 1000 / 60 / 60 / 24;
   const dnum = Math.floor(days);
   const ascll = [
-    `欢迎使用安知鱼!`,
-    `生活明朗, 万物可爱`,
+    `欢迎使用!`,
+    `我是老八!`,
     `
-        
-       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
-      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
-      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
-      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
-      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
-      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
-        
         `,
     "已上线",
     dnum,
     "天",
-    "©2022 By 安知鱼 V1.6.8",
+    "©2022 By Baku V1.6.8",
   ];
   const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
 
@@ -343,7 +335,7 @@ queueMicrotask(() => {
   setTimeout(
     console.warn.bind(
       console,
-      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Baku 的博客.",
+      "%c ⚡ Powered by Baku %c 你正在访问 Baku 的博客.",
       "color:white; background-color:#f0ad4e",
       ""
     )
@@ -550,4 +542,4 @@ document.addEventListener('pjax:error', e => {
   if (e.request.status === 404) {
     pjax.loadUrl('/404.html')
   }
-})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
