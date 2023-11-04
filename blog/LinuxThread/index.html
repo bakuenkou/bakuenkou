@@ -1,0 +1,811 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>【Linux】线程进程 | Baku麥</title><meta name="keywords" content="linux"><meta name="author" content="Baku"><meta name="copyright" content="Baku"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#18171d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="【Linux】线程进程"><meta name="application-name" content="【Linux】线程进程"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#18171d"><meta property="og:type" content="article"><meta property="og:title" content="【Linux】线程进程"><meta property="og:url" content="https://bakuenkou.gitee.io/blog/LinuxThread/index.html"><meta property="og:site_name" content="Baku麥"><meta property="og:description" content="进程线程概念what‘s a 线程&amp;amp;进程进程和线程是操作系统中关于任务管理和调度的基本概念。  进程 1、进程是一个独立的、在内存中运行的程序实例，它拥有自己的地址空间、代码、开放的文件句柄、系统资源和独立的系统上下文。 2、每个进程都有自己独立的地址空间。 3、创建、销毁或切换进程的开销比"><meta property="og:locale" content="[&quot;zh-CN&quot;,&quot;default&quot;]"><meta property="og:image" content="https://bakuenkou.gitee.io/picture/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%941.5.jpg"><meta property="article:author" content="Baku"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bakuenkou.gitee.io/picture/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%941.5.jpg"><meta name="description" content="进程线程概念what‘s a 线程&amp;amp;进程进程和线程是操作系统中关于任务管理和调度的基本概念。  进程 1、进程是一个独立的、在内存中运行的程序实例，它拥有自己的地址空间、代码、开放的文件句柄、系统资源和独立的系统上下文。 2、每个进程都有自己独立的地址空间。 3、创建、销毁或切换进程的开销比"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://bakuenkou.gitee.io/blog/LinuxThread/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="82d044073fa32b67abb2c9048c06d4f3"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?82d044073fa32b67abb2c9048c06d4f3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"Baku","mode":"tianli","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"6504b5e4443d122aba6a","Referer":"https://bakuenkou.gitee.io/"},
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: 'https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo',
+  commentBarrageConfig:{"enable":true,"maxBarrage":3,"barrageTime":4000,"accessToken":"","mailMd5":""},
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 卷，往死里卷！","🔍 熟悉Linux","🏠 熟悉Rtos","🔨 设计开发一条龙","🤝 善于交流","🏃 行动派","🧱 团队发动机","💢 干就完了(╯▔皿▔)╯"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Baku","link":"链接: ","source":"来源: Baku麥","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Baku麥',
+  title: '【Linux】线程进程',
+  postAI: 'true',
+  pageFillDescription: '进程线程概念, what‘s a 线程amp进程, 多线程进程的优缺点, 线程进程什么时候使用, 多进程间通讯, 管道, 消息队列, 共享内存, 信号量, 信号, 套接字, 多线程冲突, 互斥锁, 同步, 互斥、同步的实现和使用, 死锁, 避免死锁, 互斥条件, 请求保持条件, 不可剥夺条件, 环路等待条件, 并发同步异步互斥阻塞非阻塞的理解, 1、什么是线程同步和互斥, 2、线程同步与阻塞的关系, 3、并发, 4、总结：, 孤儿进程、僵尸进程、守护进程的概念, 概念, 如何创建守护进程, 如何处理僵尸进程进程线程概念线程进程进程和线程是操作系统中关于任务管理和调度的基本概念进程进程是一个独立的在内存中运行的程序实例它拥有自己的地址空间代码开放的文件句柄系统资源和独立的系统上下文每个进程都有自己独立的地址空间创建销毁或切换进程的开销比线程要大线程线程是进程内的一个执行单元或控制流它共享该进程的地址空间和资源但拥有自己的调用堆栈寄存器和程序计数器线程间它们共享相同的内存空间所以线程崩溃会影响比较大进程崩溃资源泄露数据不一致等创建销毁或切换线程的开销比进程小主要区别独立性进程是独立的它们拥有自己的地址空间和资源而线程是进程内的轻量级实体它们共享进程的地址空间和资源通信由于进程之间的隔离它们之间的通信比线程间的通信更复杂开销进程的生命周期创建切换和销毁的开销通常比线程大数据共享线程可以直接访问进程中的数据因为它们共享相同的地址空间而进程则需要使用特定的通信机制来共享数据多线程进程的优缺点多进程优点隔离性稳定性进程有独立内存地址虚拟内存进程崩溃一般不影响其他进程由于隔离好所以进程的一些错误内存泄漏不会影响其他进程通信模型简单在某些情况下进程间的通信如使用管道或消息队列可能比线程间的同步如使用锁或条件变量更简单多进程缺点开销创建维护终止的开销都比线程大通信成本进程间的通信通常比线程间的通信慢因为它涉及到进程间的上下文切换和数据复制资源共享直接共享内存或资源在进程间更为复杂通常需要使用共享内存文件映射或其他方法多线程优点低开销创建维护和终止线程的开销通常比进程小共享内存线程共享同一地址空间线程间的通信如通过共享内存通常比进程间的通信快简化了数据交换和同步效率上下文切换快多线程缺点安全性由于线程共享内存和资源可能会导致并发问题如数据竞争死锁等稳定性一个线程中的错误如对无效内存的访问可能会影响同一进程中的所有其他线程复杂的同步机制在多线程程序中确保线程安全通常需要复杂的同步机制如锁信号量条件变量等线程进程什么时候使用进程隔离性需要确保任务都在彼此隔离的环境运行稳定性希望进程崩溃不影响其他的进程不同地址空间需要运行的任务有独立的内存地址空间比如隔离的子系统沙箱应用简化编程模型对于某些应用使用进程和进程间通信如消息传递可能比多线程和锁编程更简单安全性特定的安全应用可能要求使用多进程来隔离敏感操作以防止潜在的内存篡改或泄露密集型任务对于分布在多个核心或计算机上的密集型任务使用进程可以更容易地实现并行计算特别是当任务之间的通信较少时线程共享内存任务需要频繁地访问和修改共享的数据结构线程比较好因为线程共享地址空间低延迟通信线程间的通信如通过条件变量或共享内存通常比进程间的通信快轻量级并发如需要大量并发任务但每个任务的计算和内存需求都相对较小线程的低的开销可能比较好紧密交互任务如果应用的不同组件需要紧密交互和同步使用线程可能会更为简单和高效资源限制在资源受限的环境中线程可能由于其较小的开销而更为合适密集型任务许多密集型任务如网络服务或数据库查询使用多线程可以更有效地管理并发因为在等待操作完成时其他线程可以继续执行多进程间通讯管道匿名管道通信范围是存在父子关系的进程命名管道不相关的进程间也能相互通信优点简单管道的接口和相对简单易于使用数据流式传输管道为数据提供了一个流式接口这使得读写操作变得简单对于父子进程或兄弟进程之间的通信管道通常提供了足够的速度和效率和标准输入输出结合管道可以很容易地与进程的标准输入和输出结合使用这在编程中特别有用如可以在程序中使用的指令并解析指令缺点单项通信不支持广播等多路通信缓冲区大小限制管道满时候会阻塞总的来说通信效率低不适合进程间频繁交换数据消息队列消息队列是保存在内核中的消息链表在发送数据时会分成一个一个独立的数据单元也就是消息体数据块消息体是用户自定义的数据类型消息的发送方和接收方要约定好消息体的数据类型所以每个消息体都是固定大小的存储块不像管道是无格式的字节流数据如果进程从消息队列中读取了消息体内核就会把这个消息体删除优点程序解耦发送者和接受者程序解耦互不影响支持优先级消息持久性缺点通信不及时异步大小有限制小队列长度和队列总大小都有限制不适合大数据传输在内核中会有两个宏定义和它们以字节为单位分别定义了一条消息的最大长度和一个队列的最大长度高吞吐场景效率不如其他机制共享内存效率高消息队列通信时候存在用户态和内核态的数据拷贝开销共享内存共享内存的机制就是拿出一块虚拟地址空间来映射到相同的物理内存中这样这个进程写入的东西另外一个进程马上就能看到了都不需要拷贝来拷贝去传来传去大大提高了进程间通信的速度优点高效机制中最快的直接内存中访问数无数据复制开销容量大相比消息队列和管道共享内存通常可以容纳更大的数据量灵活可以使用任何数据结构如数组哈希表或其他多进程并发访问多个进程可以同时读写共享内存缺点同步多进程并发访问会导致竞争须使用信号量或互斥等同步机制确保数据完整性复杂与消息队列或管道相比共享内存更加复杂尤其是考虑到同步和并发访问时安全由于直接内存访问进程可能会不小心破坏其他进程的数据或状态持久性共享内存通常不是持久的一旦所有进程都分离或结束共享内存段通常会被系统自动删除信号量为了防止多进程竞争共享资源而造成的数据错乱需要保护机制使得共享的资源在任意时刻只能被一个进程访问信号量就实现了这一保护机制信号量其实是一个整型的计数器主要用于实现进程间的互斥与同步而不是用于缓存进程间通信的数据信号量表示资源的数量控制信号量的方式有两种原子操作一个是操作这个操作会把信号量减去相减后如果信号量则表明资源已被占用进程需阻塞等待相减后如果信号量则表明还有资源可使用进程可正常继续执行另一个是操作这个操作会把信号量加上相加后如果信号量则表明当前有阻塞中的进程于是会将该进程唤醒运行相加后如果信号量则表明当前没有阻塞中的进程操作是用在进入共享资源之前操作是用在离开共享资源之后这两个操作是必须成对出现的信号量使用方法简单分为两种如图互斥使用同步使用信号上面说的进程间通信都是常规状态下的工作模式对于异常情况下的工作模式就需要用信号的方式来通知进程在操作系统中为了响应各种各样的事件提供了几十种信号分别代表不同的意义我们可以通过命令查看所有的信号运行在终端的进程我们可以通过键盘输入某些组合键的时候给进程发送信号例如产生信号表示终止该进程产生信号表示停止该进程但还未结束如果进程在后台运行可以通过命令的方式给进程发送信号但前提需要知道运行中的进程号例如表示给为的进程发送信号用来立即结束该进程所以信号事件的来源主要有硬件来源如键盘和软件来源如命令信号是进程间通信机制中唯一的异步通信机制因为可以在任何时候发送信号给某一进程一旦有信号产生我们就有下面这几种用户进程对信号的处理方式执行默认操作对每种信号都规定了默认操作例如上面列表中的信号就是终止进程的意思捕捉信号我们可以为信号定义一个信号处理函数当信号发生时我们就执行相应的信号处理函数忽略信号当我们不希望处理某些信号的时候就可以忽略该信号不做任何处理有两个信号是应用进程无法捕捉和忽略的即和它们用于在任何时候中断或结束某一进程在中信号是一种特殊的事件通常是由操作系统产生的用于通知进程某些特定类型的事件已经发生例如尝试除以零尝试访问无效内存外部进程请求进程终止等当这些事件发生时操作系统会中断进程的正常流程先处理这些信号然后可能返回正常的执行或终止进程虽然信号提供了一种处理异常和其他事件的方法但通常不建议使用它们来处理程序逻辑信号最好用作他们原本的目的响应操作系统发送的异常或事件对于复杂的事件处理或进程间通信使用其他机制或事件处理库通常更为合适套接字若需要跨越不同主机进行进程间通信据需要通信了实际上也可以在同一个主机上进行进程间通信我们来看看创建的系统调用参数用来指定协议族比如用于用于用于本机参数用来指定通信特性比如表示的是字节流对应表示的是数据报对应表示的是原始套接字参数原本是用来指定通信协议的但现在基本废弃因为协议已经通过前面两个参数指定完成目前一般写成即可根据创建类型的不同通信的方式也就不同实现字节流通信类型是和实现数据报通信类型是和实现本地进程间通信本地字节流类型是和本地数据报类型是和另外和是等价的所以也属于本地接下来简单说一下这三种通信的编程模式针对协议通信的编程模型服务端和客户端初始化得到文件描述符服务端调用将绑定在地址和端口服务端调用进行监听服务端调用等待客户端连接客户端调用向服务器端的地址和端口发起连接请求服务端返回用于传输的的文件描述符客户端调用写入数据服务端调用读取数据客户端断开连接时会调用那么服务端读取数据的时候就会读取到了待处理完数据后服务端调用表示连接关闭这里需要注意的是服务端调用时连接成功了会返回一个已完成连接的后续用来传输数据所以监听的和真正用来传送数据的是两个一个叫作监听一个叫作已完成连接成功连接建立之后双方开始通过和函数来读写数据就像往一个文件流里面写东西一样针对协议通信的编程模型是没有连接的所以不需要三次握手也就不需要像调用和但是的交互仍然需要地址和端口号因此也需要对于来说不需要要维护连接那么也就没有所谓的发送方和接收方甚至都不存在客户端和服务端的概念只要有一个多台机器就可以任意通信因此每一个的都需要另外每次通信时调用和都要传入目标主机的地址和端口针对本地进程间通信的编程模型本地被用于在同一台主机上进程间通信的场景本地的编程接口和套接字编程接口是一致的可以支持字节流和数据报两种协议本地的实现效率大大高于和的字节流数据报实现对于本地字节流其类型是和对于本地数据报其类型是和本地字节流和本地数据报在的时候不像和要绑定地址和端口而是绑定一个本地文件这也就是它们之间的最大区别多线程冲突互斥锁互斥也就说保证一个线程在临界区执行时其他线程应该被阻止进入临界区说白了就是这段代码执行过程中最多只能出现一个线程互斥在多线程多进程竞争共享资源时候同样适用同步同步就是并发进程线程在一些关键点上可能需要互相等待与互通消息这种相互制约的等待与互通信息称为进程线程同步即执行需要先等待完成同步就好比操作应在操作之前执行操作必须在操作和操作都完成之后才能执行等互斥就好比操作和操作不能在同一时刻执行互斥同步的实现和使用其实就是使用好信号量互斥量原子操作此处不展开请看其他章节介绍死锁避免死锁互斥条件互斥条件是指多个线程不能同时使用同一个资源比如下图如果线程已经持有的资源不能再同时被线程持有如果线程请求获取线程已经占用的资源那线程只能等待直到线程释放了资源请求保持条件当线程已经持有了资源又想申请资源而资源已经被线程持有了所以线程就会处于等待但是线程在等待资源的同时并不会释放自己已经持有的资源破局一次申请全部条件不逐个获取不可剥夺条件不可剥夺条件是指当线程已经持有了资源在自己使用完之前不能被其他线程获取线程如果也想使用此资源则只能在线程使用完并释放后才能获取破局当进程发现资源被其他进程占用释放自己已获得的资源环路等待条件环路等待条件指的是在死锁发生的时候两个线程获取资源的顺序构成了环形链比如线程已经持有资源而想请求资源线程已经获取了资源而想请求资源这就形成资源请求等待的环形图并发同步异步互斥阻塞非阻塞的理解什么是线程同步和互斥线程同步和互斥都是多线程编程中常见的概念用于确保数据的完整性和准确性以及保证多个线程之间的有序执行线程同步线程同步是指多个线程按照特定的顺序执行某些任务以确保数据的准确性和完整性这通常是为了防止多个线程同时访问共享资源或确保某些任务按照预期的顺序执行如信号量条件变量互斥互斥或互斥锁是一种同步机制确保任何时候只有一个线程能够访问特定的代码段或资源互斥是为了防止多个线程同时修改共享资源从而可能导致数据的不一致状态区别互斥重点关注确保任何时候只有一个线程可以访问特定的资源或代码段同步更加广泛除了互斥外它还涉及确保线程按预期的顺序执行等待条件等线程同步与阻塞的关系线程同步和阻塞是多线程编程中的两个概念它们经常在一起使用但它们的意义是不同的线程同步线程同步涉及到协调多个线程以确保它们以适当和预期的方式访问共享资源或执行任务同步通常用于防止多个线程同时访问共享资源从而可能导致不一致的数据状态线程阻塞线程阻塞是指线程在等待某个条件成真时停止执行这可能是由于等待资源可用等待其他线程完成工作或其他原因在阻塞状态下线程不会执行任何操作直到被唤醒同步一定阻塞吗不一定虽然许多同步机制会导致线程阻塞例如当一个线程尝试获取已被其他线程持有的互斥锁时但有些同步策略不涉及阻塞例如自旋锁是一种线程在等待获取锁时持续检查自旋的同步方法而不是真正的阻塞阻塞一定同步吗不一定线程可以因多种原因而被阻塞不仅仅是为了同步目的例如线程可能因为等待操作完成等待外部事件或只是调用函数而被阻塞并发描述了系统或应用程序同时处理多个任务的能力注意并发不一定意味着这些任务是同时执行的它可能是通过快速在任务之间切换来模拟同时执行如单核上的多线程总结并发描述了多任务处理的情境不一定需要多个任务同时执行同步和阻塞经常在一起使用并且它们在许多情况下都是相互关联的但它们描述的是不同的概念同步涉及到协调多个线程的行为而阻塞描述了线程的一种非活动状态不是所有的同步操作都导致线程阻塞同样不是所有的阻塞操作都是为了同步目的互斥是一种同步机制确保对共享资源的独占访问孤儿进程僵尸进程守护进程的概念概念孤儿进程基本当一个父进程在其子进程之前结束时这些子进程会成为孤儿进程概念孤儿进程不再有一个父进程与之关联但它们仍然在执行在父进程结束后孤儿进程的父进程会被设置为这意味着它们被进程或在某些系统上是进程收养进程会周期性地回收完成的孤儿进程从而防止它们成为僵尸进程僵尸进程基本当一个子进程完成其执行并退出但父进程尚未回收它的终止状态时该子进程称为僵尸进程概念僵尸进程实际上不消耗任何系统资源如和内存但仍会在进程表中保留一个条目这是为了保留子进程的退出状态以便父进程可以随后查询僵尸进程存在的问题是如果生成了大量的僵尸进程且它们未被清除可能会导致进程表满从而无法创建新的进程通常父进程通过调用或函数来回收子进程的状态并清除僵尸进程守护进程基本守护进程是一种在后台运行的进程通常用于提供某种服务或功能如日志记录网络服务等概念守护进程通常在系统启动时启动并持续运行直到系统关闭它们不与终端或用户会话关联并且经常将其父进程设置为进程守护进程通常不直接与用户交互而是通过文件套接字或其他守护进程进行通信如何创建守护进程系统中创建守护进程涉及一系列步骤以确保该进程完全在后台运行与任何终端或用户会话无关并正确处理资源和信号创建新的进程使用创建新进程并终止父进程创建新的会话使用为新进程创建新的会话更改当前工作目录通常更改为根目录确保守护进程不会锁定任何文件系统关闭所有打开的文件描述符重新打开标准输入输出错误描述符通常重定向到处理信号例如处理以重新读取配置此代码创建一个守护进程它仅在后台运行并每秒执行一个操作如何处理僵尸进程僵尸进程本身并不消耗任何系统资源除了进程表中的一个条目但如果大量的僵尸进程没有被清除进程表可能会填满从而导致系统无法创建新的进程以下是处理僵尸进程的几种方法使用或函数父进程可以通过调用或函数来回收已完成的子进程的终止状态这将从进程表中删除对应的子进程条目从而防止它们成为僵尸进程处理信号当子进程终止时操作系统会向其父进程发送一个信号父进程可以捕获这个信号并调用或来回收子进程的状态标志使在没有子进程终止时立即返回从而允许处理器函数清除所有僵尸进程技巧父进程首先一个子进程然后立即等待它终止而这个子进程再另一个子进程并立即终止这样第二个子进程将被进程或在某些系统上是进程收养并且当它终止时进程将负责清除其状态从而确保它不会成为僵尸进程使子进程脱离父进程子进程可以调用函数来开始一个新的会话并与其父进程断开连接这样子进程将不再有父进程因此在终止时不会成为僵尸进程总之为了避免僵尸进程重要的是父进程应该负责回收其所有已完成的子进程的状态或者确保有其他机制来完成这项工作',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-04 12:25:19',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/books.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 6.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/picture/123.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a><a class="back-menu-item" href="/books/" title="黄金屋"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="黄金屋"/><span class="back-menu-item-text">黄金屋</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="暂时没有添加哦~"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/ico-feather/book.svg" alt="暂时没有添加哦~"/><span class="back-menu-item-text">暂时没有添加哦~</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">Baku麥</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/Life/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 我的生活</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/books/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 黄金屋</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="/picture/123.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src="/picture/123.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/picture/123.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="/picture/123.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item on" id="consoleCommentBarrage" onclick="anzhiyu.switchCommentBarrage()" title="热评开关"><a class="commentBarrage"><i class="anzhiyufont anzhiyu-icon-message"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/" itemprop="url">Linux</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/linux/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>linux</span></a></span></div></div><h1 class="post-title" itemprop="name headline">【Linux】线程进程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="post-meta-icon anzhiyufont anzhiyu-icon-calendar-days"></i><span class="post-meta-label">发表于</span><time itemprop="dateCreated datePublished" datetime="2023-09-03T16:00:00.000Z" title="发表于 2023-09-04 00:00:00">2023-09-04</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">7.2k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>22分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="【Linux】线程进程"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为杭州"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>杭州</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/picture/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%941.5.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><div class="post-ai-description"><div class="ai-title"><i class="anzhiyufont anzhiyu-icon-bilibili"></i><div class="ai-title-text">AI-摘要</div><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right"></i><i class="anzhiyufont anzhiyu-icon-circle-dot" title="朗读摘要"></i><div id="ai-tag">Baku GPT</div></div><div class="ai-explanation">AI初始化中...</div><div class="ai-btn-box"><div class="ai-btn-item">介绍自己 🙈</div><div class="ai-btn-item">生成本文简介 👋</div><div class="ai-btn-item">推荐相关文章 📖</div><div class="ai-btn-item">前往主页 🏠</div></div><script data-pjax src="/js/anzhiyu/ai_abstract.js"></script></div><article class="post-content" id="article-container" itemscope itemtype="https://bakuenkou.gitee.io/blog/LinuxThread/"><header><a class="post-meta-categories" href="/categories/Linux/" itemprop="url">Linux</a><a href="/tags/linux/" tabindex="-1" itemprop="url">linux</a><h1 id="CrawlerTitle" itemprop="name headline">【Linux】线程进程</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Baku</span><time itemprop="dateCreated datePublished" datetime="2023-09-03T16:00:00.000Z" title="undefined 2023-09-04 00:00:00">2023-09-04</time></header><h1 id="进程线程概念"><a href="#进程线程概念" class="headerlink" title="进程线程概念"></a>进程线程概念</h1><h2 id="what‘s-a-线程-进程"><a href="#what‘s-a-线程-进程" class="headerlink" title="what‘s a 线程&amp;进程"></a>what‘s a 线程&amp;进程</h2><p>进程和线程是操作系统中关于任务管理和调度的基本概念。</p>
+<ul>
+<li><p>进程</p>
+<p>1、进程是一个独立的、在内存中运行的程序实例，它拥有自己的地址空间、代码、开放的文件句柄、系统资源和独立的系统上下文。</p>
+<p>2、每个进程都有自己独立的地址空间。</p>
+<p>3、创建、销毁或切换进程的开销比线程要大。</p>
+</li>
+<li><p>线程</p>
+<p>1、线程是进程内的一个执行单元或控制流，它共享该进程的地址空间和资源，但拥有自己的调用堆栈、寄存器和程序计数器。</p>
+<p>2、线程间它们共享相同的内存空间。所以线程崩溃会影响比较大（进程崩溃、资源泄露、数据不一致等）。</p>
+<p>3、创建、销毁或切换线程的开销比进程小。</p>
+</li>
+<li><p>主要区别</p>
+<p>1、<strong>独立性</strong>：进程是独立的，它们拥有自己的地址空间和资源；而线程是进程内的轻量级实体，它们共享进程的地址空间和资源。</p>
+<p>2、<strong>通信</strong>：由于进程之间的隔离，它们之间的通信比线程间的通信更复杂。</p>
+<p>3、<strong>开销</strong>：进程的生命周期（创建、切换和销毁）的开销通常比线程大。</p>
+<p>4、<strong>数据共享</strong>：线程可以直接访问进程中的数据，因为它们共享相同的地址空间。而进程则需要使用特定的通信机制来共享数据。</p>
+</li>
+</ul>
+<h2 id="多线程进程的优缺点"><a href="#多线程进程的优缺点" class="headerlink" title="多线程进程的优缺点"></a>多线程进程的优缺点</h2><p><strong>多进程优点</strong></p>
+<ol>
+<li>隔离性、稳定性：进程有<strong>独立内存地址</strong>（虚拟内存），进程崩溃一般不影响其他进程。由	于隔离好所以，进程的一些错误，内存泄漏不会影响其他进程。</li>
+<li>通信模型简单：在某些情况下，进程间的通信（如使用管道或消息队列）可能比线程间的同步（如使用锁或条件变量）更简单。</li>
+</ol>
+<p><strong>多进程缺点</strong></p>
+<ol>
+<li>开销：创建、维护、终止的开销都比线程大。</li>
+<li>通信成本：进程间的通信（IPC）通常比线程间的通信慢，因为它涉及到进程间的上下文切换和数据复制。</li>
+<li>资源共享：直接共享内存或资源在进程间更为复杂，通常需要使用共享内存、文件映射或其他方法。</li>
+</ol>
+<p><strong>多线程优点</strong></p>
+<ol>
+<li>低开销：创建、维护和终止线程的开销通常比进程小。</li>
+<li>共享内存：线程共享同一地址空间，线程间的通信（如通过共享内存）通常比进程间的通信快。简化了数据交换和同步。</li>
+<li>效率：上下文切换快。</li>
+</ol>
+<p><strong>多线程缺点</strong></p>
+<ol>
+<li>安全性：由于线程共享内存和资源，可能会导致并发问题，如数据竞争、死锁等。</li>
+<li>稳定性：一个线程中的错误（如对无效内存的访问）可能会影响同一进程中的所有其他线程。</li>
+<li>复杂的同步机制：在多线程程序中确保线程安全通常需要复杂的同步机制，如锁、信号量、条件变量等。</li>
+</ol>
+<h2 id="线程进程什么时候使用"><a href="#线程进程什么时候使用" class="headerlink" title="线程进程什么时候使用"></a>线程进程什么时候使用</h2><p><strong>进程：</strong></p>
+<ol>
+<li>隔离性：需要确保任务都在彼此隔离的环境运行。</li>
+<li>稳定性：希望进程崩溃不影响其他的进程。</li>
+<li>不同地址空间：需要运行的任务有独立的内存地址空间，比如隔离的子系统（沙箱应用）。</li>
+<li>简化编程模型：对于某些应用，使用进程和进程间通信（如消息传递）可能比多线程和锁编程更简单。</li>
+<li>安全性：特定的安全应用可能要求使用多进程来隔离敏感操作，以防止潜在的内存篡改或泄露。</li>
+<li>CPU密集型任务：对于分布在多个核心或计算机上的CPU密集型任务，使用进程可以更容易地实现并行计算，特别是当任务之间的通信较少时。</li>
+</ol>
+<p><strong>线程：</strong></p>
+<ol>
+<li>共享内存：任务需要频繁地访问和修改共享的数据结构，线程比较好，因为线程共享地址空间。</li>
+<li>低延迟通信：线程间的通信（如通过条件变量或共享内存）通常比进程间的通信快。</li>
+<li>轻量级并发：如需要大量并发任务，但每个任务的计算和内存需求都相对较小，线程的低的开销可能比较好。</li>
+<li>紧密交互任务：如果应用的不同组件需要紧密交互和同步，使用线程可能会更为简单和高效。</li>
+<li>资源限制：在资源受限的环境中，线程可能由于其较小的开销而更为合适。</li>
+<li>IO密集型任务：许多I&#x2F;O密集型任务（如网络服务或数据库查询），使用多线程可以更有效地管理并发，因为在等待I&#x2F;O操作完成时，其他线程可以继续执行。</li>
+</ol>
+<h2 id="多进程间通讯"><a href="#多进程间通讯" class="headerlink" title="多进程间通讯"></a>多进程间通讯</h2><h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><p>匿名管道：通信范围是存在父子关系的进程。</p>
+<p>命名管道：不相关的进程间也能相互通信。</p>
+<p>优点：</p>
+<ol>
+<li>简单：管道的接口和相对简单，易于使用。</li>
+<li>数据流式传输：管道为数据提供了一个流式接口，这使得读&#x2F;写操作变得简单。</li>
+<li>对于父子进程或兄弟进程之间的通信，管道通常提供了足够的速度和效率。</li>
+<li>和标准输入输出结合：管道可以很容易地与进程的标准输入和输出结合使用，这在shell编程中特别有用，如<code>command1 | command2</code>。（可以在程序中，使用shell的指令，并解析指令）</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>单项通信，不支持广播等多路通信。</li>
+<li>缓冲区大小限制，管道满时候会阻塞。</li>
+<li>总的来说通信效率低，不适合进程间频繁交换数据</li>
+</ol>
+<h3 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h3><p>​	<strong>消息队列是保存在内核中的消息链表</strong>，在发送数据时，会分成一个一个独立的数据单元，也就是消息体（数据块），消息体是用户自定义的数据类型，消息的发送方和接收方要约定好消息体的数据类型，所以每个消息体都是固定大小的存储块，不像管道是无格式的字节流数据。如果进程从消息队列中读取了消息体，内核就会把这个消息体删除。</p>
+<p>优点：</p>
+<ol>
+<li>程序解耦，发送者和接受者程序解耦，互不影响。</li>
+<li>支持优先级消息。</li>
+<li>持久性~</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>通信不及时，异步。</li>
+<li>大小有限制，小队列长度和队列总大小都有限制。不适合大数据传输。在 Linux 内核中，会有两个宏定义 MSGMAX 和 MSGMNB，它们以字节为单位，分别定义了一条消息的最大长度和一个队列的最大长度。</li>
+<li>高吞吐场景效率不如其他IPC机制（共享内存）效率高。</li>
+<li>消息队列通信时候，存在用户态和内核态的数据拷贝开销。</li>
+</ol>
+<h3 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h3><p>​	<strong>共享内存的机制，就是拿出一块虚拟地址空间来，映射到相同的物理内存中</strong>。这样这个进程写入的东西，另外一个进程马上就能看到了，都不需要拷贝来拷贝去，传来传去，大大提高了进程间通信的速度。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/Thread_of_process1.png" alt="共享内存"></p>
+<p>优点：</p>
+<ol>
+<li>高效：IPC机制中最快的，直接内存中访问数，无数据复制开销。</li>
+<li>容量大：相比消息队列和管道，共享内存通常可以容纳更大的数据量。</li>
+<li>灵活：可以使用任何数据结构（如数组、哈希表或其他）。</li>
+<li>多进程并发访问：多个进程可以同时读写共享内存。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>同步：多进程并发访问会导致竞争，须使用信号量或互斥等同步机制确保数据完整性。</li>
+<li>复杂：与消息队列或管道相比，共享内存更加复杂，尤其是考虑到同步和并发访问时。</li>
+<li>安全：由于直接内存访问，进程可能会不小心破坏其他进程的数据或状态。</li>
+<li>持久性：共享内存通常不是持久的。一旦所有进程都分离或结束，共享内存段通常会被系统自动删除。</li>
+</ol>
+<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p>​	为了防止多进程竞争共享资源，而造成的数据错乱，需要保护机制，使得共享的资源，在任意时刻只能被一个进程访问。<strong>信号量</strong>就实现了这一保护机制。</p>
+<p>​	<strong>信号量其实是一个整型的计数器，主要用于实现进程间的互斥与同步，而不是用于缓存进程间通信的数据</strong>。</p>
+<p>信号量表示资源的数量，控制信号量的方式有两种原子操作：</p>
+<ul>
+<li>一个是 <strong>P 操作</strong>，这个操作会把信号量减去 1，相减后如果信号量 &lt; 0，则表明资源已被占用，进程需阻塞等待；相减后如果信号量 &gt;&#x3D; 0，则表明还有资源可使用，进程可正常继续执行。</li>
+<li>另一个是 <strong>V 操作</strong>，这个操作会把信号量加上 1，相加后如果信号量 &lt;&#x3D; 0，则表明当前有阻塞中的进程，于是会将该进程唤醒运行；相加后如果信号量 &gt; 0，则表明当前没有阻塞中的进程；</li>
+</ul>
+<p>P 操作是用在进入共享资源之前，V 操作是用在离开共享资源之后，这两个操作是必须成对出现的。</p>
+<p>信号量使用方法简单分为两种。如图。</p>
+<p>1、互斥使用</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/Thread_of_process2.png" alt="互斥使用"></p>
+<p>2、同步使用</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/Thread_of_process3.png" alt="同步使用"></p>
+<h3 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h3><p>​	上面说的进程间通信，都是常规状态下的工作模式。<strong>对于异常情况下的工作模式，就需要用「信号」的方式来通知进程。</strong></p>
+<p>​	在 Linux 操作系统中， 为了响应各种各样的事件，提供了几十种信号，分别代表不同的意义。我们可以通过 kill -l 命令，查看所有的信号：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">kill</span> -l</span></span><br><span class="line"> 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP</span><br><span class="line"> 6) SIGABRT      7) SIGBUS       8) SIGFPE       9) SIGKILL     10) SIGUSR1</span><br><span class="line">11) SIGSEGV     12) SIGUSR2     13) SIGPIPE     14) SIGALRM     15) SIGTERM</span><br><span class="line">16) SIGSTKFLT   17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP</span><br><span class="line">21) SIGTTIN     22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ</span><br><span class="line">26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO       30) SIGPWR</span><br><span class="line">31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3</span><br><span class="line">38) SIGRTMIN+4  39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8</span><br><span class="line">43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13</span><br><span class="line">48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12</span><br><span class="line">53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7</span><br><span class="line">58) SIGRTMAX-6  59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2</span><br><span class="line">63) SIGRTMAX-1  64) SIGRTMAX</span><br></pre></td></tr></table></figure>
+
+<p>运行在 shell 终端的进程，我们可以通过键盘输入某些组合键的时候，给进程发送信号。例如</p>
+<ul>
+<li>Ctrl+C 产生 SIGINT 信号，表示终止该进程；</li>
+<li>Ctrl+Z 产生 SIGTSTP 信号，表示停止该进程，但还未结束；</li>
+</ul>
+<p>如果进程在后台运行，可以通过 kill 命令的方式给进程发送信号，但前提需要知道运行中的进程 PID 号，例如：</p>
+<ul>
+<li>kill -9 1050 ，表示给 PID 为 1050 的进程发送 SIGKILL 信号，用来立即结束该进程；</li>
+</ul>
+<p>所以，信号事件的来源主要有硬件来源（如键盘 Cltr+C ）和软件来源（如 kill 命令）。</p>
+<p>信号是进程间通信机制中<strong>唯一的异步通信机制</strong>，因为可以在任何时候发送信号给某一进程，一旦有信号产生，我们就有下面这几种，用户进程对信号的处理方式。</p>
+<p><strong>1.执行默认操作</strong>。Linux 对每种信号都规定了默认操作，例如，上面列表中的 SIGTERM 信号，就是终止进程的意思。</p>
+<p><strong>2.捕捉信号</strong>。我们可以为信号定义一个信号处理函数。当信号发生时，我们就执行相应的信号处理函数。</p>
+<p><strong>3.忽略信号</strong>。当我们不希望处理某些信号的时候，就可以忽略该信号，不做任何处理。有两个信号是应用进程无法捕捉和忽略的，即 SIGKILL 和 SEGSTOP，它们用于在任何时候中断或结束某一进程。</p>
+<p>​		在C++中，信号是一种特殊的事件，通常是由操作系统产生的，用于通知进程某些特定类型的事件已经发生，例如：尝试除以零、尝试访问无效内存、外部进程请求进程终止等。当这些事件发生时，操作系统会中断进程的正常流程，先处理这些信号，然后可能返回正常的执行或终止进程。</p>
+<p>​		虽然信号提供了一种处理异常和其他事件的方法，但通常不建议使用它们来处理程序逻辑。信号最好用作他们原本的目的：响应操作系统发送的异常或事件。对于复杂的事件处理或进程间通信，使用其他IPC机制或事件处理库通常更为合适。</p>
+<h3 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h3><p>​		若需要跨越不同主机进行进程间通信，据需要Socket通信了。实际上Socket也可以在同一个主机上进行进程间通信。我们来看看创建 socket 的系统调用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">socket</span><span class="params">(<span class="type">int</span> domain, <span class="type">int</span> type, <span class="type">int</span> protocal)</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>domain 参数用来指定协议族，比如 AF_INET 用于 IPV4、AF_INET6 用于 IPV6、AF_LOCAL&#x2F;AF_UNIX 用于本机；</li>
+<li>type 参数用来指定通信特性，比如 SOCK_STREAM 表示的是字节流，对应 TCP、SOCK_DGRAM 表示的是数据报，对应 UDP、SOCK_RAW 表示的是原始套接字；</li>
+<li>protocal 参数原本是用来指定通信协议的，但现在基本废弃。因为协议已经通过前面两个参数指定完成，protocol 目前一般写成 0 即可；</li>
+</ul>
+<p>根据创建 socket 类型的不同，通信的方式也就不同：</p>
+<ul>
+<li>实现 TCP 字节流通信： socket 类型是 AF_INET 和 SOCK_STREAM；</li>
+<li>实现 UDP 数据报通信：socket 类型是 AF_INET 和 SOCK_DGRAM；</li>
+<li>实现本地进程间通信： 「本地字节流 socket 」类型是 AF_LOCAL 和 SOCK_STREAM，「本地数据报 socket 」类型是 AF_LOCAL 和 SOCK_DGRAM。另外，AF_UNIX 和 AF_LOCAL 是等价的，所以 AF_UNIX 也属于本地 socket；</li>
+</ul>
+<p><strong>接下来，简单说一下这三种通信的编程模式。</strong></p>
+<p>​	针对 TCP 协议通信的 socket 编程模型</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/Thread_of_process4.png" alt="TCP"></p>
+<ul>
+<li>服务端和客户端初始化 socket，得到文件描述符；</li>
+<li>服务端调用 bind，将绑定在 IP 地址和端口;</li>
+<li>服务端调用 listen，进行监听；</li>
+<li>服务端调用 accept，等待客户端连接；</li>
+<li>客户端调用 connect，向服务器端的地址和端口发起连接请求；</li>
+<li>服务端 accept 返回用于传输的 socket 的文件描述符；</li>
+<li>客户端调用 write 写入数据；服务端调用 read 读取数据；</li>
+<li>客户端断开连接时，会调用 close，那么服务端 read 读取数据的时候，就会读取到了 EOF，待处理完数据后，服务端调用 close，表示连接关闭。</li>
+</ul>
+<p>这里需要注意的是，服务端调用 accept 时，连接成功了会返回一个已完成连接的 socket，后续用来传输数据。所以，监听的 socket 和真正用来传送数据的 socket，是「<strong>两个</strong>」 socket，一个叫作<strong>监听 socket</strong>，一个叫作<strong>已完成连接 socket</strong>。</p>
+<p>成功连接建立之后，双方开始通过 read 和 write 函数来读写数据，就像往一个文件流里面写东西一样。</p>
+<p>针对 UDP 协议通信的 socket 编程模型</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/Thread_of_process5.png" alt="UDP"></p>
+<p>UDP 是没有连接的，所以不需要三次握手，也就不需要像 TCP 调用 listen 和 connect，但是 UDP 的交互仍然需要 IP 地址和端口号，因此也需要 bind。</p>
+<p>对于 UDP 来说，不需要要维护连接，那么也就没有所谓的发送方和接收方，甚至都不存在客户端和服务端的概念，只要有一个 socket 多台机器就可以任意通信，因此每一个 UDP 的 socket 都需要 bind。</p>
+<p>另外，每次通信时，调用 sendto 和 recvfrom，都要传入目标主机的 IP 地址和端口。</p>
+<p>针对本地进程间通信的 socket 编程模型</p>
+<p>本地 socket 被用于在<strong>同一台主机上进程间通信</strong>的场景：</p>
+<ul>
+<li>本地 socket 的编程接口和 IPv4 、IPv6 套接字编程接口是一致的，可以支持「字节流」和「数据报」两种协议；</li>
+<li>本地 socket 的实现效率大大高于 IPv4 和 IPv6 的字节流、数据报 socket 实现；</li>
+</ul>
+<p>对于本地字节流 socket，其 socket 类型是 AF_LOCAL 和 SOCK_STREAM。</p>
+<p>对于本地数据报 socket，其 socket 类型是 AF_LOCAL 和 SOCK_DGRAM。</p>
+<p>本地字节流 socket 和 本地数据报 socket 在 bind 的时候，不像 TCP 和 UDP 要绑定 IP 地址和端口，而是<strong>绑定一个本地文件</strong>，这也就是它们之间的最大区别。</p>
+<h2 id="多线程冲突"><a href="#多线程冲突" class="headerlink" title="多线程冲突"></a>多线程冲突</h2><h3 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h3><p>​		<strong>互斥（mutualexclusion），也就说保证一个线程在临界区执行时，其他线程应该被阻止进入临界区</strong>，说白了，就是这段代码执行过程中，最多只能出现一个线程。</p>
+<p>​		互斥在多线程、多进程竞争共享资源时候同样适用。</p>
+<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>​		<strong>同步（synchronization），就是并发进程&#x2F;线程在一些关键点上可能需要互相等待与互通消息，这种相互制约的等待与互通信息称为进程&#x2F;线程同步。</strong>即b执行需要先等待a完成。</p>
+<ul>
+<li>同步就好比：「操作 A 应在操作 B 之前执行」，「操作 C 必须在操作 A 和操作 B 都完成之后才能执行」等；</li>
+<li>互斥就好比：「操作 A 和操作 B 不能在同一时刻执行」；</li>
+</ul>
+<h3 id="互斥、同步的实现和使用"><a href="#互斥、同步的实现和使用" class="headerlink" title="互斥、同步的实现和使用"></a>互斥、同步的实现和使用</h3><p>​		其实就是使用好信号量、互斥量、原子操作。此处不展开。请看其他章节介绍。</p>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><h3 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h3><h4 id="互斥条件"><a href="#互斥条件" class="headerlink" title="互斥条件"></a>互斥条件</h4><p>​		互斥条件是指<strong>多个线程不能同时使用同一个资源</strong>。</p>
+<p>​		比如下图，如果线程 A 已经持有的资源，不能再同时被线程 B 持有，如果线程 B 请求获取线程 A 已经占用的资源，那线程 B 只能等待，直到线程 A 释放了资源。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/Thread_of_process6.png" alt="产生互斥的条件关系图"></p>
+<h4 id="请求保持条件"><a href="#请求保持条件" class="headerlink" title="请求保持条件"></a>请求保持条件</h4><p>​		当线程 A 已经持有了资源 1，又想申请资源 2，而资源 2 已经被线程 C 持有了，所以线程 A 就会处于等待，但是<strong>线程 A 在等待资源 2 的同时并不会释放自己已经持有的资源 1</strong>。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/Thread_of_process7.png" alt="请求保持条件"></p>
+<p>​		破局：一次申请全部条件，不逐个获取。</p>
+<h4 id="不可剥夺条件"><a href="#不可剥夺条件" class="headerlink" title="不可剥夺条件"></a>不可剥夺条件</h4><p>​		不可剥夺条件是指，当线程已经持有了资源 ，<strong>在自己使用完之前不能被其他线程获取</strong>，线程 B 如果也想使用此资源，则只能在线程 A 使用完并释放后才能获取。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/Thread_of_process8.png" alt="不可剥夺条件"></p>
+<p>​		破局：当进程发现资源被其他进程占用，释放自己已获得的资源。</p>
+<h4 id="环路等待条件"><a href="#环路等待条件" class="headerlink" title="环路等待条件"></a>环路等待条件</h4><p>​		环路等待条件指的是，在死锁发生的时候，<strong>两个线程获取资源的顺序构成了环形链</strong>。</p>
+<p>比如，线程 A 已经持有资源 2，而想请求资源 1， 线程 B 已经获取了资源 1，而想请求资源 2，这就形成资源请求等待的环形图。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/Thread_of_process9.png" alt="环路等待条件"></p>
+<h2 id="并发，同步，异步，互斥，阻塞，非阻塞的理解"><a href="#并发，同步，异步，互斥，阻塞，非阻塞的理解" class="headerlink" title="并发，同步，异步，互斥，阻塞，非阻塞的理解"></a>并发，同步，异步，互斥，阻塞，非阻塞的理解</h2><h3 id="1、什么是线程同步和互斥"><a href="#1、什么是线程同步和互斥" class="headerlink" title="1、什么是线程同步和互斥"></a>1、什么是线程同步和互斥</h3><p>​		线程同步和互斥都是多线程编程中常见的概念，用于确保数据的完整性和准确性，以及保证多个线程之间的有序执行。</p>
+<p><strong>线程同步：</strong></p>
+<p>​		线程同步是指多个线程按照特定的顺序执行某些任务，以确保数据的准确性和完整性。这通常是为了防止多个线程同时访问共享资源，或确保某些任务按照预期的顺序执行。如（信号量、条件变量）。</p>
+<p><strong>互斥：</strong></p>
+<p>​		互斥（或互斥锁）是一种同步机制，确保任何时候只有一个线程能够访问特定的代码段或资源。互斥是为了防止多个线程同时修改共享资源，从而可能导致数据的不一致状态。</p>
+<p><strong>区别：</strong></p>
+<ul>
+<li><strong>互斥</strong>重点关注确保任何时候只有一个线程可以访问特定的资源或代码段。</li>
+<li><strong>同步</strong>更加广泛，除了互斥外，它还涉及确保线程按预期的顺序执行，等待条件等。</li>
+</ul>
+<h3 id="2、线程同步与阻塞的关系"><a href="#2、线程同步与阻塞的关系" class="headerlink" title="2、线程同步与阻塞的关系"></a>2、线程同步与阻塞的关系</h3><p>​		线程同步和阻塞是多线程编程中的两个概念，它们经常在一起使用，但它们的意义是不同的。</p>
+<p><strong>线程同步：</strong></p>
+<p>​		线程同步涉及到协调多个线程，以确保它们以适当和预期的方式访问共享资源或执行任务。同步通常用于防止多个线程同时访问共享资源，从而可能导致不一致的数据状态。</p>
+<p><strong>线程阻塞</strong>：</p>
+<p>​		线程阻塞是指线程在等待某个条件成真时停止执行。这可能是由于等待资源可用、等待其他线程完成工作或其他原因。在阻塞状态下，线程不会执行任何操作，直到被唤醒。</p>
+<p><strong>同步一定阻塞吗？</strong></p>
+<p>​		不一定。虽然许多同步机制会导致线程阻塞（例如，当一个线程尝试获取已被其他线程持有的互斥锁时），但有些同步策略不涉及阻塞。例如，”spinlocks”（自旋锁）是一种线程在等待获取锁时持续检查（自旋）的同步方法，而不是真正的阻塞。</p>
+<p><strong>阻塞一定同步吗？</strong></p>
+<p>​		不一定。线程可以因多种原因而被阻塞，不仅仅是为了同步目的。例如，线程可能因为等待I&#x2F;O操作完成、等待外部事件或只是调用<code>sleep</code>函数而被阻塞。</p>
+<h3 id="3、并发"><a href="#3、并发" class="headerlink" title="3、并发"></a>3、并发</h3><ul>
+<li>描述了系统或应用程序同时处理多个任务的能力。</li>
+<li>注意并发不一定意味着这些任务是“同时”执行的。它可能是通过快速在任务之间切换来模拟同时执行（如单核CPU上的多线程）。</li>
+</ul>
+<h3 id="4、总结："><a href="#4、总结：" class="headerlink" title="4、总结："></a>4、总结：</h3><p>​		<strong>并发</strong>描述了多任务处理的情境，不一定需要多个任务同时执行。</p>
+<p>​		<strong>同步</strong>和<strong>阻塞</strong>经常在一起使用，并且它们在许多情况下都是相互关联的，但它们描述的是不同的概念。同步涉及到协调多个线程的行为，而阻塞描述了线程的一种非活动状态。不是所有的同步操作都导致线程阻塞，同样，不是所有的阻塞操作都是为了同步目的。</p>
+<p>​		<strong>互斥</strong>是一种同步机制，确保对共享资源的独占访问。</p>
+<h2 id="孤儿进程、僵尸进程、守护进程的概念"><a href="#孤儿进程、僵尸进程、守护进程的概念" class="headerlink" title="孤儿进程、僵尸进程、守护进程的概念"></a>孤儿进程、僵尸进程、守护进程的概念</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ol>
+<li><strong>孤儿进程 (Orphan Process)</strong>:<ul>
+<li><strong>基本</strong>: 当一个父进程在其子进程之前结束时，这些子进程会成为孤儿进程。</li>
+<li><strong>概念</strong>: 孤儿进程不再有一个父进程与之关联，但它们仍然在执行。在父进程结束后，孤儿进程的父进程ID(PID)会被设置为1，这意味着它们被init进程（或在某些系统上是systemd进程）“收养”。init进程会周期性地回收完成的孤儿进程，从而防止它们成为僵尸进程。</li>
+</ul>
+</li>
+<li><strong>僵尸进程 (Zombie Process)</strong>:<ul>
+<li><strong>基本</strong>: 当一个子进程完成其执行并退出，但父进程尚未回收它的终止状态时，该子进程称为僵尸进程。</li>
+<li><strong>概念</strong>: 僵尸进程实际上不消耗任何系统资源（如CPU和内存），但仍会在进程表中保留一个条目。这是为了保留子进程的退出状态，以便父进程可以随后查询。僵尸进程存在的问题是，如果生成了大量的僵尸进程且它们未被清除，可能会导致进程表满，从而无法创建新的进程。通常，父进程通过调用<code>wait()</code>或<code>waitpid()</code>函数来回收子进程的状态并清除僵尸进程。</li>
+</ul>
+</li>
+<li><strong>守护进程 (Daemon Process)</strong>:<ul>
+<li><strong>基本</strong>: 守护进程是一种在后台运行的进程，通常用于提供某种服务或功能，如日志记录、网络服务等。</li>
+<li><strong>概念</strong>: 守护进程通常在系统启动时启动，并持续运行，直到系统关闭。它们不与终端或用户会话关联，并且经常将其父进程设置为init进程（PID 1）。守护进程通常不直接与用户交互，而是通过文件、套接字或其他守护进程进行通信。</li>
+</ul>
+</li>
+</ol>
+<h3 id="如何创建守护进程"><a href="#如何创建守护进程" class="headerlink" title="如何创建守护进程"></a>如何创建守护进程</h3><p>​		Linux系统中，创建守护进程涉及一系列步骤，以确保该进程完全在后台运行，与任何终端或用户会话无关，并正确处理资源和信号。</p>
+<ol>
+<li><strong>创建新的进程</strong>: 使用<code>fork()</code>创建新进程并终止父进程。</li>
+<li><strong>创建新的会话</strong>: 使用<code>setsid()</code>为新进程创建新的会话。</li>
+<li><strong>更改当前工作目录</strong>: 通常更改为根目录，确保守护进程不会锁定任何文件系统。</li>
+<li><strong>关闭所有打开的文件描述符</strong>。</li>
+<li><strong>重新打开标准输入、输出、错误描述符</strong>，通常重定向到&#x2F;dev&#x2F;null。</li>
+<li><strong>处理信号</strong>: 例如，处理SIGHUP以重新读取配置</li>
+</ol>
+<p>此代码创建一个守护进程，它仅在后台运行并每60秒执行一个操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">daemonize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">pid_t</span> pid;</span><br><span class="line">    <span class="comment">// Step 1: Fork off the parent process</span></span><br><span class="line">    pid = fork();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pid &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (pid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_SUCCESS);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Step 2: Create a new session</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">setsid</span>() &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Ignore signals</span></span><br><span class="line">    <span class="built_in">signal</span>(SIGCHLD, SIG_IGN);</span><br><span class="line">    <span class="built_in">signal</span>(SIGHUP, SIG_IGN);</span><br><span class="line">    <span class="comment">// Step 3: Fork again to ensure the daemon is not a session leader</span></span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="keyword">if</span> (pid &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (pid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_SUCCESS);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Step 4: Change working directory</span></span><br><span class="line">    <span class="built_in">chdir</span>(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">    <span class="comment">// Step 5: Close all open file descriptors</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> x = <span class="built_in">sysconf</span>(_SC_OPEN_MAX); x &gt;= <span class="number">0</span>; x--) &#123;</span><br><span class="line">        <span class="built_in">close</span>(x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Reopen stdin, stdout, stderr</span></span><br><span class="line">    <span class="built_in">open</span>(<span class="string">&quot;/dev/null&quot;</span>, O_RDWR);</span><br><span class="line">    <span class="built_in">dup</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">dup</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">daemonize</span>();</span><br><span class="line">    <span class="comment">// Daemon process logic starts here</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="comment">// Your daemon code here</span></span><br><span class="line">        <span class="built_in">sleep</span>(<span class="number">60</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="如何处理僵尸进程"><a href="#如何处理僵尸进程" class="headerlink" title="如何处理僵尸进程"></a>如何处理僵尸进程</h3><p>​		僵尸进程本身并不消耗任何系统资源（除了进程表中的一个条目），但如果大量的僵尸进程没有被清除，进程表可能会填满，从而导致系统无法创建新的进程。</p>
+<p>以下是处理僵尸进程的几种方法：</p>
+<ol>
+<li><p><strong>使用<code>wait()</code>或<code>waitpid()</code>函数</strong>:</p>
+<ul>
+<li>父进程可以通过调用<code>wait()</code>或<code>waitpid()</code>函数来回收已完成的子进程的终止状态。这将从进程表中删除对应的子进程条目，从而防止它们成为僵尸进程。</li>
+</ul>
+</li>
+<li><p><strong>处理<code>SIGCHLD</code>信号</strong>:</p>
+<ul>
+<li>当子进程终止时，操作系统会向其父进程发送一个<code>SIGCHLD</code>信号。父进程可以捕获这个信号并调用<code>wait()</code>或<code>waitpid()</code>来回收子进程的状态。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cCopy codevoid sigchld_handler(int signo) &#123;</span><br><span class="line">    while (waitpid(-1, NULL, WNOHANG) &gt; 0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">signal(SIGCHLD, sigchld_handler);</span><br></pre></td></tr></table></figure>
+
+<p><code>WNOHANG</code>标志使<code>waitpid()</code>在没有子进程终止时立即返回，从而允许处理器函数清除所有僵尸进程。</p>
+</li>
+<li><p><strong><code>double fork</code>技巧</strong>:</p>
+<ul>
+<li>父进程首先<code>fork</code>一个子进程，然后立即等待它终止。而这个子进程再<code>fork</code>另一个子进程并立即终止。这样，第二个子进程将被init进程（或在某些系统上是systemd进程）“收养”，并且当它终止时，init进程将负责清除其状态，从而确保它不会成为僵尸进程。</li>
+</ul>
+</li>
+<li><p><strong>使子进程脱离父进程</strong>:</p>
+<ul>
+<li>子进程可以调用<code>setsid()</code>函数来开始一个新的会话，并与其父进程断开连接。这样，子进程将不再有父进程，因此在终止时不会成为僵尸进程。</li>
+</ul>
+</li>
+</ol>
+<p>总之，为了避免僵尸进程，重要的是父进程应该负责回收其所有已完成的子进程的状态，或者确保有其他机制来完成这项工作。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/baku.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/baku.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Baku</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://bakuenkou.gitee.io/blog/LinuxThread/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://bakuenkou.gitee.io/blog/LinuxThread/')">【Linux】线程进程</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="/picture/123.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/123.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/picture/123.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/123.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://bakuenkou.gitee.io/blog/LinuxThread/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=【Linux】线程进程&amp;url=https://bakuenkou.gitee.io/blog/LinuxThread/&amp;pic=/picture/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%941.5.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://bakuenkou.gitee.io" target="_blank">Baku麥</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/linux/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>linux<span class="tagsPageCount">9</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/picture/platform0.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blog/LinuxSysQues/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%942.1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【Linux】高频问题linux系统</div></div></a></div><div class="next-post pull-right"><a href="/blog/LinuxGDB/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【Linux】GDB调试</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/blog/LinuxGDB/" title="【Linux】GDB调试"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-09-05</div><div class="title">【Linux】GDB调试</div></div></a></div><div><a href="/blog/LinuxPinctrl&Gpio/" title="【Linux】Pinctrl和GPIO子系统"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/pinctrl0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-11-01</div><div class="title">【Linux】Pinctrl和GPIO子系统</div></div></a></div><div><a href="/blog/LinuxPlatformDevDri/" title="【Linux】Platform设备驱动"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/platform0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-11-02</div><div class="title">【Linux】Platform设备驱动</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div><div class="comment-tips" id="comment-tips"><span>✅ 你无需删除空行，直接评论以获取最佳展示效果</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/baku.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2021/03/03/e059eb61c7c3b.png" ait="status"/></div></div><div class="author-info__description">“ 力学如力耕，勤惰尔自知 ”</div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">Baku</h1><div class="author-info__desc"></div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/bakuenkou" target="_blank" title="ithub"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="/about/" target="_blank" title="email"><i class="anzhiyufont anzhiyu-icon-envelope"></i></a></div></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bullhorn anzhiyu-shake"></i><span>公告</span></div><div class="announcement_content">哟哟哟，什么风把您挂来了~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">进程线程概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#what%E2%80%98s-a-%E7%BA%BF%E7%A8%8B-%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">what‘s a 线程&amp;进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">多线程进程的优缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E8%BF%9B%E7%A8%8B%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">线程进程什么时候使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E8%AE%AF"><span class="toc-number">1.4.</span> <span class="toc-text">多进程间通讯</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E9%81%93"><span class="toc-number">1.4.1.</span> <span class="toc-text">管道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">1.4.2.</span> <span class="toc-text">消息队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98"><span class="toc-number">1.4.3.</span> <span class="toc-text">共享内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="toc-number">1.4.4.</span> <span class="toc-text">信号量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7"><span class="toc-number">1.4.5.</span> <span class="toc-text">信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="toc-number">1.4.6.</span> <span class="toc-text">套接字</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%86%B2%E7%AA%81"><span class="toc-number">1.5.</span> <span class="toc-text">多线程冲突</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%92%E6%96%A5%E9%94%81"><span class="toc-number">1.5.1.</span> <span class="toc-text">互斥锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5"><span class="toc-number">1.5.2.</span> <span class="toc-text">同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%92%E6%96%A5%E3%80%81%E5%90%8C%E6%AD%A5%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-number">1.5.3.</span> <span class="toc-text">互斥、同步的实现和使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-number">1.6.</span> <span class="toc-text">死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81"><span class="toc-number">1.6.1.</span> <span class="toc-text">避免死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%92%E6%96%A5%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.6.1.1.</span> <span class="toc-text">互斥条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E4%BF%9D%E6%8C%81%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.6.1.2.</span> <span class="toc-text">请求保持条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E5%89%A5%E5%A4%BA%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.6.1.3.</span> <span class="toc-text">不可剥夺条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%AF%E8%B7%AF%E7%AD%89%E5%BE%85%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.6.1.4.</span> <span class="toc-text">环路等待条件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%EF%BC%8C%E5%90%8C%E6%AD%A5%EF%BC%8C%E5%BC%82%E6%AD%A5%EF%BC%8C%E4%BA%92%E6%96%A5%EF%BC%8C%E9%98%BB%E5%A1%9E%EF%BC%8C%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-number">1.7.</span> <span class="toc-text">并发，同步，异步，互斥，阻塞，非阻塞的理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%92%8C%E4%BA%92%E6%96%A5"><span class="toc-number">1.7.1.</span> <span class="toc-text">1、什么是线程同步和互斥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E9%98%BB%E5%A1%9E%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.7.2.</span> <span class="toc-text">2、线程同步与阻塞的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%B9%B6%E5%8F%91"><span class="toc-number">1.7.3.</span> <span class="toc-text">3、并发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">1.7.4.</span> <span class="toc-text">4、总结：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B%E3%80%81%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E3%80%81%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.8.</span> <span class="toc-text">孤儿进程、僵尸进程、守护进程的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.8.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.8.2.</span> <span class="toc-text">如何创建守护进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.8.3.</span> <span class="toc-text">如何处理僵尸进程</span></a></li></ol></li></ol></li></ol></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="footer_deal"><a class="deal_link" href="mailto:maiyanhao.myh@foxmail.com" title="email"><i class="anzhiyufont anzhiyu-icon-envelope"></i></a><img class="footer_mini_logo" title="返回顶部" alt="返回顶部" onclick="anzhiyu.scrollToDest(0, 500)" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/baku.jpg" size="50px"/><a class="deal_link" target="_blank" rel="noopener" href="https://github.com/bakuenkou" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2022 - 2023 By <a class="footer-bar-link" href="/" title="Baku" target="_blank">Baku</a></div></div><div id="footer-type-tips"></div><div class="js-pjax"><script>function subtitleType () {
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      if (true) {
+        const from = '出自 ' + data.from
+        const sub = []
+        sub.unshift(data.hitokoto, from)
+        window.typed = new Typed('#footer-type-tips', {
+          strings: sub,
+          startDelay: 300,
+          typeSpeed: 150,
+          loop: true,
+          backSpeed: 50,
+        })
+      } else {
+        document.getElementById('footer-type-tips').innerHTML = data.hitokoto
+      }
+    })
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.cbd.int/typed.js@2.0.15/dist/typed.umd.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}
+</script></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" title="浙ICP备-xxxxxxx号">浙ICP备-xxxxxxx号</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">36</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">6</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a><a class="back-menu-item" href="/books/" title="黄金屋"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="黄金屋"/><span class="back-menu-item-text">黄金屋</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="暂时没有添加哦~"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/ico-feather/book.svg" alt="暂时没有添加哦~"/><span class="back-menu-item-text">暂时没有添加哦~</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/Life/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 我的生活</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/books/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 黄金屋</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CodeSys/" style="font-size: 0.88rem;">CodeSys<sup>3</sup></a><a href="/tags/Life/" style="font-size: 0.88rem;">Life<sup>11</sup></a><a href="/tags/c-plus/" style="font-size: 0.88rem;">c-plus<sup>6</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>9</sup></a><a href="/tags/rk3568/" style="font-size: 0.88rem;">rk3568<sup>5</sup></a><a href="/tags/tool/" style="font-size: 0.88rem;">tool<sup>2</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><a id="switch-commentBarrage" href="javascript:anzhiyu.switchCommentBarrage();" title="开关弹幕"><i class="anzhiyufont anzhiyu-icon-danmu"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.4/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.cbd.int/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("12/25/2022 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用!`,
+    `我是老八!`,
+    `
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2022 By Baku V1.6.8",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by Baku %c 你正在访问 Baku 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo',
+      region: 'ap-hangzhou',
+      onCommentLoaded: () => {
+        anzhiyu.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(runFn,0)
+    else getScript('https://cdn.cbd.int/twikoo@1.6.21/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo',
+      region: 'ap-hangzhou',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const runFn = () => {
+    init();
+    
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else {
+      loadTwikoo()
+    }
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"><script async src="/js/anzhiyu/comment_barrage.js"></script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo',
+        region: 'ap-hangzhou',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.cbd.int/twikoo@1.6.21/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'><div class='name'><span>${array[i].nick} </span></div></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "haha@baku.com";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script id="click-show-text" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="25px" data-random="true" async="async"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:type\"]","meta[property=\"og:site_name\"]","meta[property=\"og:description\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>【C/C++】高频问题（C和C+的区别） | Baku麥</title><meta name="keywords" content="c-plus"><meta name="author" content="Baku"><meta name="copyright" content="Baku"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#18171d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="【C/C++】高频问题（C和C+的区别）"><meta name="application-name" content="【C/C++】高频问题（C和C+的区别）"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#18171d"><meta property="og:type" content="article"><meta property="og:title" content="【C/C++】高频问题（C和C+的区别）"><meta property="og:url" content="https://bakuenkou.gitee.io/blog/cPuls&amp;c/index.html"><meta property="og:site_name" content="Baku麥"><meta property="og:description" content="new和malloc区别 malloc是一个函数；new是c++的操作符。 malloc只分配内存、不调用对象的构造函数；new会分配内存并且调用构造函数。 malloc返回类型是void*需要类型强制转换；new会返回适当类型的指针。 malloc失败时候会返回NULL；new失败时候会抛出bad"><meta property="og:locale" content="[&quot;zh-CN&quot;,&quot;default&quot;]"><meta property="og:image" content="https://bakuenkou.gitee.io/picture/4.jpg"><meta property="article:author" content="Baku"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bakuenkou.gitee.io/picture/4.jpg"><meta name="description" content="new和malloc区别 malloc是一个函数；new是c++的操作符。 malloc只分配内存、不调用对象的构造函数；new会分配内存并且调用构造函数。 malloc返回类型是void*需要类型强制转换；new会返回适当类型的指针。 malloc失败时候会返回NULL；new失败时候会抛出bad"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://bakuenkou.gitee.io/blog/cPuls&amp;c/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="82d044073fa32b67abb2c9048c06d4f3"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?82d044073fa32b67abb2c9048c06d4f3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"Baku","mode":"tianli","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"6504b5e4443d122aba6a","Referer":"https://bakuenkou.gitee.io/"},
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: 'https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo',
+  commentBarrageConfig:{"enable":true,"maxBarrage":3,"barrageTime":4000,"accessToken":"","mailMd5":""},
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 卷，往死里卷！","🔍 熟悉Linux","🏠 熟悉Rtos","🔨 设计开发一条龙","🤝 善于交流","🏃 行动派","🧱 团队发动机","💢 干就完了(╯▔皿▔)╯"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Baku","link":"链接: ","source":"来源: Baku麥","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Baku麥',
+  title: '【C/C++】高频问题（C和C+的区别）',
+  postAI: 'true',
+  pageFillDescription: 'new和malloc区别, malloc底层实现, 在4G物理内存的计算机是否能malloc 8G内存, 指针和引用区别、如何互相转换, extern C作用, 函数参数压栈顺序, 重写memcpy函数需要注意什么, 数组存放在哪里, struct和class区别, static的定义和用途, const和define区别, volatile作用和用法, 常量浅析, Cx2FC++中变量的作用域和区别是一个函数是的操作符只分配内存不调用对象的构造函数会分配内存并且调用构造函数返回类型是需要类型强制转换会返回适当类型的指针失败时候会返回失败时候会抛出异常除非使用了使用释放内存使用释放内存需要显式的分配字节大小会分局类型自动计算需要分配的大小在中编写代码的话建议使用和他们提供了更多面向对象的特性和安全性底层实现又称动态存储器分配器维护着堆空间且堆空间是向上增长的系统中函数一般由提供且分配的是虚拟内存如果分配后内存未被访问则不会映射到物理内存当访问虚拟内存时候查找页表发现没有对于应物理内存则会触发缺页中断建立虚拟和物理地址的映射申请内存时候可以根据大小被分为小块和大块对应两种不同分配方式系统默认为区分大小快的界限小块通过系统调用从堆中分配内存大块则通过系统调用在文件映射区中分配内存使用方式申请的内存不会把内存归还给操作系统而是缓存在内存池中等下次使用目的是下次使用会快速退出进程时候系统会回收所有资源使用申请内存会把内存归还操作系统真正释放缺点频繁通过分配的内存话不仅每次都会发生运行态的切换还会发生缺页中断在第一次访问虚拟地址后这样会导致消耗较大缺点内存碎片导致泄露之后的内存地址和堆空间的地址范围是不一致的是因为还有一个内存块描述信息通常是字节比如内存起始地址是而文件显示堆内存空间的起始地址是多出字节在物理内存的计算机是否能内存操作系统位数申请后会不会使用访问内存系统是否开启机制总结在位操作系统因为进程理论上最大能申请大小的虚拟内存所以直接申请内存会申请失败在位位操作系统因为进程理论上最大能申请大小的虚拟内存即使物理内存只有申请内存也是没问题因为申请的内存是虚拟内存如果这块虚拟内存被访问了要看系统有没有分区如果没有分区因为物理空间不够进程会被操作系统杀掉原因是内存溢出如果有分区即使物理内存只有程序也能正常使用的内存进程可以正常运行指针和引用区别如何互相转换指针是一个变量保存了一个地址引用是一个对象的别名指针可以指向一个对象或未初始化时候值是随机的野指针引用必须在声明时初始化且不能更改不能为指针可修改指向对象引用不能修改相互转换引用到指针使用操作符获取引用代表的地址指针到引用解引用一个指针来获取它指向的对象作用是中的一个链接修饰符它的主要目的是确保代码可以与代码互操作并在链接时能够正确地找到符号这里就涉及的编译区别了编译器编译函数时为了支持函数重载它会对函数名进行修饰或装饰这意味着编译器会将函数名和其参数类型组合在一起生成一个独特的名字例如下面代码编译后这两个函数可能会得到类似和这样的名称语言不支持函数重载所以它没有名称修饰的概念当代码中的函数被编译时它的名字保持不变所以在中可能只是当你在中使用你告诉编译器不要为指定的代码进行名称修饰而是使用风格的链接比如下面使用库语言库函数参数压栈顺序左到右少见右到左常用重写函数需要注意什么地址重叠果源地址和目标地址重叠可能不会正确工作对于处理重叠的情况通常使用类型安全为了通用性使用指针但在使用这些指针时需要确保进行适当的类型转换效率标准库中的通常高度优化使用各种技术如单词复制指令等来加速操作错误检查在某些实现中可能需要检查指针等错误情况下面是一个简单的实现未考虑使用指令优化加速内存复制过程错误检查转换为字符指针处理地址重叠问题当并且重叠时从后往前复制从前往后复制数组存放在哪里栈函数中声明局部变量栈内存自动管理函数返回时候释放数组内存堆动态内存分配需要人为显式释放静态存储区全局变量或函数内使用关键字此区域存储全局变量静态变量和常量在程序的生命周期中一直存在常量区字符串字面值和其他常量通常存储在常量区这是一个特殊的内存区域用于存储常量数据这部分内存通常是只读的如和区别默认访问权限默认的成员变量和基类的访问权限是默认的成员变量和基类的访问权限是默认继承方式当使用继承时基类的默认访问权限是当使用继承时基类的默认访问权限是兼容性特定场景语言中只有并且它不能包含函数如果你在中写了一个只包含数据的呢么和可以兼容在语言中无法使用面向对象的编程没有继承多态等概念的定义和用途局部变量使用更改了储存位置存放在静态存储区不改变作用域范围还在函数内全局变量使用不改变储存位置改变作用域范围限定在本文件其他文件不可见类成员使用静态成员变量每个类都对应同一个变量副本以前一个对象对应一个变量现在多个对象对应一个变量类似类中全局变量静态成员函数不再属于类的任何特定对象它只能访问静态成员变量或其他静态成员函数不能访问类的非静态成员和区别是预处理指令只在预处理阶段起作用直接文本替换然后进行编译操作不涉及内存分配编译和运行时候都用到了编译阶段确保程序没有修改的值运行阶段会占用内存并且初始化后无法进行修改除非使用指针作用和用法作用防止编译器优化编译器优化会根据上下文做假设如果代码中没有明确的修改此变量则值就不会改变并一次做优化使用了则不会做假设优化了确保读写顺序当对变量进行读或写操作时编译器不会重新排序这些操作这确保了指令的执行顺序与源代码中的顺序匹配用法硬件寄存器访问硬件状态随时会改变使用后读取数据时候都会在物理地址获取不会使用缓存的值确保硬件数据是正确的多线程和中断服务程序如果一个变量在主程序中被使用并在中断服务程序中被修改这个变量应该被声明为以确保主程序总是读取最新的值信号信号的变量通常是确保在信号处理器和主程序之间正确地传递数据虽然可以确保单个读或写操作不被其他操作中断但它不提供复杂操作的原子性或内存屏障的功能在多线程环境中应该使用专门的并发原语如互斥量自旋锁或原子操作过度使用可能导致不必要的性能开销因为它会阻止编译器执行某些优化常量浅析中变量的作用域局部作用域包含的代码区域离开即销毁文件作用域也就是全局变量在所有文件中都可访问全局变量除外限定本文件访问函数作用域特殊仅限于语句在整个函数中都可见不受局部作用域限制函数原型作用域指的是函数输入参数作用域限定在该函数类似函数作用域类作用域才有类的变量函数智能通过类的对象或类本身访问命名空间作用域防止命名冲突使用的里面的变量函数限定在其中持续更新',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-04 12:17:59',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/books.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 6.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/picture/123.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a><a class="back-menu-item" href="/books/" title="黄金屋"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="黄金屋"/><span class="back-menu-item-text">黄金屋</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="暂时没有添加哦~"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/ico-feather/book.svg" alt="暂时没有添加哦~"/><span class="back-menu-item-text">暂时没有添加哦~</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">Baku麥</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/Life/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 我的生活</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/books/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 黄金屋</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="/picture/123.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src="/picture/123.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/picture/123.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="/picture/123.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item on" id="consoleCommentBarrage" onclick="anzhiyu.switchCommentBarrage()" title="热评开关"><a class="commentBarrage"><i class="anzhiyufont anzhiyu-icon-message"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/" itemprop="url">C++</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/c-plus/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>c-plus</span></a></span></div></div><h1 class="post-title" itemprop="name headline">【C/C++】高频问题（C和C+的区别）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="post-meta-icon anzhiyufont anzhiyu-icon-calendar-days"></i><span class="post-meta-label">发表于</span><time itemprop="dateCreated datePublished" datetime="2023-08-02T16:00:00.000Z" title="发表于 2023-08-03 00:00:00">2023-08-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">2.8k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="【C/C++】高频问题（C和C+的区别）"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为杭州"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>杭州</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/picture/4.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><div class="post-ai-description"><div class="ai-title"><i class="anzhiyufont anzhiyu-icon-bilibili"></i><div class="ai-title-text">AI-摘要</div><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right"></i><i class="anzhiyufont anzhiyu-icon-circle-dot" title="朗读摘要"></i><div id="ai-tag">Baku GPT</div></div><div class="ai-explanation">AI初始化中...</div><div class="ai-btn-box"><div class="ai-btn-item">介绍自己 🙈</div><div class="ai-btn-item">生成本文简介 👋</div><div class="ai-btn-item">推荐相关文章 📖</div><div class="ai-btn-item">前往主页 🏠</div></div><script data-pjax src="/js/anzhiyu/ai_abstract.js"></script></div><article class="post-content" id="article-container" itemscope itemtype="https://bakuenkou.gitee.io/blog/cPuls&amp;c/"><header><a class="post-meta-categories" href="/categories/C/" itemprop="url">C++</a><a href="/tags/c-plus/" tabindex="-1" itemprop="url">c-plus</a><h1 id="CrawlerTitle" itemprop="name headline">【C/C++】高频问题（C和C+的区别）</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Baku</span><time itemprop="dateCreated datePublished" datetime="2023-08-02T16:00:00.000Z" title="undefined 2023-08-03 00:00:00">2023-08-03</time></header><h4 id="new和malloc区别"><a href="#new和malloc区别" class="headerlink" title="new和malloc区别"></a>new和malloc区别</h4><ol>
+<li>malloc是一个函数；new是c++的操作符。</li>
+<li>malloc只分配内存、不调用对象的构造函数；new会分配内存并且调用构造函数。</li>
+<li>malloc返回类型是<code>void*</code>需要类型强制转换；new会返回适当类型的指针。</li>
+<li>malloc失败时候会返回<code>NULL</code>；new失败时候会抛出<code>bad_alloc</code>异常，除非使用了nothrow。</li>
+<li>malloc使用<code>free</code>释放内存；new使用<code>delete</code>释放内存。</li>
+<li>malloc需要显式的分配字节大小；new会分局类型自动计算需要分配的大小。</li>
+</ol>
+<p>在C++中编写代码的话，建议使用new和delete，他们提供了更多面向对象的特性和安全性。</p>
+<h4 id="malloc底层实现"><a href="#malloc底层实现" class="headerlink" title="malloc底层实现"></a>malloc底层实现</h4><p>malloc又称动态存储器分配器，维护着堆空间。且堆空间是向上增长的。</p>
+<p>linux系统中malloc函数一般由glibc（GUN C Library）提供。且分配的是虚拟内存，如果分配后，内存未被访问，则不会映射到物理内存。当访问虚拟内存时候，查找页表发现没有对于应物理内存，则会触发缺页中断，建立虚拟和物理地址的映射。</p>
+<p>申请内存时候可以根据大小被分为”小块“和”大块“，对应两种不同分配方式。（linux系统默认128k为区分大小快的界限）</p>
+<ul>
+<li><p>小块通过brk()系统调用从<strong>堆</strong>中分配内存。</p>
+</li>
+<li><p>大块则通过mmap()系统调用在<strong>文件映射区</strong>中分配内存。</p>
+</li>
+<li><p>使用brk()方式申请的内存，free不会把内存归还给操作系统，而是缓存在malloc内存池中，等下次使用，目的是下次使用会快速。退出进程时候系统会回收所有资源。</p>
+</li>
+<li><p>使用mmap()申请内存，free会把内存归还操作系统，真正释放。</p>
+</li>
+</ul>
+<p><strong>mmap缺点：</strong>频繁通过 mmap 分配的内存话，不仅每次都会发生运行态的切换，还会发生缺页中断（在第一次访问虚拟地址后），这样会导致 CPU 消耗较大。</p>
+<p><strong>brk缺点：</strong>内存碎片导致泄露。</p>
+<p>malloc之后的内存地址和堆空间的地址范围是不一致的。是因为还有一个内存块描述信息。通常是16字节。比如内存起始地址是 d73010，而 maps 文件显示堆内存空间的起始地址是 d73000，多出0x10字节。</p>
+<h4 id="在4G物理内存的计算机是否能malloc-8G内存"><a href="#在4G物理内存的计算机是否能malloc-8G内存" class="headerlink" title="在4G物理内存的计算机是否能malloc 8G内存"></a>在4G物理内存的计算机是否能malloc 8G内存</h4><ol>
+<li>操作系统位数，32 or 64？</li>
+<li>申请8G后会不会使用&#x2F;访问内存。</li>
+<li>系统是否开启Swap机制。</li>
+</ol>
+<p><strong>总结</strong></p>
+<ul>
+<li><p>在 32 位操作系统，因为进程理论上最大能申请 3 GB 大小的虚拟内存，所以直接申请 8G 内存，会申请失败。</p>
+</li>
+<li><p>在 64位 位操作系统，因为进程理论上最大能申请 128 TB 大小的虚拟内存，即使物理内存只有 4GB，申请 8G 内存也是没问题，因为申请的内存是虚拟内存。如果这块虚拟内存被访问了，要看系统有没有 Swap 分区：</p>
+</li>
+<li><ul>
+<li>如果没有 Swap 分区，因为物理空间不够，进程会被操作系统杀掉，原因是 OOM（内存溢出）；</li>
+<li>如果有 Swap 分区，即使物理内存只有 4GB，程序也能正常使用 8GB 的内存，进程可以正常运行；</li>
+</ul>
+</li>
+</ul>
+<h4 id="指针和引用区别、如何互相转换"><a href="#指针和引用区别、如何互相转换" class="headerlink" title="指针和引用区别、如何互相转换"></a>指针和引用区别、如何互相转换</h4><ol>
+<li>指针是一个变量，保存了一个地址；引用是一个对象的别名。</li>
+<li>指针可以指向一个对象或NULL，未初始化时候值是随机的（野指针）；引用必须在声明时初始化，且不能更改，不能为NULL。</li>
+<li>指针可修改指向对象，引用不能修改。</li>
+</ol>
+<p>相互转换：</p>
+<ul>
+<li>引用到指针：使用<code>&amp;</code>操作符获取引用代表的地址。int &amp;ref &#x3D; x；int *p &#x3D; &amp;ref； </li>
+<li>指针到引用：解引用一个指针来获取它指向的对象。int *p &#x3D; &amp;x；int &amp;r &#x3D; *p;</li>
+</ul>
+<h4 id="extern-”C“作用"><a href="#extern-”C“作用" class="headerlink" title="extern ”C“作用"></a>extern ”C“作用</h4><p><code>extern &quot;C&quot;</code> 是 C++ 中的一个链接修饰符。它的主要目的是确保 C++ 代码可以与 C 代码互操作，并在链接时能够正确地找到符号。</p>
+<p>这里就涉及C&#x2F;C++的<strong>编译</strong>区别了。</p>
+<ul>
+<li>C++ 编译器编译函数时，为了支持函数重载，它会对函数名进行修饰或装饰。这意味着编译器会将函数名和其参数类型组合在一起，生成一个独特的名字。例如下面代码编译后，这两个 <code>foo</code> 函数可能会得到类似 <code>_foo_int</code> 和 <code>_foo_double</code> 这样的名称。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(<span class="type">int</span>)</span> </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(<span class="type">double</span>)</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>C 语言不支持函数重载，所以它没有名称修饰的概念。当 C 代码中的函数被编译时，它的名字保持不变。所以，<code>void foo(int)</code> 在 C 中可能只是 <code>foo</code>。</li>
+</ul>
+<p>当你在 C++ 中使用 <code>extern &quot;C&quot;</code>，你告诉 C++ 编译器不要为指定的代码进行名称修饰，而是使用 C 风格的链接。</p>
+<p>比如下面：C++使用FFmpeg库（C语言库）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;chrono&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">    <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;libavdevice/avdevice.h&gt;</span></span></span><br><span class="line">    <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;libavformat/avformat.h&gt;</span></span></span><br><span class="line">    <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;libavcodec/avcodec.h&gt;</span></span></span><br><span class="line">    <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;libavutil/opt.h&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="函数参数压栈顺序"><a href="#函数参数压栈顺序" class="headerlink" title="函数参数压栈顺序"></a>函数参数压栈顺序</h4><ul>
+<li>左到右（少见）</li>
+<li>右到左（常用）</li>
+</ul>
+<h4 id="重写memcpy函数需要注意什么"><a href="#重写memcpy函数需要注意什么" class="headerlink" title="重写memcpy函数需要注意什么"></a>重写memcpy函数需要注意什么</h4><ol>
+<li><strong>地址重叠</strong>：果源地址和目标地址重叠，<code>memcpy</code> 可能不会正确工作。对于处理重叠的情况，通常使用 <code>memmove</code>。</li>
+<li><strong>类型安全</strong>: 为了通用性，<code>memcpy</code> 使用 <code>void*</code> 指针。但在使用这些指针时，需要确保进行适当的类型转换。</li>
+<li><strong>效率</strong>: 标准库中的 <code>memcpy</code> 通常高度优化，使用各种技术（如单词复制，SIMD 指令等）来加速操作。</li>
+<li><strong>错误检查</strong>: 在某些实现中，可能需要检查 <code>NULL</code> 指针等错误情况。</li>
+</ol>
+<p>下面是一个简单的 <code>memcpy</code> 实现：未考虑使用CPU指令、SIMD优化加速内存复制过程。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stddef.h&gt;</span></span></span><br><span class="line"><span class="type">void</span>* <span class="title function_">my_memcpy</span><span class="params">(<span class="type">void</span>* dest, <span class="type">const</span> <span class="type">void</span>* src, <span class="type">size_t</span> n)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!dest || !src) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;  <span class="comment">// 错误检查</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 转换为字符指针</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span>* d = (<span class="type">unsigned</span> <span class="type">char</span>*)dest;</span><br><span class="line">    <span class="type">const</span> <span class="type">unsigned</span> <span class="type">char</span>* s = (<span class="type">const</span> <span class="type">unsigned</span> <span class="type">char</span>*)src;</span><br><span class="line">    <span class="comment">// 处理地址重叠问题</span></span><br><span class="line">    <span class="comment">// 当 s &lt; d 并且重叠时，从后往前复制</span></span><br><span class="line">    <span class="keyword">if</span> (s &lt; d &amp;&amp; s + n &gt; d) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">size_t</span> i = n; i != <span class="number">0</span>; i--) &#123;</span><br><span class="line">            d[i<span class="number">-1</span>] = s[i<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 从前往后复制</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            d[i] = s[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="数组存放在哪里"><a href="#数组存放在哪里" class="headerlink" title="数组存放在哪里"></a>数组存放在哪里</h4><ul>
+<li>栈：函数中声明局部变量，栈内存自动管理，函数返回时候释放数组内存。</li>
+<li>堆：动态内存分配（new、malloc、calloc），需要人为显式释放。</li>
+<li>静态存储区：全局变量或函数内使用static关键字。此区域存储全局变量、静态变量和常量。在程序的生命周期中一直存在。</li>
+<li>常量区：字符串字面值（和其他常量）通常存储在常量区，这是一个特殊的内存区域，用于存储常量数据。这部分内存通常是只读的。如：<code>char* str = &quot;Hello, World!&quot;; </code></li>
+</ul>
+<h4 id="struct和class区别"><a href="#struct和class区别" class="headerlink" title="struct和class区别"></a>struct和class区别</h4><ul>
+<li><p>默认访问权限：</p>
+<ul>
+<li><code>struct</code>默认的成员变量和基类的访问权限是 <code>public</code>；</li>
+<li><code>class</code>默认的成员变量和基类的访问权限是 <code>private</code>。</li>
+</ul>
+</li>
+<li><p>默认继承方式:</p>
+<p>当使用 <code>struct</code> 继承时，基类的默认访问权限是 <code>public</code>。</p>
+<p>当使用 <code>class</code> 继承时，基类的默认访问权限是 <code>private</code>。</p>
+</li>
+<li><p>C兼容性（特定场景）</p>
+<ul>
+<li>C 语言中，只有 <code>struct</code>，并且它不能包含函数。如果你在 C++ 中写了一个只包含数据的 <code>struct</code>。呢么C和C++可以兼容。</li>
+<li>在C语言中，struct无法使用面向对象的编程，没有继承多态等概念。</li>
+</ul>
+</li>
+</ul>
+<h4 id="static的定义和用途"><a href="#static的定义和用途" class="headerlink" title="static的定义和用途"></a>static的定义和用途</h4><ul>
+<li>局部变量使用：更改了储存位置（存放在静态存储区），不改变作用域（范围还在函数内）。</li>
+<li>全局变量使用：不改变储存位置，改变作用域范围（限定在本文件，其他文件不可见）。</li>
+<li><strong>类成员使用</strong>：<ul>
+<li>​	静态成员变量：每个类都对应同一个变量副本。以前一个对象对应一个变量，现在多个对象对应一个变量。类似类中全局变量~</li>
+<li>​	静态成员函数：不再属于类的任何特定对象。它只能访问<strong>静态成员变量</strong>或其他<strong>静态成员函数</strong>，<strong>不能访问类的非静态成员</strong>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="const和-define区别"><a href="#const和-define区别" class="headerlink" title="const和#define区别"></a>const和#define区别</h4><ul>
+<li>#define：是预处理指令，只在预处理阶段起作用。直接文本替换，然后进行编译操作。不涉及内存分配。</li>
+<li>const：编译和运行时候都用到了，编译阶段确保程序没有修改const的值。运行阶段，会占用内存。并且初始化后无法进行修改，除非使用指针。</li>
+</ul>
+<h4 id="volatile作用和用法"><a href="#volatile作用和用法" class="headerlink" title="volatile作用和用法"></a>volatile作用和用法</h4><p><strong>作用：</strong></p>
+<ol>
+<li>防止编译器优化：编译器优化会根据上下文做假设，如果代码中没有明确的修改此变量，则值就不会改变并一次做优化。使用了<code>volatile</code> 则不会做假设&#x2F;优化了。</li>
+<li>确保读写顺序：当对 <code>volatile</code> 变量进行读或写操作时，编译器不会重新排序这些操作。这确保了指令的执行顺序与源代码中的顺序匹配。</li>
+</ol>
+<p><strong>用法：</strong></p>
+<ol>
+<li>硬件寄存器访问：硬件状态随时会改变，使用<code>volatile</code>后，读取数据时候都会在物理地址获取，不会使用缓存的值。确保硬件数据是正确的。</li>
+<li>多线程和中断服务程序：如果一个变量在主程序中被使用，并在中断服务程序中被修改，这个变量应该被声明为 <code>volatile</code>，以确保主程序总是读取最新的值。</li>
+<li>信号：信号的变量通常是<code>volatile</code>，确保在信号处理器和主程序之间正确地传递数据。</li>
+</ol>
+<p>​        虽然 <code>volatile</code> 可以确保单个读或写操作不被其他操作中断，但它不提供复杂操作的原子性或内存屏障的功能。在多线程环境中，应该使用专门的并发原语，如互斥量、自旋锁或原子操作。</p>
+<p>​        过度使用 <code>volatile</code> 可能导致不必要的性能开销，因为它会阻止编译器执行某些优化。</p>
+<h4 id="常量浅析"><a href="#常量浅析" class="headerlink" title="常量浅析"></a>常量浅析</h4><h4 id="C-C-中变量的作用域"><a href="#C-C-中变量的作用域" class="headerlink" title="C&#x2F;C++中变量的作用域"></a>C&#x2F;C++中变量的作用域</h4><ul>
+<li>局部作用域：{ }包含的代码区域，离开即销毁。</li>
+<li>文件作用域：也就是全局变量，在所有文件中都可访问。（static全局变量除外，限定本文件访问）。</li>
+<li>函数作用域：特殊！仅限于goto语句，在整个函数中都可见，不受局部作用域限制。</li>
+<li>函数原型作用域：指的是函数输入参数作用域限定在该函数，类似函数作用域。</li>
+<li>类作用域：C++才有。类的变量、函数，智能通过类的对象或类本身（const）访问。</li>
+<li>命名空间作用域：防止命名冲突使用的，里面的变量函数，限定在其中。</li>
+</ul>
+<p>持续更新。。。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/baku.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/baku.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Baku</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://bakuenkou.gitee.io/blog/cPuls&amp;c/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://bakuenkou.gitee.io/blog/cPuls&amp;c/')">【C/C++】高频问题（C和C+的区别）</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="/picture/123.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/123.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/picture/123.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/123.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://bakuenkou.gitee.io/blog/cPuls&amp;c/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=【C/C++】高频问题（C和C+的区别）&amp;url=https://bakuenkou.gitee.io/blog/cPuls&amp;c/&amp;pic=/picture/4.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://bakuenkou.gitee.io" target="_blank">Baku麥</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/c-plus/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>c-plus<span class="tagsPageCount">6</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/picture/platform0.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blog/cPulsVirtualFun/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B113.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【C++】Virtual functions | Pure virtual functions</div></div></a></div><div class="next-post pull-right"><a href="/blog/cPulsPolymorphic/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/6.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【C++】高频问题（继承、多态）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/blog/cPulsVirtualFun/" title="【C++】Virtual functions | Pure virtual functions"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B113.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-08-02</div><div class="title">【C++】Virtual functions | Pure virtual functions</div></div></a></div><div><a href="/blog/cPulsSmartPointer/" title="【C++】智能指针（Smart Pointer）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-08-05</div><div class="title">【C++】智能指针（Smart Pointer）</div></div></a></div><div><a href="/blog/cPulsLambda/" title="【C++】lambda：匿名函数的用法"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/%E5%8D%81%E4%BA%9411.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-08-01</div><div class="title">【C++】lambda：匿名函数的用法</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div><div class="comment-tips" id="comment-tips"><span>✅ 你无需删除空行，直接评论以获取最佳展示效果</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/baku.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2021/03/03/e059eb61c7c3b.png" ait="status"/></div></div><div class="author-info__description">“ 力学如力耕，勤惰尔自知 ”</div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">Baku</h1><div class="author-info__desc"></div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/bakuenkou" target="_blank" title="ithub"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="/about/" target="_blank" title="email"><i class="anzhiyufont anzhiyu-icon-envelope"></i></a></div></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bullhorn anzhiyu-shake"></i><span>公告</span></div><div class="announcement_content">哟哟哟，什么风把您挂来了~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#new%E5%92%8Cmalloc%E5%8C%BA%E5%88%AB"><span class="toc-number">1.</span> <span class="toc-text">new和malloc区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#malloc%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">malloc底层实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A84G%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%90%A6%E8%83%BDmalloc-8G%E5%86%85%E5%AD%98"><span class="toc-number">3.</span> <span class="toc-text">在4G物理内存的计算机是否能malloc 8G内存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E5%92%8C%E5%BC%95%E7%94%A8%E5%8C%BA%E5%88%AB%E3%80%81%E5%A6%82%E4%BD%95%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2"><span class="toc-number">4.</span> <span class="toc-text">指针和引用区别、如何互相转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extern-%E2%80%9DC%E2%80%9C%E4%BD%9C%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">extern ”C“作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E5%8E%8B%E6%A0%88%E9%A1%BA%E5%BA%8F"><span class="toc-number">6.</span> <span class="toc-text">函数参数压栈顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E5%86%99memcpy%E5%87%BD%E6%95%B0%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BB%80%E4%B9%88"><span class="toc-number">7.</span> <span class="toc-text">重写memcpy函数需要注意什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%AD%98%E6%94%BE%E5%9C%A8%E5%93%AA%E9%87%8C"><span class="toc-number">8.</span> <span class="toc-text">数组存放在哪里</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#struct%E5%92%8Cclass%E5%8C%BA%E5%88%AB"><span class="toc-number">9.</span> <span class="toc-text">struct和class区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#static%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E7%94%A8%E9%80%94"><span class="toc-number">10.</span> <span class="toc-text">static的定义和用途</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#const%E5%92%8C-define%E5%8C%BA%E5%88%AB"><span class="toc-number">11.</span> <span class="toc-text">const和#define区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#volatile%E4%BD%9C%E7%94%A8%E5%92%8C%E7%94%A8%E6%B3%95"><span class="toc-number">12.</span> <span class="toc-text">volatile作用和用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E6%B5%85%E6%9E%90"><span class="toc-number">13.</span> <span class="toc-text">常量浅析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C-C-%E4%B8%AD%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">14.</span> <span class="toc-text">C&#x2F;C++中变量的作用域</span></a></li></ol></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="footer_deal"><a class="deal_link" href="mailto:maiyanhao.myh@foxmail.com" title="email"><i class="anzhiyufont anzhiyu-icon-envelope"></i></a><img class="footer_mini_logo" title="返回顶部" alt="返回顶部" onclick="anzhiyu.scrollToDest(0, 500)" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/picture/baku.jpg" size="50px"/><a class="deal_link" target="_blank" rel="noopener" href="https://github.com/bakuenkou" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2022 - 2023 By <a class="footer-bar-link" href="/" title="Baku" target="_blank">Baku</a></div></div><div id="footer-type-tips"></div><div class="js-pjax"><script>function subtitleType () {
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      if (true) {
+        const from = '出自 ' + data.from
+        const sub = []
+        sub.unshift(data.hitokoto, from)
+        window.typed = new Typed('#footer-type-tips', {
+          strings: sub,
+          startDelay: 300,
+          typeSpeed: 150,
+          loop: true,
+          backSpeed: 50,
+        })
+      } else {
+        document.getElementById('footer-type-tips').innerHTML = data.hitokoto
+      }
+    })
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.cbd.int/typed.js@2.0.15/dist/typed.umd.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}
+</script></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" title="浙ICP备-xxxxxxx号">浙ICP备-xxxxxxx号</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">36</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">6</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a><a class="back-menu-item" href="/books/" title="黄金屋"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="黄金屋"/><span class="back-menu-item-text">黄金屋</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="暂时没有添加哦~"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/ico-feather/book.svg" alt="暂时没有添加哦~"/><span class="back-menu-item-text">暂时没有添加哦~</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/Life/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 我的生活</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/books/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 黄金屋</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/CodeSys/" style="font-size: 0.88rem;">CodeSys<sup>3</sup></a><a href="/tags/Life/" style="font-size: 0.88rem;">Life<sup>11</sup></a><a href="/tags/c-plus/" style="font-size: 0.88rem;">c-plus<sup>6</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>9</sup></a><a href="/tags/rk3568/" style="font-size: 0.88rem;">rk3568<sup>5</sup></a><a href="/tags/tool/" style="font-size: 0.88rem;">tool<sup>2</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><a id="switch-commentBarrage" href="javascript:anzhiyu.switchCommentBarrage();" title="开关弹幕"><i class="anzhiyufont anzhiyu-icon-danmu"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.4/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.cbd.int/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("12/25/2022 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用!`,
+    `我是老八!`,
+    `
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2022 By Baku V1.6.8",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by Baku %c 你正在访问 Baku 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo',
+      region: 'ap-hangzhou',
+      onCommentLoaded: () => {
+        anzhiyu.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(runFn,0)
+    else getScript('https://cdn.cbd.int/twikoo@1.6.21/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo',
+      region: 'ap-hangzhou',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const runFn = () => {
+    init();
+    
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else {
+      loadTwikoo()
+    }
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"><script async src="/js/anzhiyu/comment_barrage.js"></script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://magenta-concha-0252b2.netlify.app/.netlify/functions/twikoo',
+        region: 'ap-hangzhou',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.cbd.int/twikoo@1.6.21/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'><div class='name'><span>${array[i].nick} </span></div></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "haha@baku.com";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script id="click-show-text" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="25px" data-random="true" async="async"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:type\"]","meta[property=\"og:site_name\"]","meta[property=\"og:description\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
