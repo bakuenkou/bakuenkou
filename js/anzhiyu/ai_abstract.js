@@ -360,9 +360,9 @@
 
   function introduce() {
     if (mode == "tianli") {
-      startAI("我是文章辅助AI: 点击下方的按钮，让我生成本文简介、推荐相关文章等。");
+      startAI("我是文章辅助AI:  点击下方的按钮，让我生成本文简介、推荐相关文章等。");
     } else {
-      startAI(`我是文章辅助AI: ${gptName} GPT，点击下方的按钮，让我生成本文简介、推荐相关文章等。`);
+      startAI(`我是文章辅助AI:  ${gptName} GPT，点击下方的按钮，让我生成本文简介、推荐相关文章等。`);
     }
   }
 
@@ -375,13 +375,13 @@
       post_ai.querySelectorAll(".ai-btn-item").forEach(item => (item.style.display = "none"));
       document.getElementById("go-tianli-blog").style.display = "block";
       startAI(
-        "你好，我是一个摘要生成助理，是一个基于GPT-4的生成式AI。我在这里只负责摘要的预生成和显示，你无法与我直接沟通。"
+        "你好，我是一个摘要生成助理，是一个基于GPT-5的生成式AI。我在这里只负责摘要的预生成和显示，你无法与我直接沟通。"
       );
     } else {
       post_ai.querySelectorAll(".ai-btn-item").forEach(item => (item.style.display = "block"));
       document.getElementById("go-tianli-blog").style.display = "none";
       startAI(
-        `你好，我是一个摘要生成助理${gptName} GPT，是一个基于GPT-4的生成式AI。我在这里只负责摘要的预生成和显示，你无法与我直接沟通。`
+        `你好，我是一个摘要生成助理${gptName} GPT，是一个基于GPT-5的生成式AI。我在这里只负责摘要的预生成和显示，你无法与我直接沟通。`
       );
     }
   }
