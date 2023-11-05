@@ -31,6 +31,33 @@
       </tags>
   </entry>
   <entry>
+    <title>【C++】lambda：匿名函数的用法</title>
+    <url>/blog/cPulsLambda/</url>
+    <content><![CDATA[<h2 id="基本表达式"><a href="#基本表达式" class="headerlink" title="基本表达式"></a>基本表达式</h2><pre><code>[capture](parameters) -&gt; return_type &#123; body &#125;
+</code></pre>
+<ol>
+<li><strong>apture</strong> ：捕获列表，用于指定 lambda 表达式中要捕获的变量。这可以是空的（[]），表示不捕获任何变量，也可以使用不同的方式来捕获外部变量，例如 [x] 捕获变量 x，[x, y] 捕获变量 x 和 y，[&#x3D;] 捕获所有外部变量等等。</li>
+<li><strong>parameters</strong> ：参数列表，与普通函数的参数列表类似。这里可以指定 lambda 表达式接受的参数。</li>
+<li><strong>return_type</strong> ：返回类型，用于指定 lambda 表达式的返回类型。可以省略，编译器会自动推导返回类型。</li>
+<li><strong>body</strong> ：函数体，用于编写 lambda 表达式的实际操作。</li>
+</ol>
+<h2 id="无参lambda表达式"><a href="#无参lambda表达式" class="headerlink" title="无参lambda表达式"></a>无参lambda表达式</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> function= []() &#123;</span><br><span class="line">    	std::cout &lt;&lt; <span class="string">&quot;Hello, world!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	&#125;;</span><br><span class="line">    <span class="built_in">function</span>();  <span class="comment">// 调用 lambda 表达式</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="含参lambda表达式"><a href="#含参lambda表达式" class="headerlink" title="含参lambda表达式"></a>含参lambda表达式</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> add = [](<span class="type">int</span> a, <span class="type">int</span> b) &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="type">int</span> result = <span class="built_in">add</span>(<span class="number">5</span>, <span class="number">3</span>);  <span class="comment">// 调用 lambda 表达式</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="捕获外部lambda表达式"><a href="#捕获外部lambda表达式" class="headerlink" title="捕获外部lambda表达式"></a>捕获外部lambda表达式</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">10</span>;</span><br><span class="line">    <span class="comment">// 捕获外部变量 x</span></span><br><span class="line">    <span class="keyword">auto</span> increment = [&amp;x](<span class="type">int</span> a) &#123;</span><br><span class="line">        x += a;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">increment</span>();  <span class="comment">// 调用 lambda 表达式</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="捕获不定数量的lambda表达式"><a href="#捕获不定数量的lambda表达式" class="headerlink" title="捕获不定数量的lambda表达式"></a>捕获不定数量的lambda表达式</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">10</span>, y = <span class="number">5</span>, ch = <span class="number">8</span>;</span><br><span class="line">    <span class="comment">// 捕获外部变量 x</span></span><br><span class="line">    <span class="keyword">auto</span> increment = [&amp;]() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Inside lambda: x = &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, y = &quot;</span> &lt;&lt; y &lt;&lt; <span class="string">&quot;, ch = &quot;</span> &lt;&lt; ch &lt;&lt; std::endl;</span><br><span class="line">    &#125;;</span><br><span class="line">	<span class="built_in">increment</span>();  <span class="comment">// 调用 lambda 表达式</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p><img src="http://s1lcia52i.bkt.gdipper.com/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-09-23%20202917.png?e=1695809622&token=Pz2y7VaKVenNEaUUo-TufB9J-F6kbcB5wjl0Fmkb:sQGpf-_7UmKZJEIet756maIoYnc=" alt="丢失了"></p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>c-plus</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【C++】智能指针（Smart Pointer）</title>
     <url>/blog/cPulsSmartPointer/</url>
     <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>​	智能指针是C++中的一种对象，它的设计初衷是为了解决原生指针在资源管理上的一些问题。C++11 开始提供了几种类型的智能指针，<code>std::auto_ptr</code>（已被废弃，不推荐使用），<code>std::unique_ptr</code>，<code>std::shared_ptr</code> 和 <code>std::weak_ptr</code>。</p>
@@ -89,33 +116,6 @@
 <li><strong>缺点</strong>：不能直接使用，必须先转化为 <code>shared_ptr</code>。</li>
 <li><strong>用途</strong>：当你需要一个不参与引用计数的指针，特别是为了避免循环引用时使用。</li>
 </ul>
-]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>c-plus</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【C++】lambda：匿名函数的用法</title>
-    <url>/blog/cPulsLambda/</url>
-    <content><![CDATA[<h2 id="基本表达式"><a href="#基本表达式" class="headerlink" title="基本表达式"></a>基本表达式</h2><pre><code>[capture](parameters) -&gt; return_type &#123; body &#125;
-</code></pre>
-<ol>
-<li><strong>apture</strong> ：捕获列表，用于指定 lambda 表达式中要捕获的变量。这可以是空的（[]），表示不捕获任何变量，也可以使用不同的方式来捕获外部变量，例如 [x] 捕获变量 x，[x, y] 捕获变量 x 和 y，[&#x3D;] 捕获所有外部变量等等。</li>
-<li><strong>parameters</strong> ：参数列表，与普通函数的参数列表类似。这里可以指定 lambda 表达式接受的参数。</li>
-<li><strong>return_type</strong> ：返回类型，用于指定 lambda 表达式的返回类型。可以省略，编译器会自动推导返回类型。</li>
-<li><strong>body</strong> ：函数体，用于编写 lambda 表达式的实际操作。</li>
-</ol>
-<h2 id="无参lambda表达式"><a href="#无参lambda表达式" class="headerlink" title="无参lambda表达式"></a>无参lambda表达式</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> function= []() &#123;</span><br><span class="line">    	std::cout &lt;&lt; <span class="string">&quot;Hello, world!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	&#125;;</span><br><span class="line">    <span class="built_in">function</span>();  <span class="comment">// 调用 lambda 表达式</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="含参lambda表达式"><a href="#含参lambda表达式" class="headerlink" title="含参lambda表达式"></a>含参lambda表达式</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> add = [](<span class="type">int</span> a, <span class="type">int</span> b) &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="type">int</span> result = <span class="built_in">add</span>(<span class="number">5</span>, <span class="number">3</span>);  <span class="comment">// 调用 lambda 表达式</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="捕获外部lambda表达式"><a href="#捕获外部lambda表达式" class="headerlink" title="捕获外部lambda表达式"></a>捕获外部lambda表达式</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">10</span>;</span><br><span class="line">    <span class="comment">// 捕获外部变量 x</span></span><br><span class="line">    <span class="keyword">auto</span> increment = [&amp;x](<span class="type">int</span> a) &#123;</span><br><span class="line">        x += a;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">increment</span>();  <span class="comment">// 调用 lambda 表达式</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="捕获不定数量的lambda表达式"><a href="#捕获不定数量的lambda表达式" class="headerlink" title="捕获不定数量的lambda表达式"></a>捕获不定数量的lambda表达式</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">10</span>, y = <span class="number">5</span>, ch = <span class="number">8</span>;</span><br><span class="line">    <span class="comment">// 捕获外部变量 x</span></span><br><span class="line">    <span class="keyword">auto</span> increment = [&amp;]() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Inside lambda: x = &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, y = &quot;</span> &lt;&lt; y &lt;&lt; <span class="string">&quot;, ch = &quot;</span> &lt;&lt; ch &lt;&lt; std::endl;</span><br><span class="line">    &#125;;</span><br><span class="line">	<span class="built_in">increment</span>();  <span class="comment">// 调用 lambda 表达式</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p><img src="http://s1lcia52i.bkt.gdipper.com/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-09-23%20202917.png?e=1695809622&token=Pz2y7VaKVenNEaUUo-TufB9J-F6kbcB5wjl0Fmkb:sQGpf-_7UmKZJEIet756maIoYnc=" alt="丢失了"></p>
 ]]></content>
       <categories>
         <category>C++</category>
@@ -545,6 +545,45 @@ int main() &#123;
       </tags>
   </entry>
   <entry>
+    <title>【CodeSys】适配串口驱动</title>
+    <url>/blog/CodesysAdaptSerial/</url>
+    <content><![CDATA[<h2 id="适配时间组件-SysTime"><a href="#适配时间组件-SysTime" class="headerlink" title="适配时间组件 (SysTime)"></a>适配时间组件 (SysTime)</h2><p>适配<code>SysTimeOS.c</code>的下列函数，为codesys提供系统ms、us的tick。可以参考代码中的例子。</p>
+<ol>
+<li><code>RTS_UI32 CDECL SysTimeGetMs(void)</code>，</li>
+<li><code>RTS_RESULT CDECL SysTimeGetUs(RTS_SYSTIME* pTime)</code></li>
+</ol>
+<ul>
+<li><p>毫秒：如果是HAL库，可以使用HAL_GetTick()实现毫秒；如果是ST&#x2F;GD标准库，需要自己实现函数，获取滴答定时器计数值。</p>
+</li>
+<li><p>微秒：都需要自行实现函数，获取tick时钟的计数值，计算出微秒。</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 举例---系统时钟使用的TIMER2，定时器period=1000,</span></span><br><span class="line"><span class="type">uint32_t</span> <span class="title function_">getSysTickUs</span><span class="params">(<span class="type">uint32_t</span> us)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> TIMER_CNT(TIMER2);</span><br><span class="line">	<span class="comment">// return __HAL_TIM_GET_COUNTER(&amp;TIM2_Handler)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="适配串行接口-SysCom"><a href="#适配串行接口-SysCom" class="headerlink" title="适配串行接口 (SysCom)"></a>适配串行接口 (SysCom)</h2><p>首先确保程序中的串口驱动正常，串口接收的数据使用环形队列存储起来。随后实现<code>SysComOS.c</code>中的函数，为codesys提供串口读写接口。</p>
+<ol>
+<li><code>RTS_UI32 CDECL SysComRead(RTS_HANDLE hCom, unsigned char *pbyBuffer, RTS_UI32 uiSize, RTS_UI32 ulTimeout, RTS_RESULT *pResult)</code>.</li>
+<li><code>RTS_UI32 CDECL SysComWrite(RTS_HANDLE hCom, unsigned char *pbyBuffer, RTS_UI32 uiSize, RTS_UI32 ulTimeout, RTS_RESULT *pResult)</code>.</li>
+<li>到此即可烧录程序到板子了，先使用串口调试工具，查看板子Runtime是否会定期发送内容到调试工具。若成功即可下一步。</li>
+</ol>
+<h2 id="配置CodeSys网关"><a href="#配置CodeSys网关" class="headerlink" title="配置CodeSys网关"></a>配置CodeSys网关</h2><ol>
+<li>安装xml，IDE: 工具-&gt;设备存储库-&gt;安装-&gt;<code>XXXXX-Cortex-embedded.devdesc</code>。</li>
+<li>新建工程，选择标准工程，选择Device（上面安装的）。</li>
+<li>点击工程的Device，<code>网关-&gt;配置本地网关-&gt;输入COM端口-&gt;选择波特率-&gt;ok</code>。</li>
+<li>扫描网络，若串口ok的话，会扫描到从站设备。</li>
+</ol>
+<h2 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h2><p>适配SysCom时发现一个BUG，经过定位找到是armcc和gcc之间<code>宽字符类型</code>差别引起的。<br>Runtime中的<code>RTS_WCHAR</code>是2个字节的。<br>GCC工程中的<code>RTS_WCHAR</code>是4个字节的。<br>若不修改，串口发出来的数据每个字节都会多两个&#x2F;0。<br>修改方式如下，在合适位置添加以下宏：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#	<span class="keyword">ifndef</span> RTS_WCHAR_DEFINED</span></span><br><span class="line"><span class="meta">#		<span class="keyword">define</span> RTS_WCHAR_DEFINED</span></span><br><span class="line">		<span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">short</span>		RTS_WCHAR;	<span class="comment">/* wide character value. We expect 2 bytes unicode here! */</span></span><br><span class="line"><span class="meta">#	<span class="keyword">endif</span>	<span class="comment">/*RTS_WCHAR_DEFINED*/</span></span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>CodeSys</category>
+      </categories>
+      <tags>
+        <tag>CodeSys</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【CodeSys】移植Runtime</title>
     <url>/blog/CodesysRuntime/</url>
     <content><![CDATA[<p>本节内容为移植CodeSys Runtime源码到Cotex-m7平台的记录，开发环境为STM32CubeIDE（Version：1.10.0）。</p>
@@ -608,89 +647,20 @@ int main() &#123;
       </tags>
   </entry>
   <entry>
-    <title>【CodeSys】适配串口驱动</title>
-    <url>/blog/CodesysAdaptSerial/</url>
-    <content><![CDATA[<h2 id="适配时间组件-SysTime"><a href="#适配时间组件-SysTime" class="headerlink" title="适配时间组件 (SysTime)"></a>适配时间组件 (SysTime)</h2><p>适配<code>SysTimeOS.c</code>的下列函数，为codesys提供系统ms、us的tick。可以参考代码中的例子。</p>
-<ol>
-<li><code>RTS_UI32 CDECL SysTimeGetMs(void)</code>，</li>
-<li><code>RTS_RESULT CDECL SysTimeGetUs(RTS_SYSTIME* pTime)</code></li>
-</ol>
-<ul>
-<li><p>毫秒：如果是HAL库，可以使用HAL_GetTick()实现毫秒；如果是ST&#x2F;GD标准库，需要自己实现函数，获取滴答定时器计数值。</p>
-</li>
-<li><p>微秒：都需要自行实现函数，获取tick时钟的计数值，计算出微秒。</p>
-</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 举例---系统时钟使用的TIMER2，定时器period=1000,</span></span><br><span class="line"><span class="type">uint32_t</span> <span class="title function_">getSysTickUs</span><span class="params">(<span class="type">uint32_t</span> us)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> TIMER_CNT(TIMER2);</span><br><span class="line">	<span class="comment">// return __HAL_TIM_GET_COUNTER(&amp;TIM2_Handler)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="适配串行接口-SysCom"><a href="#适配串行接口-SysCom" class="headerlink" title="适配串行接口 (SysCom)"></a>适配串行接口 (SysCom)</h2><p>首先确保程序中的串口驱动正常，串口接收的数据使用环形队列存储起来。随后实现<code>SysComOS.c</code>中的函数，为codesys提供串口读写接口。</p>
-<ol>
-<li><code>RTS_UI32 CDECL SysComRead(RTS_HANDLE hCom, unsigned char *pbyBuffer, RTS_UI32 uiSize, RTS_UI32 ulTimeout, RTS_RESULT *pResult)</code>.</li>
-<li><code>RTS_UI32 CDECL SysComWrite(RTS_HANDLE hCom, unsigned char *pbyBuffer, RTS_UI32 uiSize, RTS_UI32 ulTimeout, RTS_RESULT *pResult)</code>.</li>
-<li>到此即可烧录程序到板子了，先使用串口调试工具，查看板子Runtime是否会定期发送内容到调试工具。若成功即可下一步。</li>
-</ol>
-<h2 id="配置CodeSys网关"><a href="#配置CodeSys网关" class="headerlink" title="配置CodeSys网关"></a>配置CodeSys网关</h2><ol>
-<li>安装xml，IDE: 工具-&gt;设备存储库-&gt;安装-&gt;<code>XXXXX-Cortex-embedded.devdesc</code>。</li>
-<li>新建工程，选择标准工程，选择Device（上面安装的）。</li>
-<li>点击工程的Device，<code>网关-&gt;配置本地网关-&gt;输入COM端口-&gt;选择波特率-&gt;ok</code>。</li>
-<li>扫描网络，若串口ok的话，会扫描到从站设备。</li>
-</ol>
-<h2 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h2><p>适配SysCom时发现一个BUG，经过定位找到是armcc和gcc之间<code>宽字符类型</code>差别引起的。<br>Runtime中的<code>RTS_WCHAR</code>是2个字节的。<br>GCC工程中的<code>RTS_WCHAR</code>是4个字节的。<br>若不修改，串口发出来的数据每个字节都会多两个&#x2F;0。<br>修改方式如下，在合适位置添加以下宏：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#	<span class="keyword">ifndef</span> RTS_WCHAR_DEFINED</span></span><br><span class="line"><span class="meta">#		<span class="keyword">define</span> RTS_WCHAR_DEFINED</span></span><br><span class="line">		<span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">short</span>		RTS_WCHAR;	<span class="comment">/* wide character value. We expect 2 bytes unicode here! */</span></span><br><span class="line"><span class="meta">#	<span class="keyword">endif</span>	<span class="comment">/*RTS_WCHAR_DEFINED*/</span></span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>CodeSys</category>
-      </categories>
-      <tags>
-        <tag>CodeSys</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【Life】51劳动节の上海</title>
     <url>/blog/myhLife/</url>
-    <content><![CDATA[<p>51小长假，目的-&gt;上海，和好友们冲啊~</p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B71.jpg"></p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B713.jpg"></p>
-<p>上海的小杨生煎</p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B73.jpg"></p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B75.jpg"></p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B77.jpg"></p>
-<p>三件套</p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B78.jpg"></p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B79.jpg"></p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B710.jpg"></p>
-<p>听朋友说上海特产是小日子，很多日料，作为一个日语生，必须要尝尝。不过小日子的都预约满了，找了个融合日料，味道也不错~</p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B711.jpg"></p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B712.jpg"></p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B74.jpg"></p>
-<p><img src="/picture/life/51%E4%B8%8A%E6%B5%B7/%E5%9B%BD%E5%BA%86%E4%B8%8A%E6%B5%B76.jpg"></p>
-]]></content>
-      <categories>
-        <category>Life</category>
-      </categories>
-      <tags>
-        <tag>Life</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Life】仙英座流星雨</title>
-    <url>/blog/myhLife/</url>
-    <content><![CDATA[<p>美女看了微博后跟我说：“今晚有流星雨！！！！冲啊！”，随后扔给我好多张观看流星雨最佳的位置（都好远啊）。</p>
-<p>晚上10点，穿上各种保暖衣服，带好零食。前往比较近的一个山头看流星雨（王位山），这个上山路是真的难开，弯弯绕绕。还有很多人也驱车来看流星雨了，好一段山路堵车！</p>
-<p>个人认为王位山山顶位置不是最佳观测的地方，上面人很多，很多灯光设备。所以我选了一个半山腰的位置，有一个亭子，黑漆漆的~ nice</p>
-<p>晚上11点半一直看到了凌晨一点，看到了近十颗流星雨，看流星雨的过程和钓鱼一样，越心急越看不到。晚上我观测到的流星雨中，有一颗特别大，特别亮的流星雨，拖着长长的尾巴，整座王位山的人都在为看到这颗流星而欢呼！（真的特别耀眼）</p>
-<p><img src="/picture/life/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A8/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A81.jpg"></p>
-<p><img src="/picture/life/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A8/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A82.jpg"></p>
-<p>山腰的亭子</p>
-<p><img src="/picture/life/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A8/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A83.jpg"></p>
-<p><img src="/picture/life/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A8/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A84.jpg"></p>
-<p>来看图找找仙后座呀哈哈哈哈~</p>
-<p><img src="/picture/life/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A8/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A85.jpg"></p>
-<p><img src="/picture/life/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A8/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A86.jpg"></p>
-<p><img src="/picture/life/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A8/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A87.jpg"></p>
-<p><img src="/picture/life/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A8/%E4%BB%99%E8%8B%B1%E5%BA%A7%E6%B5%81%E6%98%9F%E9%9B%A88.jpg"></p>
-]]></content>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="25ccec19717472ebbf8534d8b3e05c014400451101b437b372a9433e7a3c452b">eef66fd449a307f3d6a4c72bf278b805dd00b3a1ff9a6b96764414421ea57e9e25aa989f03b42f8df94e5f8448c21c3d6927db08abf322c69b638fa4b45a73b29ae35a29c2f854e39ec13c5ad7a01909adf69229eebcdb5a47c9064aecc50aef3473effd337bd9d93aed92a486433f234303fa20d2b1abbb747633f11ad2eb334308eb26724bc8a4dafe917ffed03024cbcd70e3a4217b759ce6ab6d4ec724f582189a26700577ac6f1687512b30750ff70aae8e460a51330bf261470de3e973d84d091a7ded665548839783569874df148064ee8442ce7d466b9d5c96d43fb9a88975f6d5b9db8346895948ed0cdad9298a57e37196ad9de8bf7784154dd6524a4df385073e325bc1c51ed10d5aafbbbebda52093ffc613863ca8782f1819218c449f9073da2fafc2764ab22fb658ca83342e2c9f0614357c17882444d3028b720c57649c1e0c48bde97cf3edb948dc36cc90517af90dee3e79e10fa493c1cdc6340f74a46f4f53697721f6fe7f1572cf522295e98d4fcd5ae72335a2a9246fe3501de8ba364009dd6c089d7ccfe1cae8bbfc2d182c413f81645d9ad058b2eac2c904a2211fd02ae9decfdfd9ccf4a397b6645c195b77708d1619c3c013a207c26dcbf8895f892b71da594d4719731e9dd271a07baa68ef083b0108c7550ac940c5918685eca37919df6ee5f125c55e37b9d9cb3b284372b7252d9c8ae423a6a6c22d1fbc87fbc6cd3e55179455fee7f2d8eec1ac2b9c5f7c1c946c84524000f4bb16384c17b6787e72eeeb9d291cb3566a168aa43ab310ad7f8cc3aa2a34e58ff9e4f1eb80de06903cb306af74db5fae105b2ec128702a39d7feedd944fbc95308b0f09ec1ab747d2d1d79608e67078615bf00f2233d35e36aabaaf665e10d722cd8b1775e0181df261c781dd3ed59f8a9daf446647b33540f94ef0c8f9486b9edb041d0feca4308320db969027e805ad0a55dcc4d23e08e5fba503b4c40509b043ac4f5739739aba8ac21508bf2fd98f61dd287ed4b778f93c8b375a7eac93a8bb98097fad2c642063dede20cbf698bbc0ea9760e8cc19c5259d77f9e85f9a6241de409a103e322d676bb8f7b0a6c0093959970c60041a3327ffd23707f86fe675de3f4232361e294ce215ee136819fac2f0371189d926841834854418201e3762f797353e498973814aa3ed9d4d6eefafe3d8f5a6b7fb250f54989b1857c921696ca414a43d7674814e97231f55284a4d2a269643cc2e1afd17c73b4a1cc524d4211fe2034c55da029a5eeb1885ef394896110043bf5c2aa802fa59a801e0cf8c69491a7be4d8cdfcb54f8ac1fe67ab450a2977c5ba54658e4a4965a4a01dc8bceb0f1670c9158c44758dc1b593c410f6e8e6ac51819eec7a4b2b067cc3c0f53b657f03701ef767b2b828a1fcb7d4d0bbce1cdd259311d83e58494cbe7d221b1954ac94090cf1aae602a900aabdeda00501fd32c3a757764718b27e97ce966a94f129ac2698fb17ce671a23e8efd3cdd3364f8be4923863500192dbb5620bd26810e1d16af3887427c66e7f881d3292c386820e8ade69cdb5ba6dd170354b5a3bf8640b62db0c11c9e12daeb18ebc1fb5050fceb7c23f7317b12d8dd766ffec130c044c442b635ca58490521e6b5a03e1aca9fd4e26dd882dd977489a73b4295c5e7a3ec77d697e10f10556080f02f9b5840878edbb8c7ff4c6e60a80617dbbe9d34884c423e51286d6e2b7fa14b9f29aa927ff89f5a8942658ffddf6e1850edbae647f654bb27f5cf6a6c03a2066b19cb181782872712c301771a6f9eb66cdb9393745ccceb6cd60d796bdd8d458245f396dc1b4dbc42c1f5708e150591fd5ecbf593947351008ef5fe64094ea81199cc77d26caa4cf5f7c80dd379111c35692aba3bea5edb602de93edb78406ba3a9ac67638a452b3759d2cf57fb3c25fed44a959e04730fb78b7fd8fc2ca0759b6811fc487c294c9d35d3b6533df9b8106d396b7c7682edbcc58146b669a957dfc1c5064cbc0788269d57d22fc7dac6b4e7ac37bb61dc9882824b9d3eda01488a9930d437b7d75d68754c31c5a83442</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
         <category>Life</category>
       </categories>
@@ -701,21 +671,40 @@ int main() &#123;
   <entry>
     <title>【Life】51劳动节の千岛湖</title>
     <url>/blog/myhLife/</url>
-    <content><![CDATA[<p>51小长假，目的-&gt;千岛湖，和好友们冲啊~</p>
-<p>可惜天气不太好，有点下雨，不过依旧挡不住我们坐船登岛参观！</p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%964.jpg"></p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%969.jpg"></p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%9610.jpg"></p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%9611.jpg"></p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%9612.jpg"></p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%9613.jpg"></p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%968.jpg"></p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%963.jpg"></p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%965.jpg"></p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%966.jpg"></p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%967.jpg"></p>
-<p><img src="/picture/life/51%E5%8D%83%E5%B2%9B%E6%B9%96/%E5%9B%BD%E5%BA%86%E5%8D%83%E5%B2%9B%E6%B9%962.jpg"></p>
-]]></content>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="178de5a7b5e9072e7c19fd5e1e41bd1c37d177fa7b7f971b685f5bd054dd30bc">eef66fd449a307f3d6a4c72bf278b805dd00b3a1ff9a6b96764414421ea57e9e25aa989f03b42f8df94e5f8448c21c3dfefa1e93aa8b165713c349cddfa4da8ef9ecfaf7b28e129dee0398a81ddc1d790f5399a797aef2d2a79d55208be5aff1165b7abd943b9c73a0ee190948d232646da601eed442b91452643d1c53bc0c89395bdce3ae6334b4bc0d6d4983a37be23c103cd98dffa631cf56d058083d30e4152cbc64cb17880464b9d99fcb62837e17294ea31b1149344b13fa8b6c63092f63f0d90ed86d2b4c6713e15cfafd0f3cb6f2434b5c5f0e584d0d0f4a0dad61ad9db8cca3f549a09b81bc43b2c3f6bb8cc9bcb2108970514f172c49ae42a872aa78f712adf0028365b5671a40bb80b7c7ffe723ca8eed79e04915b90d529aeba80b3411b7a3817f434cf67f6cf293cf97300323f9ce43334acab9c577952eb954a3cb87c2f140fa03660dcc5668562a7a83ba0ae77a644e4b53c2c43a1f7d77049f294a3bb26bbf365294fb9938100fd7defcb08191c6da9ad1d105f3a7cb58eb3d7da917f6a666e19745fbb9d2657f95c85f10b0b1d30dc87f9ed5bbacec2e1651a518bf23e117a4cc99fa6d3b4170e5207a212e77aefbeb178504a8f3326da707a99d3cfcbdb902a929310d89097fb738ba5bf1286b980d25d434af3abdf0451cc225b1371fc17244120fd7cb66a42306ac1b0378e2589fc2b9b64fa27ab21730c7d946fd597c739f3ba1f92c5a9d6bfd41a758adb4e3a14ee6ecb2530b3212784f146ea69b01c7fcb7e6d9a5158ffb6bda3c13cdc06ead8a98e7da6411612830d40700d98a15a7d0c10b6bd950f2d016ab1e4d946dee8dce7502cdfe7be0792fe9aa617b50f5c0662a343500eed655d7018fed4c0eadd307876e75415d05d8729e7cc6333d4efd70cfaca640a381962c7f62dba700fd9fd70b3619631094efb85cee53666b022da62485b55e0b59348c78d4b0f17005442eb93e04f8351f4388f9d686ee4c9cc07568f929cc0a697f4b4a830ee9f2649e22d19b62a7e06f6f6dba24ad6612a5ee8229c57bfb4546cb592cc95536c64fbbaa2bb7a7bd2ba255a9650568ccde23c36af807646e6a7cf3b8bca63822ce01739846d04bd6a66ac9cee7b0019a1b9aa297f9de381164303e3ff08d37e5611214a2785d44d42f4e6d8f4fabd328bc3b72329c9930c63926ce895298e1e174c748d7a35d339804f26ae07eb4dc7ada7510a8d9da36795dd47ed2ff95970a9e4ac193becb756684e67e3dbfeac272a0d7341527027d439ea8f86b4a06f0a9c13d6e2e95d6d70ec0ea6906aab946c2923d20e307d13038034a1abd2b99fd6b73a44530a0422dbee8f0b0a03b01640559f83381760e1a32182a295507990f3aedea30015163dec69bc6a07b5a74feae2d688f6a238e50741f99118a8007a68b170c7f5f493139b9e62ca8eb0f1b3f03a7006181d5812c5cd00e11936ecbcbd62992bbad1e2f18abda585e7592c539520a849c1a64c19cdb5d54303092907f946ea45e9ac945a405c4f4a7e50939cf718c8449e58a775ec1a7ea1281948c41d1296b05b20df088b452a56d331d649143b227aa0de216bc2050f856ba60a1435ddf2ac6624c40a44570b57849e1a31d60a7caf7d845bead6220f2703cfbd0d969751d5d71e9ed3425861ca860f24e5aadbbdd507028dc22aa7fa2553e69d60c41f7f96008fbfe2261eec5b1e7249f72f41d6d0084ba6dfbcff29cc158b59b6d405303ce4c13f47d61553a26daf04b4e3c9715317b8bafa73baac1c90fc532ddf877c7f023307184a71ff45e8e9a597089a51d5b3e1f6e5725aa379bb344c79114e28103cf833ae341bfa073eca6f53ceda1c062d7329108270d21785953f4acaa054b2118ac25a614be1f15153dbd80656a32a76a67e9d3d91c75baebb1f663d046d9926ac1abfd8fbb6930c5d3a921dda44f11344bbd6b5483c9449f2849cc19b2964f909547c65130c8a783280dbc866e698929cf6dfd04d98d80f1c6136e943bb7a34f2cab89a7fde4ac09aed01a4a06d71520a81eac588c157ab8fb20abc424ef9119f065c872055b48e45a282c8d70750b1b36d6ca59c7db21740f6f3a9e7b3c78cb4c242dff39b83ec1bfb2beff31627d9feab10ffb2a51b7712fd98c781d99a963407d6b4f5afa31a883a79881c0d9e9f857780ffcc8601fb1608b934f7ed798a4041621b1253317</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>Life</category>
+      </categories>
+      <tags>
+        <tag>Life</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Life】仙英座流星雨</title>
+    <url>/blog/myhLife/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="b0d773dfdb1ebb31ab8ee08c93ff3298470ff8f272c78b4c7c2b50a048c76978">eef66fd449a307f3d6a4c72bf278b805ed43de884d2babf48b696b171279d940ce4407d5bb3a6dc069c2ad6799b8de8d35fe295167247ff403939b9458a346770a5b42612e1b4131e912c3c12187030a5c9c265dcf6956768c5228564f9eff22e988a94b6b632aa530ec4218bceff53971e440f1b1143abb742c4862bd172823d6a22855e36dc26a36b7b6a0c1a762cfe2be311d3fb57471d9be3fbc6340fdd63223235b0b308fbdb9229d009914424879c6c6f97255142bcc0d5e8a5130a887f689e54f06ceb8cc9d8a1279b06f5cea58c1fe6e9fb56fc32c4f1ad84037b69f5e3e7dc314d1f8e6d663cfeb1906f0c7f7ffe63e09f83b8dcae5fc7b7bc5644fb55a0548d39649512a7ebfe3b888cfeccad1370458f99775dfe9ab9031e2f8faa49f2e6c54af9f9c18c38ac0b94339c33e1e5f15ba0deeeb1c6a6fa0f025b211b857351e3e5377e7dc833c48cce5907f03d46e905111db924f7b03af2a9456cba87c2c470bfe7b2119560379e2f9a8c73f6a3335e69d0baa95abad30eab9af39e6a901493286590e37f770400c8c9fdc1c1b369cfcd5d6399e0f05f8fea1fcd1153c65ef20bf7c6064ee5ba3efb77f5a979b9e73bec588da19134a971e16cdc0efecd518958da5abce9ef37b3a2c3944c5ca2870712ab3fd84d90a5872617ad2d232fc9756c08896e003200c4073c949f4bf956d3b3846446217f0a3b6dd8d21503c43d7a6afb11c4fdba8feaefa0751b564ae82d3ffe70c04dd56458a3eac7f39bc05942d48dec77fd3648e1f2c0a705910efc0512368ff841194bcf72def53f67f6ae9c266214c5aa36e43a291aeaba7ebb1416fdfdd1473634f38f42ef0b5ed0ac20910ebb150f8b87dd22e7b56b5dadba2579cc4a1fdfcaf345fa034298bfb84891aa9b106c9b1785ca6c4588bab9541e317c27d57a746149f35f040cecc58a40fff0da2e885134bbb7f09d060a808fbf965e7e935533615efad565ffa39a2d688ad1a34409484ff89447752e6799ac25fcc9c09d86fae3f8149344619710878fcd9ee3038506ea711f7eeffeb756929fdf68c47f9f2ab70c6ee213ec2c92022342cf6fd8e34211b7732c88342e5eb4328ac6f6b456fcddd359c851c4c1e936656a1c3a4f6de9ed4204499ee523aa814c40d3ce936c95a82e202449fac6d350b1c1d83710a541805a087aef21dd58c0feadf0654a32af6cffb8adba37771ce0a6942f2fb5a9167927cddecc3153eba5ca82f7fc21119fcca9c1cddb0a69e21e0de92d48b93e934a1e7e24470a092bc2c9e41791b76e4c580ffa4ac52c9a5b3560493c12ad1a985f084f9062d4322b548e87f0da9237d91c912cea15b21230d069069de0fa4b322145abac9d66b7cadca0e8bad636f418ae8f142f89960f22114322b47bcfa9008c4857ea224c8ca6ebda56b5dcdef37936c314623e93709848455d789a8e9583a5482d1328c2c667dfc52efc49c94696be8d35ecaca8d4197d07baf19ac88cae026779e38c3645eb8f137b342933ecba705487ec530bdb324d9310c07068ad52b557295b1751b9cab98eabeca84934dddfef74e96a800a603089252e96d3db82cf83c01d029276c44d64e09c3a25472a97b706a4239e96b3efbd6fcd6b50d6e9fae177e0d678cae05612e3275cc863c75bc8213fdffda9a6c31f8fb4702eec5055fbc050f66a450d278a954669bc45e7bc63a16228359a4e4c136887ccfe8c5c4c3ee50bcd7b8dfda209316140b56fb185c4babcbb391d23d13fac5265b455e9d74decd8919f2e859c5f1f5c79543ddecce8dbd598db5a37e51bdfb96e4b08967ce77b015455b4683792314109c2e72158daf035567aa519f92a682f3f45f382c6edf3ffadf8be8d05524b34b68209079ec6ac6402d7eb7973d559890f4860bc11412857b16eef510ad670303dd94b2dbd69e5589e25bb9e19965cf0a99bf791a1a33ddef3c4799c1809721c24b54211cfa0088051acfadb7ec0a5f1b78bd152831a49c3222c440d34b6c1c52ddbec01408bd6382852249aaacccb30f31498031b6139249da013b469bcabf49e52e43a16a8f1b03e619c81820f6ebd3d2139c9e2a6a948f0f4ba9cdadee2e4aa49dbe0d2e1a3693564c6ee44f8487573ca3c123a55831a947f34f223425bc0420f0281e50d511e2a9feb57d66a91827972a6c0cd9fce7bb67cee13381c63bb49cd51fc2ed6c3a26c329e635d0ab23ea80ffd3426bc9861cb5e8cb6f7e3ecc5f67f822f7dba548b30cb128f8181558fe6fe18d176424ff51ee2e44904e839f3982e6a258d6619214068c76d2e9d00e3d5a3ea90aa6d81108b47abb8a75ae7e07164ea66082247eb33526b98bf4bff36e33161e479941561d77964d330f0f11631a2d91d1dec5213a437c1f69de19b9b10f70480ee13c68a78c5be33761fa5fb5295768a7634a22d60847b2485132671b414d257d19332363a95827ef434d44d1686f3f9294fef1fbda51a2458b2be286f11db10f4db99bac2ce2ddbbb9b2bcfc4d67714a6d76e23ba4f606e537f8d02943f8f91e9a94655dd807e7a826de48420aefeb7627076674c9164d576f9a36f799f4feb92d563339f6038ec3f22eb6c1ece5f7965c26da5b8b75179a6a8681fca030df9fa8de4817c9ba25b5c9215398600c6a7d4dc6641bf05587d58aef660e554686d50e0a617ec5d3b79e6170e6f30573720c783e62fa9341174514ba65759c5f2b708d0d51e1745497a2dc417e26df4009331dcdb91de9e0feb103111ef43fbf8683e6567e3052e42017441bd5ab10ea9fd9e020f978197c861af7c592506f3df8c1e9ddc8b115ccacd8db06818f1945f8dbb758fa8c6e9a1253f2c7e7ddd67a6a4eab89ae8829d71e044cf7691330aca882a33cc70d4664d2c8b0f5e96ec0233718e663436bad29f1a7bf460638e889ee756be66ebcee041b770c2aa0466434072c9bff0d647df2819c403f7465fb0a40306bb2316ecd027dd449e7a47c1193b8e587e6b0125fc1009ed8751b6f35fe1a66dd8166d9a818ec586774ace3b75032fe624a73dcabffca7540cd2c5c36dab786c23d24184743737d14e1576f8c7da9a4f2f575d1b5e4990ba77b1a4667ec2ad984c21eeef4a99f</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
         <category>Life</category>
       </categories>
@@ -726,29 +715,18 @@ int main() &#123;
   <entry>
     <title>【Life】元旦の黄山</title>
     <url>/blog/myhLife/</url>
-    <content><![CDATA[<p>终于元旦假期了！和朋友晚上一拍脑袋，明天去黄山！冲！</p>
-<p>没有攻略，没有准备，买了第二天早上最早高铁去黄山~</p>
-<p>游玩过程十分曲折，但是山中美景真让人流连忘返！！</p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B11.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B12.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B13.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B14.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B15.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B16.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B18.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B19.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B110.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B111.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B112.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B113.jpg"></p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B114.jpg"></p>
-<p>黄山上面很多小松鼠，跑的老快了，和西湖肥头大耳的天天有人喂的松鼠完全不一样哈哈哈哈~</p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B115.jpg"></p>
-<p>黄山周边相比华山等景点感觉开发的还是差点意思，缆车早早就关了，如果没赶上，就只能自己爬下去！我们就错过了哈哈哈，看了眼山上酒店，一晚1k+，厚脸皮去找了缆车工作人员，软磨硬泡坐上了他们往山下运东西的最后一趟<code>货缆车</code>，不得不说，装货的缆车真大！！！</p>
-<p><img src="/picture/life/%E5%85%83%E6%97%A6%E9%BB%84%E5%B1%B1/%E5%91%A8%E6%9C%AB%E9%BB%84%E5%B1%B116.jpg"></p>
-<p>下到山后，发现，这里还在山中，离附近的酒店老远了！！！！！，而且天色已黑。无奈，厚着脸皮再去问了问，正好有个员工准备回家，给师傅塞了点辛苦费，送我们直接去了高铁站，回家了哈哈哈哈哈。</p>
-<p>各位去玩的话，一定要做好攻略，别学我哈哈哈哈哈哈哈哈哈哈哈哈。</p>
-]]></content>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="125da54d1b4ed5b953d729b28705f2e5cba948e79b92c0a4845ee7dece6b6606">eef66fd449a307f3d6a4c72bf278b805469b3055f12b5706a052a79803207a37fdfc5c879d2a04e992b903b4529470f9ae786b8ae3980f3da09b6d9f059713eac0bf8b4614aefd7946fd8141cf3777612f655b3e90afcf4ca0c3e65d677b37b9f7d2a112f7139db553385685eb13a84432fdc7cd5735417f3be76d22c2f2183465b39711fc63a6bfb60dab6596eeecd443974996abba50cf0613ec9b5bda9a7cc59957659d92ecb3fc8f9fc23131755f523196f2e544658ec74d100873635de1f2dc395ea14ac5580a5ab6bc5aebd32c67b6291b3cde81aba43ef6c4bfb7d1922de14a702d1d0fd6b0e5d1e117217d76405b25a21fc2320fa56cf34a4c4dfef7b3207566815c5b995ca04e3d2fa27e925453c51bc725250a678607c536a1da0c8adbb06a5d8bbd5af0589236d37079fc50a6cc7988d62ce9f467b368a3dd66b6838f6e447353ced8be962fee01f757394bf0c81cfccfe5021fd56a82d87fb4490c589ee7bf7ff06499727e66c367a341f8533387ed81b8bb4180ea4ae3a8154082203a2fa6a600c4631a88d6658f93418dcf79fea66866f2397b86d6e86ca5bce65bece5bc9870c2cef847c77034649acbc5dd755299626881188e65d9dc10c08f41b73b689ac5128ea3f58c1f3e274d2b742f4f113d92a84db6a05b9c1573e1e6d4552cbea3e93cc28ba5ac7230afd158ccc4577717bf2227948c509cbb784b111963290e6d4b00c6b8bf6ce8f8e64420bf52e36a773fd800372c631e8a2594ae5cde1f6985d124fe807a440441238a70a4eb62ac689b00894dda8e8b8ed942337988e5436274a4238bcfce0d986a6ad52c75e7d3f8fc2e2b24fa2e66bcbb2db31b72206eb85cc6e1a56b1d642f675ad66df4e3128c3566abfe83ca4977d7fe9d01936447548b44e9e1091e2a863c961d5772497f75a710f1846fb162a0bee3d97619e07b9acfc68c145cc0bd0334d8e51514124e3f3eaa3e75e00b4ce20f3d98429a19cf54bd5de28a602cce4969e8849b0371d36c7f10cfbf8269e475a112c151d820d24709f307d3b864a669288bb6e1f75cc1f27144b8d64761f28fa6679188fa9fff1756bfa53f961931e5fbe310df4e5a05134bd382b37c4c6bae3f67975e625455cc03f062370e34ccc633d46e2790e13fe9f28650de695c5cd33f6865361cd4ebc34c307ce0813bae46b165d5e71cc37236549c89fb9ccfbfe58f7ed83f4edf6497a120692a096abc9fa7f0bba2acaeacd9c544f90a1596e85bd5152b836b3dd1f8f365cef29233bd96b9ce0b45e1aa4630b662fe978e56df55e4618af9867987a2b18cff8b521ce1dda12cfffcf5894dee577c63da19627c45f7e5239a3a0c591d436117521f7bd2df50c8b0f3966c7989c94f70a2f8b047cbde855aadd464a58b754b0e99c31c53a60d6683e4c2925433058237cc9adf89a3754bd4b437e3110e4d408cc1bdf793f97b72389270c9462b76e48ce5f988e621be5bceecfa80cc3102625a1fa3a00b166ab111a9a0322b190626dd5d91a796ff36a87a81789f4e1f83506a2ee5ab01dde8ae90e12b883624cee99a0114a4a248431924841fc1a6242b35a159262d666310b4e702e18608bf7d94fe835f8bb09404db350f04d374cbcb3ef403c63920d2e4dec0dd7bd7b9bad03fb4407d2351a5315098a8b249d0c53b9e9d7ac91558dae57590570c77eecd7036fb0ead0b45b91dfe0ac62c53b6d569917dcdcd0921d83ac0aff7dc840de7bd69d358b58c1f5925c1d18d98178cfa0ae8f84dc9b7334cab860e962cc356f006189472a528d825adc4c3f0fbedde39cff074054f0af7b54f10dbe83c1d293cacaa36134333a8ae78656a1cb7a5a877b8b403c231098c89e8646f157faf741c8bc24978b8a6a39010d33f6d9bbb2f9fc81258f9d5fa49f4af49a0a5380a7f253d64f03803397f3db85975c3efb7f4e01e135f4e71a91ac3b90ef4668ad53a152673f5356c46ce8e32ea439d3c382547bcad0a758febeebdcfdfa6f69e012d3eeeef81e8a31a7065054efe4620a768893f8cfebcd662bd1898acc035b3625d2f691ba0f9d1e4c77428db930991eb48130b0c9fa8d276387cd2cef1bc2f8a66d173809f58b60494ef2f3377cbcb86b67112344241c413b4982c934479f7fa60767348dffdd35dd91414117195df1013dba3ff9b312a7bb842105cc89f31637708e68e5dcbdce10332ca0b34c4e2685a8f89d682673fc20cd57d3e50f0583ab47dc61a18c375e1781e4f5b154140e67926d477a8e4667240c29b9d4d0c101d7384133ab474193ebbc845b0819b6b7764049184af23c9098450b93b653c51033d6cc257372c688ed2e5400ae96b9e8bd77f9b83c0a331e607392aa268785abcc4a1b2eff191adead8f7e5f4af051dfd43976688aa5a86bf4667252f54b306e2bb0b1dacefbc44c821533698002ba8f442f8b82b1560616d9ece82d848d2a273789465ca7be669e63234d35c8ca21e1b37cb50ac459890571d3c115b5ad5b67aaacf7ece777393c889e220aefe6c2599f9b9da0ae36d954572f403ad7db1b11b69724fa3d1aac544f999d96ebacb851257c38f23af83f23c43c9009ae9e8c03f63d4a22ade3e5e7ba2eb35bf9bc3cdc8626aeb9a741101bf92b9eb69facad042f90efef360c859f31865abfe3de1fb2e892cb148ad3095a9b457e4cfc8d99fcc5e3eb6ec643f73b44db3e00ee926c1ad63834659792281998111187228b0028df0e66dbbb757dc1a661994a32ddbd550a1fdab5999ce5c3a27c6401494b150b9e1d870b5d888040b05e969cb921e3c83f65fb2368d1f9905e6cccdaafd8ca786852a25476499fde15d84a10ea07eb80ccea1113b6b9aa59701167d15535c4f70de867a9c9cb0f2405de257e1e0e501f4feb6879482da69165cfa3f5d23a83c7ea5580ea0b4280824ae522aa4f2383fe16f30a3718e4c140033db08631d8550547a365f2ff4081b9a01c6da3729a6c2733a1d40dbf09c3ec311d4d2f37a30d9814dbb4d78b545dae98407089e6e34d8f615649f7b450c29b3458ccd7940681fa8ae05c8ff69f64872f43a0157e7abe4e442d0ee89132acba959dde6f6fdd8bddc0858c61c09078c61b2fc34c4b7e4ec44d297328ad34c94cdebb41f10d39f7d22a3b1d30ba0a786f7ec618766c2185bc57d41226fedd1f8855547885864404e3085af90a2c5fe4a54aed605df49574e9007bed968798d846018d8e1f5ee5583847b371d6b1b9ebea084d91ffe9ea0fa25d47803b035ce203dc5998132d8ee8263e8826229cc5a826799610f6b4bc08eaab10feafb518d377b955f66fbbeb8e0979d6a5a10e6999ce769ec9dbde46eea67f1a4a0c65282a43fa6e7fbfa6e2a053bf8451e89966ef595fb029417c6c1f808251ed6ae3df0b200aa647faa2d3c3a8de5c2dd6745e1621fd15e1edcb231d9594de3dbdab75050a31ed7604263fc99dd87c09eb6240dd6b3b70fb0154e172ebe79e193fca228e3d86da9beeb5bcc4dc736f02747627c104fffd5181fccfe4cb18205769ca13b0a7e80a434f494975a698f37ccd58d3ef8d562fafea7f6893d2ff606eb9fe52280c51366af67fc39d371360db6081bea9472093cbfd0d033646bd64b64bb9b023f3d35cdcc2b8130116eb54aa33d30fffe27e4126b9bc21ce9677e995f70398e16d8febc976e91f8ba6687ec3d0fa3927ad317e2d5fd2fe5b98472ef73edd357dd7be9a117aa5bc044c4554c1532631719da08cf0bdece209653985875481350c2f70db95601cea340a047ba7f7945b1fc9cc838016cdd7c83e4623fb1850879a850a144c17ebbea06abd46d4548755c932c4b19983b9f6624a00eb72aa9dcf1685aa966f255f013adc5ea60c2dd1a9e79000bcaea34c1c08e6b3a4ba625543d097907627b535e5b61d1f2ddec21f725ed9c71a2fd83ba6abf523cca85eb4631fa9334b2484299521f682b6ca503d8f4b706a1ba51252fdcebb70c7cc421b237a19fee8016d885173c5566f0e3f173a3c1ef2a01f51b3b3cd2ee1116d72f9ea2fc216bcf2d46</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
         <category>Life</category>
       </categories>
@@ -759,18 +737,18 @@ int main() &#123;
   <entry>
     <title>【Life】十五拆弹</title>
     <url>/blog/myhLife/</url>
-    <content><![CDATA[<p>最近发现十五貌似发情了，经常咬着鱼儿…….</p>
-<p>问了医生后，安排时间给他进行拆弹hhh</p>
-<p><img src="/picture/%E5%8D%81%E4%BA%94%E6%8B%86%E5%BC%B91.jpg"></p>
-<p>他可能也知道大事不妙了</p>
-<p><img src="/picture/%E5%8D%81%E4%BA%94%E6%8B%86%E5%BC%B92.jpg"></p>
-<p><img src="/picture/%E5%8D%81%E4%BA%94%E6%8B%86%E5%BC%B93.jpg"></p>
-<p><img src="/picture/%E5%8D%81%E4%BA%94%E6%8B%86%E5%BC%B94.jpg"></p>
-<p><img src="/picture/%E5%8D%81%E4%BA%94%E6%8B%86%E5%BC%B95.jpg"></p>
-<p><img src="/picture/%E5%8D%81%E4%BA%94%E6%8B%86%E5%BC%B96.jpg"></p>
-<p>2023-9-20补充：</p>
-<p>十五拆弹之后，半年多来感觉乖了很多，叫声从以前的，<code>老吴</code>变成了<code>喵~~~~呜</code>，</p>
-]]></content>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="04d08556cb44a330cebb398c3b4c1b9037bdf6ce8233c2b9ed598b2a04526dad">eef66fd449a307f3d6a4c72bf278b8056bfc5e921b6229dd2a5ff536acabb0d71a2196c751f18db12c93461a8bb74403d3f61dc55eddff420aa0258115db5e7462f3aef87ea448f5e100b5843f75faed3eb72ee0a0a34a36feb03558b7884ac1504dc7e99ae231e3447b13d7c48e916a2a34e43411139357ee8e1f11c7b01645f93892895a1f13d0f38e336f8e393e8e4621ee7d35d16acd2c87e767f309c5a2e06f2dc099a1a2ce2f362cdd4f62afeb7543542e9e01644c52c31f665bac049992278f1ae5137b2b985a0ae21aae256c23e194085245d26e2cc7da4ce9d2de6cbb31a0a5874a92ba152db99d48f3e8f0c734db1ca4da647b2b4132934eb81302f560ef1295f799ed6ee3f3a09ddfd4afbf18df785426ffad05ecee29f18d9c5e2c4e612c9aa9e81bc861b3c0dfe5b12835d904ecc9b1192d750871ecfea5f2ff946db01204c7566b72676842a8abab1fa52edd48755d20341834a9d716f8ca5a026bc31e85cf9eff4e37f590c326f0d9db328c440eb284c63d7853f1e20d720b79932cca48eebbedffc6f371fdf80c603dbd55b721dca13446d8d2beec3fddda0dd1a8d316ddd0912ef54861dd0026bfc9a1332db0730677ef08c110490d4a707b5b8debfcb14ffc0dcab90e456bd08bac5907852f87e213adc874b04c898c3582e303a439646559bfa4d77296cbf0f4a1412e9eb48b596fa900cd5426b4636ffb897812a9ea638ae8e2552a3123457f1bda7ba0ed0f241cb2fc180393c595d264c28e0dafd462e6a135e4f263de5c8cc72f3c9faa7daaf5f24e07ba42fc65d6c9d6ff4ab2bad30775ea51daaa494a6ec6b089f10d480067942a564a31bc1d2ef78c05bf3b34d5e77e1a0f33967fc15f1a92161487c470b335fbf65ddd1bd060d2d9a83554d17b7d84fe7c0100182455db8431ee27ba58c316cbc4c25c4016a72d634395c6301371d12ea52ed4865bb1fc809a5ade9653c5691b42806d3ab5188be71bb85389e10d3395557da010ae35664c35a806e9af8e8f42f32685868fde0546b24b8ab0c273c98daab630d0685af0dcd28c7ea0f32bd2799dbc0a0d3701549b7d4ba6270076bd21db40d950a43e</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
         <category>Life</category>
       </categories>
@@ -781,12 +759,18 @@ int main() &#123;
   <entry>
     <title>【Life】周末の莫干山</title>
     <url>/blog/myhLife/</url>
-    <content><![CDATA[<p>周末和朋友骑车去莫干山！庾村广场的鸽子依在，我依旧没去爬莫干山哈哈哈。</p>
-<p><img src="/picture/life/%E5%91%A8%E6%9C%AB%E8%8E%AB%E5%B9%B2%E5%B1%B1/%E8%8E%AB%E5%B9%B2%E5%B1%B11.jpg"></p>
-<p><img src="/picture/life/%E5%91%A8%E6%9C%AB%E8%8E%AB%E5%B9%B2%E5%B1%B1/%E8%8E%AB%E5%B9%B2%E5%B1%B12.jpg"></p>
-<p><img src="/picture/life/%E5%91%A8%E6%9C%AB%E8%8E%AB%E5%B9%B2%E5%B1%B1/%E8%8E%AB%E5%B9%B2%E5%B1%B13.jpg"></p>
-<p><img src="/picture/life/%E5%91%A8%E6%9C%AB%E8%8E%AB%E5%B9%B2%E5%B1%B1/%E8%8E%AB%E5%B9%B2%E5%B1%B14.jpg"></p>
-]]></content>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="f6ad41636ef0a04249f9c97914275f2e1aa375e645a3a83b534989d1982fe4e1">eef66fd449a307f3d6a4c72bf278b805ba1453df757cd7369619e6c5cf5f11afa1ae395d5f7b7fdb50d9e98f921ff2219e97f2607254b04d42ed44e0128e7644108b244e99ee3cbbbc3467e5d06be4a5c76e2c0ad0b2540efcafaa943854ec2e5a0d5910f946bfa745a759c69bf22c9fadce4c00c006da64527ac31b7ec26b261ff28470bcd34e6a1dedb90b87ae7d51c60568a725c75e2091188b971539311d70d26629200c37493f1c35a085490d6c089d59204df957911e3f6ee2f08f73d7bea733cfd1e5db7f0dd50f7a509fb7f6e052f5a3ea36a3a5db4a4295579ed6f1f650e0640092c7357223d0fb0c8560e7b07337302aa69cd43f1126ffa1f35cf742c149f7b0e96881b422d4823bd7ba3ad285694bda3882c255d8c81685bc90699ae3e86726df8159065a22050967c7b06e76470e041b99f9e29afaff375374a6ce31a9f93d66e02acd870768c56d7fc4e2c4d4833e878f5c5b01c4f5b18b9e51bf1f771c16a4f3b467c4b50a13ef29a0eeca154e03cd632c19987e2d6b503d523598f3ee827a0aff6b4d8f292a205a7528a5b04c716bae381972fdb8cbf309f4aea3ae8180f031393e2cec648387699b1312308db4303c774cdc4ee5cef22cd2987675f9b95549aa32736f0fe12d3cf8327aee1fee9239718294792101fd20f2add4dc988c6b599dbd26d576720c36dd9585b69bf4db0a3719a59fa4e9dfa4eb17b3d523f78396005903695df73446186bbbca2f9646994f0f585dbfb4686758b69ea6164083c06af307ea36b6bc1da2d6a86f9bd162ae0f83ce72c7222a5c5c6c5f1e7cd29a61216efed19c17c453aa</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
         <category>Life</category>
       </categories>
@@ -797,21 +781,40 @@ int main() &#123;
   <entry>
     <title>【Life】周末の青山湖</title>
     <url>/blog/myhLife/</url>
-    <content><![CDATA[<p>周末闲得无事，想起正值秋天。青山湖最美不过秋冬时节，即刻驱车前往青山湖哈哈哈</p>
-<p>周末青山湖人特别多，某的路人挤人QAQ，忙完双十一，我定要请个年假工作日来划船！~</p>
-<p>虽说人很多， 但真的太美了。还有人在拍婚纱。</p>
-<p>游客的话门票40，如果买了杭州市民卡的文旅卡的话可以免费进入。文旅卡需要提前买，购买两个小时后才能激活。</p>
-<p><img src="/picture/life/23%E7%A7%8B%E9%9D%92%E5%B1%B1%E6%B9%96/%E9%9D%92%E5%B1%B1%E6%B9%961.jpg"></p>
-<p><img src="/picture/life/23%E7%A7%8B%E9%9D%92%E5%B1%B1%E6%B9%96/%E9%9D%92%E5%B1%B1%E6%B9%962.jpg"></p>
-<p><img src="/picture/life/23%E7%A7%8B%E9%9D%92%E5%B1%B1%E6%B9%96/%E9%9D%92%E5%B1%B1%E6%B9%963.jpg"></p>
-<p><img src="/picture/life/23%E7%A7%8B%E9%9D%92%E5%B1%B1%E6%B9%96/%E9%9D%92%E5%B1%B1%E6%B9%964.jpg"></p>
-<p><img src="/picture/life/23%E7%A7%8B%E9%9D%92%E5%B1%B1%E6%B9%96/%E9%9D%92%E5%B1%B1%E6%B9%965.jpg"></p>
-<p><img src="/picture/life/23%E7%A7%8B%E9%9D%92%E5%B1%B1%E6%B9%96/%E9%9D%92%E5%B1%B1%E6%B9%966.jpg"></p>
-<p><img src="/picture/life/23%E7%A7%8B%E9%9D%92%E5%B1%B1%E6%B9%96/%E9%9D%92%E5%B1%B1%E6%B9%967.jpg"></p>
-<p><img src="/picture/life/23%E7%A7%8B%E9%9D%92%E5%B1%B1%E6%B9%96/%E9%9D%92%E5%B1%B1%E6%B9%969.jpg"></p>
-<p><img src="/picture/life/23%E7%A7%8B%E9%9D%92%E5%B1%B1%E6%B9%96/%E9%9D%92%E5%B1%B1%E6%B9%9610.jpg"></p>
-<p><img src="/picture/life/23%E7%A7%8B%E9%9D%92%E5%B1%B1%E6%B9%96/%E9%9D%92%E5%B1%B1%E6%B9%9611.jpg"></p>
-]]></content>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="a1284b2e7d45f6c6d387296a9ba89cf3ada785813932892528120de9d120d564">eef66fd449a307f3d6a4c72bf278b805ba1453df757cd7369619e6c5cf5f11af932a721d941b69a4f91344f6b7612cae382dafd743f232fb0e6cedd431b27383fe394e8d9664288b5c1817e53d64eeb958980dc9019b9f91c8359e6e3f8c4cf7d9c2d4388866d03cb06ab9d939b2c39487edae0eabf5ac350e3d46a75b04228a39a70cb9c537b479379ed027c5ac0a25a7b4a82096a36754aed35160ae9ac51ff67b3f565120f74372fd97bded4d858bc6ca93e409189f7a622ee80da0feab5238b704e778c0138efd5bd2977a1c0cbf4b1e06855c8998e7f161ff2232929eb5cfc708d157dc19e10321fcce6b841430ce8c8d256c32ba9469f8e08b81925878beef8a1c73b8d48b1afb31486a498d58a3ee8257d425d3a74c7406bbd148c0b609943236895f26df8d24129bc1e97d6b3cb24ed3fb570b0c711c5b69d87e6347f700700ff31a44468d46dd52539c9e032c1630f618f9bf15efa95b19c698a916f7ef89ba6984ce1981109ba773bc45d2bcc58ebe9cde88d4a76ca218b022d2ac26add673a400003e320ce9d6b489de8192de033cbf051e41422fbc08cd9358e0e124d6d0485f9617102bcebf949df507cf570aec2ce8c9cfd205995c59b5ab05c0217b024d5c22a6d9ceaaa648a23c734db0547c3751e63fd7d9b07dd10cc2180eb6b760413d6b4fb2e68e913bb545daadedad50627b90dff254a9d4818334410220b182ed4b262c1541e4a21b50bef2b1827bba2000ee9bfcae87942591b19484e2b9a08cb1e9a1b0cd8562a5079993e1d9e4357f571a162587c30f6d87d1c0ad56413a1d3285ca7efd8ac1356bddddc59bcba62a8c4975027a74b351fc7eedfbc391e21b6d6a79164430a34c3d3f3a69ba9da8b682c07448327b0de3a72cf8cbd41ceb58ee6f8e664a1cb2d68a2c54db08a4ee711d68bf5365eafd6ecdb829818c18cfddd6fcec0f96a53de8677d45910b41ff179fd0ea5b69fc287d900369e9445450071ca468906fd13fa24531d9d46ff7665c304085ea31a255fff2b4af131daa56ce90ef8d5dc533afb9fbfd023715334bdb31d5fad84aa32362ce0710014fb5d5b3ea6032f21011af51b7e313cc38b2a1a0ada12543b9f71c85075022a9e14e28f5be67e7879e25637e1d54d44fde26593399f60fc6fe9221c63b44e26a6ce50ac402b3dd52f8ae17b90654fdab0ea195c4a49dea199c5ed22246429ea2b58db349dcf3cb04d91e9df47215d793574a4a1744d3069f5d0cfb2717667b528a8a49a5235a46eb2f8747b26553dfa667676639e4bed2eb5ca796aeeec411e85b88dfd76bf30e030fa791f6a4451a709b7e13d7b22cd211db0b41062dc8bb9af833ac3b92635cf61b02c80f2b87c77f134351c4d939ceee3c4606ae543d0562d84cf5843f1bcfc1dcc7cf326707f574db47ab2a8e9deed45b4ca0f03a1dc58af1e0d571d3b869ffe26146dbee77cbca1eb6c8be429402d535609782f5f6aca5f7b46c1902c4bd8556fb31c01d40ebced832f87dc36cb833d9a7ee1f090dc0707de72d5e9b846992b3b085d86aa1b52cfba2da37849956e4c7477de95197e657033347fca0f069934a1c66e20ed62365fcc98372f4fc42e0c285f2b9209062ca1f3f6384197dd43ac1ccc44bb49bebadbb3aed13f1cfe01c37eba983ff14b8fd63705fb2a1da5b461596c8c667863c0caa20c2907b746588abd4342e194024da132dc77cba86702d527e8f1b09f4e579661565f6540a36731f8bf60cc2a9c19a7efabb280bcf43725f992b48ece78591a687038a16a6083b2fde3f92b9ffa6683fbcdcdc4865568368e7785d30b4f2e1c3e49b912c8eb8b03c13d87f77e539f0cc0e79e0ce4c7c1620c7e720b11f983174c326b2bf84246ac1d25ef0e7179eb03428b26495f6b809cc6bf37ca7f6f5caf643e00acd06b632cfc865a178fb31ccf118c4178a899b74df2e46253f4c1030b543cd5d4025a81e7a8bf17ef719987b70147b828eab9ae2f840a2a115e7b252377d2f9d5010e3b9854168a1aa2a7c2fb00bb87cde705654bd3ea4ad836edd52216139e358620a7c88283e143520020fd7510d663ed11eff2cde1b6dec131d79417ce0661c4f55396c4d56ab7807569ccb5df752e9c88f913c301e2ef2ddeb53fe46324a8c1b3e6750e4b1f3f9168caffc36026c13b94153e269df7f9974869aa39169c473d16c7c2bce0237fb1ea8</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>Life</category>
+      </categories>
+      <tags>
+        <tag>Life</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Life】逆子十五(1)</title>
+    <url>/blog/myhLife/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="c5c88f9e1868207a686f161f7fdaf6f11277fceba1dc8129a1d6f86113d3b86a">eef66fd449a307f3d6a4c72bf278b805721457e8f5acce43c77b0db1c9cce12351662832c33fa5374f2dc685847a02e10cd032dd9ffa2f6f8ff786d04a0d510be84d241dc539bff5e1832c70ce24c386c688427a892098aa8e27f82be0362804a127564bf17d0159f04602c30ae8c4b085ab9824c8cd4a95bf69e0aa5b9a260486efaa4511a5f5aa559a355be75713e988de49c8e80b92a891d025a30a3c20650e8ec4c6195fac79a2aa3ee521798be0002f9472e90b59c97ce715abdee2397b8e3ff8d768cc12f8cc538e3bd73bcff213d5ab0862c930c06701d388445a2b0951c738e48f62fc2c03b57ac590a74fd889cde281009af0b44198a2a794bdb769c9a4b2ced92a3772c09a027b9e61fcaa6f03b0b2dc24f9a29e1e73d65afd77f66ee5eecd5fb923c3259d00b05a024df6b63c3d878dcf5d3929a898a458872d074c5a0e792407bf9c8a75e2bede6158ab2a72d4c23bf777cabc6d8520c48d759877672f9d8d489fc4cc50b274daf0cb06a9dfe009f40e13a77a4865de348baa7ba7e1909dec0b0a8c386154cd9e5628d9f619983fa64659ae37feccd9e971302f288eb1d8e4610296d8fbddded8afa3e9c3176e5c2b5f8d05685db523e5a9f89e83b3fc7fb48ea1fc46c59f5581b273ed6f01a2141e60f5942c7e2a0286176f13f9b1208c421f75e739c2d629f80b73ac6ef7212b83b41fc86aa8add5f992ec72d413c1d08660c71d989bf11870f17fcb0ffb6f6ceee8f535416aeb4b5423b06ef9096bd57cfcf48b6e0bab9ecc571df10213d250956088b82206fcd33ae6de2b9d171d92e66ff43facfe341b1352db91</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
         <category>Life</category>
       </categories>
@@ -822,22 +825,18 @@ int main() &#123;
   <entry>
     <title>【Life】扬州三日游</title>
     <url>/blog/myhLife/</url>
-    <content><![CDATA[<p>部门准备安排去团建了~选了扬州。</p>
-<p>三日游，第一天吃的是最好的，各种海鲜，佛跳墙等扬州名菜，后面逐渐减配。酒店却是一天1000+….下次能不能合理分配一下，害。</p>
-<p>没咋好好拍照，随便记录了一下hhhh~</p>
-<p>扬州真的蛮漂亮的，无论是窄窄的街道还是经典，满满江南气息，非常的惬意。不愧是古代富商(盐商)聚集地。</p>
-<p>不过堵车好厉害~而且明明是工作日，但是游客还是络绎不绝…</p>
-<p><img src="/picture/life/23%E6%89%AC%E5%B7%9E%E5%9B%A2%E5%BB%BA/%E5%9B%A2%E5%BB%BA%E6%89%AC%E5%B7%9E1.jpg"></p>
-<p><img src="/picture/life/23%E6%89%AC%E5%B7%9E%E5%9B%A2%E5%BB%BA/%E5%9B%A2%E5%BB%BA%E6%89%AC%E5%B7%9E2.jpg"></p>
-<p><img src="/picture/life/23%E6%89%AC%E5%B7%9E%E5%9B%A2%E5%BB%BA/%E5%9B%A2%E5%BB%BA%E6%89%AC%E5%B7%9E3.jpg"></p>
-<p><img src="/picture/life/23%E6%89%AC%E5%B7%9E%E5%9B%A2%E5%BB%BA/%E5%9B%A2%E5%BB%BA%E6%89%AC%E5%B7%9E4.jpg"></p>
-<p><img src="/picture/life/23%E6%89%AC%E5%B7%9E%E5%9B%A2%E5%BB%BA/%E5%9B%A2%E5%BB%BA%E6%89%AC%E5%B7%9E5.jpg"></p>
-<p><img src="/picture/life/23%E6%89%AC%E5%B7%9E%E5%9B%A2%E5%BB%BA/%E5%9B%A2%E5%BB%BA%E6%89%AC%E5%B7%9E6.jpg"></p>
-<p><img src="/picture/life/23%E6%89%AC%E5%B7%9E%E5%9B%A2%E5%BB%BA/%E5%9B%A2%E5%BB%BA%E6%89%AC%E5%B7%9E8.jpg"></p>
-<p><img src="/picture/life/23%E6%89%AC%E5%B7%9E%E5%9B%A2%E5%BB%BA/%E5%9B%A2%E5%BB%BA%E6%89%AC%E5%B7%9E9.jpg"></p>
-<p><img src="/picture/life/23%E6%89%AC%E5%B7%9E%E5%9B%A2%E5%BB%BA/%E5%9B%A2%E5%BB%BA%E6%89%AC%E5%B7%9E10.jpg"></p>
-<p><img src="/picture/life/23%E6%89%AC%E5%B7%9E%E5%9B%A2%E5%BB%BA/%E5%9B%A2%E5%BB%BA%E6%89%AC%E5%B7%9E11.jpg"></p>
-]]></content>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="a917cf7926ab870173201ba86860ac022378b3c98ad12256f5ed82cf30188cd3">eef66fd449a307f3d6a4c72bf278b805bb33580f744fb9686f417136bc6f5056dff47f5f10635b16ff7b96c8e51ef812480de20e57b3ff3f2b16962d2379d3379d6c44d1922f61dbafcda429631b3c8affa3c2526e58b0e184a750d441b8acc1223e2722f209afb1c5c906f0c187cf8a34bba70d0c1ef30441e65a56cbd00429aa9475cb74c33f1a7b21bfcbb306a7489faa537a408c471b88a46694cb1971ca01be766a2ac8a44caa520659e7b2798c64da098f75d1526cc7491dddc2931d050b779b5946efde7a53aea7678e45d063bd6346cbcc3cc05c3fa06c94bfac95924a7c7c788b9f5f20c88ed12779f4ee063bd557ea696b1d3d4942f741578a3e9dd57ec16e9adfd5541f821af7e022c2d9d0658e23f974741847eea0af2e94a69a98a328a30e29a16ae133e6a28ab1826182652c646cca02a830310ffb3d86951e4b94d18b57584c97e66907cfb3d6c92c6b2f8880dc24b669ff5fd1345cde85575313df4a8a63dc0590925a215507407bd601bd3a282d90948cc49a0de3dfc000dfcfc21bdb4256694302991357ceca1b598fba970a8bbf1288bc7eaa6c5293f44ff543e988474296e2bfb77c6372551f394e5b73d3ce423429f91f2c90d417c0d2f1a2be4debc46e6b9166021153e92c438f9b1709f2a7543529336f1187f916ffabae895c050e04c52a6092aa5c50a23a719566a357b1cbc3ed5bda93766c80e9fdc7836261278d1fefe6877c1da90f36b52f91ff5e1e6985c1c4adb2e35a615035105f9652c0c6e40a227fd657f68d16269a537d5958384d6e99bc1f30e7c75b715449d2df772c21d2aaa051c658f39f5effbff31cc2a84ff610a25dfc6f2e6a1ff2efc279a7d493c1f76a6204000b68fe74a90bc006ac906c716b4b031ba33b17dca0cf4b5b929a99d9175c43647f5fff2c250be48cad8e2f9d93fa89b6252e23a6e67175b1c9dc5458d3fe2492ebbfc934a9df0c02c36e88cd54ebda176d127cf1cceeeb2bffbf1edf5b37d502d37f2f56938368d8609ddd6ac0aeba6587b655caca289d1ff50da07a4e6411a33be37a9529be9743a27a6e8cf62dab7acdbdc1b2468898b43c7730133e952e73fc60535911e26fb445ebc2fdfb817ec6186738475612534ebbd03c74a35c8b5bf2b5e45f680a9733457cec0ede600e32fbbf023a27ba1e97e8cc75b54b3717b54309264b8704110a66036c6e98e6bfdbc4087c9e4773e8d8996ee191282b5c09b617540f7abe2092b25ffbfc31902c27d289f7e4703445660af525a2633b4806c040630587c4f391879237976369bb55d031723724d5e72a52812e9aedc14735a0e48aadd18436bf78c8f54824791f1801b7dabd4625d8890d937124327ba665f84def1954ed5ad9f0e5ace15949c8f1ed149be8b7b5c985e1aadc9e3a1e3dbb0960df6245051b366ba0182a4a29ca8da746e018e0d5d06fb2a8ebe090a315057a86ab995500db8914bb5224693aad72892f20ce49a91f2c9b85970f3ec85d257bc81ccaf3ea0dcf2731aa35dfd1745b67186b7b2d18d9fe11879142e70f51bfd88b32815e59a198eda4db5e7cefd0bf9efa66488cbad289a886d9281270e7815fdefbc11bee95c14c341d860730411351dcf669cd693c5c9e7303d9968f1a68671e026c04627a819d5ca73e641f4a35dfc541983ac76499c98004de3e933bafbc9181214c46ea03bf4f72e5a336d67c1c4a856ae5a76e188bc0440cda004566bb2ef2df48223c4b4d87857bcbde4bd78ed037a7b00474b67e234bc8861490628a2a643eb97a433c3e0a7a9b2e6d6ec01057768b60f7c4058994b5b9d6dd394a75af7152745e907f39cff555a2d3eabbf0cb067220724f276d7b948bacfabf5d3630ebec29c80a7cfed7d539f4edf15f47b8128564642c5559d3883ad3236c3b4c9841c63b6b9a495d0a2bec4477d7dda14671a5db882125209d0aea50656559e11f467022312d5f7c456b3b800f059a216b0f567fa28c2cdfbcb3e2dc9625bbc091240a977bdf30684c9ae380471c3a3ee50f45d2e8bec23282eef4238723e97bf0c2a1789945022b5ca30dfe50b94d556761c2567cbaab966622450e523572be1374448d1eb8145fe5c2b956b5cf0af1b5a79ee5715335994ea4fe444e17db7b4cde3f827984051d5ad9fa56b68355719469653a904c22cedf24b6c2dd1a227235c6de7231467fe24fc08717e997f06e6c3a053e520c7ad2d4ee8156c7a05327b2ec7b8a8dc8b34cc97fb67bfe63d9eb544e8692518e6094c8ed444ac73276c3a02acdccbfbd47594adf2b5abc245328aa56147f1e940ffeef2de9df63d8037daba6430394d94e6a6cc9ff80cff64b4f9b79032c47b8c69f32e70f181d7f1008ced57cb4de70d49e93df6b4d1da5d2c6f3bfeed19c0702c094ab947a729eac2d</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
         <category>Life</category>
       </categories>
@@ -848,25 +847,18 @@ int main() &#123;
   <entry>
     <title>【Life】逆子十五(2)</title>
     <url>/blog/myhLife/</url>
-    <content><![CDATA[<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E5%8D%81%E4%BA%941.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E5%8D%81%E4%BA%942.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E5%8D%81%E4%BA%943.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E5%8D%81%E4%BA%944.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E5%8D%81%E4%BA%945.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E5%8D%81%E4%BA%946.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E5%8D%81%E4%BA%947.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E5%8D%81%E4%BA%948.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E5%8D%81%E4%BA%949.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E5%8D%81%E4%BA%9410.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E5%8D%81%E4%BA%9411.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%942.1.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%942.2.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%942.3.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%942.4.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%942.5.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%942.6.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%902/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%942.7.jpg"></p>
-]]></content>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="e1f93b90fd0cb602e7e82df939467d1b9c96a20663b542e1bc627eca952d47b7">eef66fd449a307f3d6a4c72bf278b8050e1cf62c328531a7f1c163f402287b78461cda30976b689ed7a25f0daf298f9961956e08aa266afff8684aa2e0eb6f06b6bcb4417c08c52e122faae682a3444fd3d0898a248e23dc3e4874a2e1c511f6cb9108d2e014b9a9393497108544c1c5dbaccd804da10615c87102b2b3a2f945cc241e7d6b011df90a8c642d548eb61d45420b8e897e324ac202d9b68d9b0771389333263bd654c8426318acc36da56bd2e578292c681a22e39e538c526ef6921e645e55e1f2ac1b192fbda5f3f2482aabeb52d067baa78698ae760794ea68f85e94755bd0f3e11248fe485c9ed2af9e59abc508577a3763ca31ac451f5955e7c6ab309add3c4e220a86299c78e2c7762a265a5916ae66dd9bde3147dbe9b5c242bea48f44ad43cf5fbc1c97e0fa4e5a7b3869acf68aa6310a58d9e51f06afa52fbfd95e5e343456459e06955ce919be84fc1e00e7077f7b59d9e85c52074376a2fc263d0c498acc20046874a08b0899db9ddbe4257a42e0aba889bd2ad9b663b2189418593aa14a2d7a5955df52e3d84d777bbd55d3f4bd67e3194a95923cbdd23e1453cee58881fcea2eeaeac4f801152ff9f0fd8d7eb657068180501824f9cafab82b16b217777aa1e4be768af9b3e40da21e61cddc31cb47f30a207580dcee5e61c6e469c432e45c075bde1b45a0d5f0dc864b3060167470d4e9e75193f91cba6a7e3466d7d104fa222fc818fe925f6b32cc6f5549035e62f65b073cde9814001ab91229c7f87439aa860c2766837204aa87392b72f9e7fa18264f98967b528f51053f3101657528c6277d45eb3c13794aaf042b9ea2ab401c0b0e858c72d04608a2fe6fa2ac598c7f03acdd8573032519fb635767edfc209f5e15f8f70e6dea5b7fd505acebc913e3c0378988350e504afed9443ff3f4f7b8c0b89fe802f287cade3a19eb32be3f8155a6bffa3abcde137784eb057ff7988a0a90d6fabaf56d2dec3f32893c5be018bb2f706c0d0d037b7e2f4cc546c933e0817ff42d4769e25c7245f3f88c33e18c05c8e5b1d93f2c8a6f0526f9daae21f4c144c2294b63a286b801b707be88204c0192037fa23371fcd90023eedde9afb74297ceb3ba864daa523190c7f796c5ffba15159f241b96f7ca97cb212c14f48452ab3cda7b596e1d5436c74d6a913a6ad59de1e0f72c63cd823f720949d4c54a0e9491a663ee0281e4854d6ae41d8ee1bed22034e2d803f818930a4f796b94dcf526d64a59ae543cefa6c4225579707638674ac668cf809f269888025f9c39b5679064d0617e541bbff5ed2dadc3b177e86861fa260266af5ad5504c6730feae5582f27eefa959892c8dbd20aba7e3e529cc9f1afcee8be72e096a5dbfd55b6d1f8a0bdd4da4ff0d89ad597746f4a7411bf91d34a8ec0bc2b15b91a5694e1469ceaf194b095035fd13dd255568e738a74f13cc1504a06d333c7f8715f96d3d592639cbe9e2623d6f184d25a805b82231b14a90398f2c0b539f09e848cbe333c23b9c1ce2df958b84c31df5e2b66abc5af5ee2e4f21d707d9456f311de1c107fdf70808a61bc36eca660b8663224bcb7d3339188498a6d357420d0a5932d82ec575f8c162ebb878e199c53a352902de7e900349b3ea19b87108540e899142419e8397a03048e155ae25056ef90676d76077c68f10cb797b35331232b24c76179d3e6c4443b3f1225a40b72923ac1ff5a8698b33237603f68215f8bf0bd77d4bf4252b4c4738f05cde5cec007ed859685bca2395d4c2b7b7fa0c1c77740451e5a5321e03a3ba7de51bb8dd3a95149ec520835d02820c7cbe3599421c5a2c245ab2c931c26553990233fba7977b4eeddc8b09c592079957da49db885c117e9495623ab19d764ee094c3755ee64b1cd8d7f51490ff4e0ec12a11648048e0d31e93a3c69f55ac8075113930cd7c5fc229085d1f92aac3c5e55c8d7623302ba02982efd72b75b55b85a970dc2f748a61aa672c6e650bf34b7341e11878f07dd2294de4983b4443922ef8c0cf4cb9f4a46797ea19a41232cdbdf9fcb014f606721108fedae0951855c99833a2a6bc55b89d9fc1ca7c3c32d820b86a3a2ce45318350d2bf004d3aff63086d42605b757a38a4587a3cd584076c2e430951e5b9addd7f6bdf202b0bcaab8b8e7e94817955294050af80967a5239dbb9b29bf0a16088095a108f0cf811b6248612a81b3d917db46ed291a896aff78cbd57d2d5377c91ca5d1ce9baad71c</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
         <category>Life</category>
       </categories>
@@ -1093,23 +1085,6 @@ int main() &#123;
       </categories>
       <tags>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Life】逆子十五(1)</title>
-    <url>/blog/myhLife/</url>
-    <content><![CDATA[<p>分享几张十五，小时候的照片哈哈哈哈</p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%901/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%941.1.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%901/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%941.2.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%901/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%941.3.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%901/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%941.4.jpg"></p>
-<p><img src="/picture/life/15%E9%80%86%E5%AD%901/%E9%80%86%E5%AD%90%E5%8D%81%E4%BA%941.5.jpg"></p>
-]]></content>
-      <categories>
-        <category>Life</category>
-      </categories>
-      <tags>
-        <tag>Life</tag>
       </tags>
   </entry>
   <entry>
@@ -1603,6 +1578,80 @@ add_library(src $&#123;SRC&#125;)
       </tags>
   </entry>
   <entry>
+    <title>【Linux】新字符设备驱动</title>
+    <url>/blog/LinuxCharDevise/</url>
+    <content><![CDATA[<h1 id="新旧字符设备驱动的差别"><a href="#新旧字符设备驱动的差别" class="headerlink" title="新旧字符设备驱动的差别"></a>新旧字符设备驱动的差别</h1><ol>
+<li><p>注册设备方式</p>
+<ul>
+<li>旧：用register_chrdev函数来注册字符设备。这个函数需要设备号、设备名和一个指向file_operations结构体的指针</li>
+<li>新：使用alloc_chrdev_region、cdev_init和cdev_add等函数来注册字符设备。</li>
+</ul>
+</li>
+<li><p>设备文件</p>
+<ul>
+<li>旧：设备文件（通常位于&#x2F;dev目录）需要手动创建。这可以使用mknod命令来完成。</li>
+<li>新：利用udev系统自动创建设备文件。</li>
+</ul>
+</li>
+<li><p>设备号</p>
+<ul>
+<li>旧：旧式驱动通常使用静态设备号。静态设备号可能会导致设备号冲突，且浪费。</li>
+<li>新：新式驱动使用动态分配的设备号，这减少了设备号冲突的可能性。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="新字符设备驱动实现方式"><a href="#新字符设备驱动实现方式" class="headerlink" title="新字符设备驱动实现方式"></a>新字符设备驱动实现方式</h1><h2 id="设备号"><a href="#设备号" class="headerlink" title="设备号"></a>设备号</h2><p>分配设备号有动态和静态两个方式。<br>如果给定了主次设备号，使用静态分配，调用如下函数：</p>
+<p><code>int register_chrdev_region(dev_t from, unsigned count, const char *name)  // 不建议使用</code></p>
+<p>静态分配设备号存在以下问题：</p>
+<ul>
+<li>需要主动确定未被使用的主设备号。</li>
+<li>一个字符设备会消耗掉一个住设备号下所有的次设备号。（浪费）</li>
+</ul>
+<p>为了解决了这个问题，最好使用动态方式，在需要使用设备号时候向Linux内核申请，需要几个申请几个。由 Linux 内核分配设备可以使用的设备号，调用的函数如下：</p>
+<p><code>int alloc_chrdev_region(dev_t *dev, unsigned baseminor, unsigned count, const char *name)</code></p>
+<p>销毁字符设备时候释放设备号都是调用以下函数。</p>
+<p><code>void unregister_chrdev_region(dev_t from, unsigned count)</code></p>
+<hr>
+<h2 id="新字符设备注册方法"><a href="#新字符设备注册方法" class="headerlink" title="新字符设备注册方法"></a>新字符设备注册方法</h2><h3 id="字符设备结构体"><a href="#字符设备结构体" class="headerlink" title="字符设备结构体"></a>字符设备结构体</h3><p>Linux 中使用 cdev 结构体表示一个字符设备，cdev 结构体在 include&#x2F;linux&#x2F;cdev.h 文件中。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cdev</span> &#123;</span></span><br><span class="line">    <span class="comment">// 用于管理内核对象的生命周期以及提供设备模型（Device Model）支持</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kobject</span> <span class="title">kobj</span>;</span> </span><br><span class="line">    <span class="comment">//指向拥有这个字符设备的内核模块，防止在字符设备仍在使用时卸载内核模块</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">module</span> *<span class="title">owner</span>;</span> </span><br><span class="line">    <span class="comment">// 操作函数集合</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> *<span class="title">ops</span>;</span> </span><br><span class="line">    <span class="comment">// 用于将字符设备插入到内核管理的字符设备链表中的链表头。通过这个链表，内核能够管理和查找系统中的所有字符设备。</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">list</span>;</span> </span><br><span class="line">    <span class="comment">//设备号</span></span><br><span class="line">    <span class="type">dev_t</span> dev;  </span><br><span class="line">    <span class="comment">// 记录字符设备占用的设备号范围的大小</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> count; </span><br><span class="line">&#125; __randomize_layout;<span class="comment">//编译时布局进行随机化处理，安全</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="注册和添加设备函数：cdev-init-和cdev-add"><a href="#注册和添加设备函数：cdev-init-和cdev-add" class="headerlink" title="注册和添加设备函数：cdev_init()和cdev_add()"></a>注册和添加设备函数：cdev_init()和cdev_add()</h3><p>定义好 cdev 变量以后就要使用 cdev_init 函数对其进行初始化。随后使和cdev_add函数向 Linux 系统添加这个字符设备。用例如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cdev</span> <span class="title">myCdev</span>;</span>、</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> <span class="title">myFops</span> =</span> &#123; </span><br><span class="line">    .owner =    THIS_MODULE, </span><br><span class="line">    <span class="comment">/* 其他具体的初始项 */</span></span><br><span class="line">&#125;;</span><br><span class="line">myCdev.owner = THIS_MODULE;</span><br><span class="line"></span><br><span class="line">cdev_init(&amp;myCdev, &amp;myFops); <span class="comment">/* 初始化 cdev 结构体变量 */</span></span><br><span class="line">cdev_add(&amp;myCdev, devid, <span class="number">1</span>); <span class="comment">/* 添加字符设备 */</span></span><br></pre></td></tr></table></figure>
+<p>如果再加上面中分配设备号的程序，相当于 <code>register_chrdev</code> 函数的功能。</p>
+<h3 id="卸载驱动函数：cdev-del"><a href="#卸载驱动函数：cdev-del" class="headerlink" title="卸载驱动函数：cdev_del()"></a>卸载驱动函数：cdev_del()</h3><p>卸载驱动的时候要使用 cdev_del 函数从 Linux 内核中删除相应的字符设备。</p>
+<p>函数：<code>cdev_del(&amp;myCdev); /* 删除 cdev */</code></p>
+<p><code>cdev_del </code>和 <code>unregister_chrdev_region </code>这两个函数合起来的功能相当于 <code>unregister_chrdev</code> 函<br>数。</p>
+<hr>
+<h2 id="自动创建设备节点"><a href="#自动创建设备节点" class="headerlink" title="自动创建设备节点"></a>自动创建设备节点</h2><h3 id="启用udev"><a href="#启用udev" class="headerlink" title="启用udev"></a>启用udev</h3><p>这个不需要我们主动开启，开机会自动开启的，此处仅介绍他的用处~</p>
+<p>udev 是 Linux 系统中用于管理设备节点的守护进程，运行在用户空间。<br>其作用可粗略分为以下：</p>
+<ol>
+<li>管理 &#x2F;dev&#x2F; 目录下的设备节点：当新设备被添加到系统时，udev 会根据规则文件来创建相应的设备节点。相应地，当设备被移除时，udev 会删除设备节点。</li>
+<li>设备持久命名：通过创建持久的、一致的设备节点名称，udev 确保了设备名称在系统重启或设备重新插拔后保持不变。</li>
+<li>运行设备特定的初始化和配置脚本：udev 可以根据规则文件配置设备或运行初始化脚本。</li>
+<li>加载或关闭额外的设备驱动或固件。（modprobe、rmmod）</li>
+</ol>
+<h3 id="创建和删除类"><a href="#创建和删除类" class="headerlink" title="创建和删除类"></a>创建和删除类</h3><p>自动创建设备节点的工作是在驱动程序的入口函数中完成的，一般在 cdev_add 函数后面添<br>加自动创建设备节点相关代码。首先要创建一个 class 类。定义在<code>include/linux/device.h</code>。<br>创建和删除的函数如下</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> class *<span class="title function_">class_create</span> <span class="params">(<span class="keyword">struct</span> module *owner, <span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">class_destroy</span><span class="params">(<span class="keyword">struct</span> class *cls)</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建设备"><a href="#创建设备" class="headerlink" title="创建设备"></a>创建设备</h3><p>创建类后，还需要创建设备。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 此为可变参函数</span></span><br><span class="line"><span class="keyword">struct</span> device *<span class="title function_">device_create</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="keyword">struct</span> class *class,    <span class="comment">// 创建到哪个class</span></span></span><br><span class="line"><span class="params">    <span class="keyword">struct</span> device *parent,  <span class="comment">// 父设备，一般为NULL</span></span></span><br><span class="line"><span class="params">    <span class="type">dev_t</span> devt,             <span class="comment">// 设备号</span></span></span><br><span class="line"><span class="params">    <span class="type">void</span> *drvdata,          <span class="comment">// 可以用来传递设备驱动的私有数据，不需要则NULL</span></span></span><br><span class="line"><span class="params">    <span class="type">const</span> <span class="type">char</span> *fmt, ...    <span class="comment">//设备名字，如果设置 fmt=xxx，会生成/dev/xxx设备文件</span></span></span><br><span class="line"><span class="params">)</span></span><br></pre></td></tr></table></figure>
+<p>如果需要卸载，则使用删除函数：</p>
+<p><code>void device_destroy(struct class *cls, dev_t devt)</code></p>
+<h3 id="参考示例"><a href="#参考示例" class="headerlink" title="参考示例"></a>参考示例</h3><p>在入口函数中创建类与设备，出口函数删除类和设备：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="keyword">class</span> *<span class="keyword">class</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">device</span> *<span class="title">device</span>;</span></span><br><span class="line"><span class="type">dev_t</span> devid;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> __init <span class="title function_">my_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123; </span><br><span class="line">    <span class="comment">// 创建类</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> =</span> class_create(THIS_MODULE, <span class="string">&quot;XXXX&quot;</span>)</span><br><span class="line">    <span class="comment">// 创建设备</span></span><br><span class="line">    device = device_create(class, <span class="literal">NULL</span>, devid, <span class="literal">NULL</span>, <span class="string">&quot;XXXX&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> __exit <span class="title function_">my_exit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 删除设备</span></span><br><span class="line">    device_destroy(newchrled.class, newchrled.devid);</span><br><span class="line">    <span class="comment">// 删除类</span></span><br><span class="line">    class_destroy(newchrled.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(my_init);</span><br><span class="line">module_exit(my_exit);</span><br></pre></td></tr></table></figure>
+<hr>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【Linux】线程进程</title>
     <url>/blog/LinuxThread/</url>
     <content><![CDATA[<h1 id="进程线程概念"><a href="#进程线程概念" class="headerlink" title="进程线程概念"></a>进程线程概念</h1><h2 id="what‘s-a-线程-进程"><a href="#what‘s-a-线程-进程" class="headerlink" title="what‘s a 线程&amp;进程"></a>what‘s a 线程&amp;进程</h2><p>进程和线程是操作系统中关于任务管理和调度的基本概念。</p>
@@ -1891,80 +1940,6 @@ add_library(src $&#123;SRC&#125;)
 </li>
 </ol>
 <p>总之，为了避免僵尸进程，重要的是父进程应该负责回收其所有已完成的子进程的状态，或者确保有其他机制来完成这项工作。</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Linux】新字符设备驱动</title>
-    <url>/blog/LinuxCharDevise/</url>
-    <content><![CDATA[<h1 id="新旧字符设备驱动的差别"><a href="#新旧字符设备驱动的差别" class="headerlink" title="新旧字符设备驱动的差别"></a>新旧字符设备驱动的差别</h1><ol>
-<li><p>注册设备方式</p>
-<ul>
-<li>旧：用register_chrdev函数来注册字符设备。这个函数需要设备号、设备名和一个指向file_operations结构体的指针</li>
-<li>新：使用alloc_chrdev_region、cdev_init和cdev_add等函数来注册字符设备。</li>
-</ul>
-</li>
-<li><p>设备文件</p>
-<ul>
-<li>旧：设备文件（通常位于&#x2F;dev目录）需要手动创建。这可以使用mknod命令来完成。</li>
-<li>新：利用udev系统自动创建设备文件。</li>
-</ul>
-</li>
-<li><p>设备号</p>
-<ul>
-<li>旧：旧式驱动通常使用静态设备号。静态设备号可能会导致设备号冲突，且浪费。</li>
-<li>新：新式驱动使用动态分配的设备号，这减少了设备号冲突的可能性。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h1 id="新字符设备驱动实现方式"><a href="#新字符设备驱动实现方式" class="headerlink" title="新字符设备驱动实现方式"></a>新字符设备驱动实现方式</h1><h2 id="设备号"><a href="#设备号" class="headerlink" title="设备号"></a>设备号</h2><p>分配设备号有动态和静态两个方式。<br>如果给定了主次设备号，使用静态分配，调用如下函数：</p>
-<p><code>int register_chrdev_region(dev_t from, unsigned count, const char *name)  // 不建议使用</code></p>
-<p>静态分配设备号存在以下问题：</p>
-<ul>
-<li>需要主动确定未被使用的主设备号。</li>
-<li>一个字符设备会消耗掉一个住设备号下所有的次设备号。（浪费）</li>
-</ul>
-<p>为了解决了这个问题，最好使用动态方式，在需要使用设备号时候向Linux内核申请，需要几个申请几个。由 Linux 内核分配设备可以使用的设备号，调用的函数如下：</p>
-<p><code>int alloc_chrdev_region(dev_t *dev, unsigned baseminor, unsigned count, const char *name)</code></p>
-<p>销毁字符设备时候释放设备号都是调用以下函数。</p>
-<p><code>void unregister_chrdev_region(dev_t from, unsigned count)</code></p>
-<hr>
-<h2 id="新字符设备注册方法"><a href="#新字符设备注册方法" class="headerlink" title="新字符设备注册方法"></a>新字符设备注册方法</h2><h3 id="字符设备结构体"><a href="#字符设备结构体" class="headerlink" title="字符设备结构体"></a>字符设备结构体</h3><p>Linux 中使用 cdev 结构体表示一个字符设备，cdev 结构体在 include&#x2F;linux&#x2F;cdev.h 文件中。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cdev</span> &#123;</span></span><br><span class="line">    <span class="comment">// 用于管理内核对象的生命周期以及提供设备模型（Device Model）支持</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kobject</span> <span class="title">kobj</span>;</span> </span><br><span class="line">    <span class="comment">//指向拥有这个字符设备的内核模块，防止在字符设备仍在使用时卸载内核模块</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">module</span> *<span class="title">owner</span>;</span> </span><br><span class="line">    <span class="comment">// 操作函数集合</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> *<span class="title">ops</span>;</span> </span><br><span class="line">    <span class="comment">// 用于将字符设备插入到内核管理的字符设备链表中的链表头。通过这个链表，内核能够管理和查找系统中的所有字符设备。</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">list</span>;</span> </span><br><span class="line">    <span class="comment">//设备号</span></span><br><span class="line">    <span class="type">dev_t</span> dev;  </span><br><span class="line">    <span class="comment">// 记录字符设备占用的设备号范围的大小</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> count; </span><br><span class="line">&#125; __randomize_layout;<span class="comment">//编译时布局进行随机化处理，安全</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="注册和添加设备函数：cdev-init-和cdev-add"><a href="#注册和添加设备函数：cdev-init-和cdev-add" class="headerlink" title="注册和添加设备函数：cdev_init()和cdev_add()"></a>注册和添加设备函数：cdev_init()和cdev_add()</h3><p>定义好 cdev 变量以后就要使用 cdev_init 函数对其进行初始化。随后使和cdev_add函数向 Linux 系统添加这个字符设备。用例如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cdev</span> <span class="title">myCdev</span>;</span>、</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> <span class="title">myFops</span> =</span> &#123; </span><br><span class="line">    .owner =    THIS_MODULE, </span><br><span class="line">    <span class="comment">/* 其他具体的初始项 */</span></span><br><span class="line">&#125;;</span><br><span class="line">myCdev.owner = THIS_MODULE;</span><br><span class="line"></span><br><span class="line">cdev_init(&amp;myCdev, &amp;myFops); <span class="comment">/* 初始化 cdev 结构体变量 */</span></span><br><span class="line">cdev_add(&amp;myCdev, devid, <span class="number">1</span>); <span class="comment">/* 添加字符设备 */</span></span><br></pre></td></tr></table></figure>
-<p>如果再加上面中分配设备号的程序，相当于 <code>register_chrdev</code> 函数的功能。</p>
-<h3 id="卸载驱动函数：cdev-del"><a href="#卸载驱动函数：cdev-del" class="headerlink" title="卸载驱动函数：cdev_del()"></a>卸载驱动函数：cdev_del()</h3><p>卸载驱动的时候要使用 cdev_del 函数从 Linux 内核中删除相应的字符设备。</p>
-<p>函数：<code>cdev_del(&amp;myCdev); /* 删除 cdev */</code></p>
-<p><code>cdev_del </code>和 <code>unregister_chrdev_region </code>这两个函数合起来的功能相当于 <code>unregister_chrdev</code> 函<br>数。</p>
-<hr>
-<h2 id="自动创建设备节点"><a href="#自动创建设备节点" class="headerlink" title="自动创建设备节点"></a>自动创建设备节点</h2><h3 id="启用udev"><a href="#启用udev" class="headerlink" title="启用udev"></a>启用udev</h3><p>这个不需要我们主动开启，开机会自动开启的，此处仅介绍他的用处~</p>
-<p>udev 是 Linux 系统中用于管理设备节点的守护进程，运行在用户空间。<br>其作用可粗略分为以下：</p>
-<ol>
-<li>管理 &#x2F;dev&#x2F; 目录下的设备节点：当新设备被添加到系统时，udev 会根据规则文件来创建相应的设备节点。相应地，当设备被移除时，udev 会删除设备节点。</li>
-<li>设备持久命名：通过创建持久的、一致的设备节点名称，udev 确保了设备名称在系统重启或设备重新插拔后保持不变。</li>
-<li>运行设备特定的初始化和配置脚本：udev 可以根据规则文件配置设备或运行初始化脚本。</li>
-<li>加载或关闭额外的设备驱动或固件。（modprobe、rmmod）</li>
-</ol>
-<h3 id="创建和删除类"><a href="#创建和删除类" class="headerlink" title="创建和删除类"></a>创建和删除类</h3><p>自动创建设备节点的工作是在驱动程序的入口函数中完成的，一般在 cdev_add 函数后面添<br>加自动创建设备节点相关代码。首先要创建一个 class 类。定义在<code>include/linux/device.h</code>。<br>创建和删除的函数如下</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> class *<span class="title function_">class_create</span> <span class="params">(<span class="keyword">struct</span> module *owner, <span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">class_destroy</span><span class="params">(<span class="keyword">struct</span> class *cls)</span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建设备"><a href="#创建设备" class="headerlink" title="创建设备"></a>创建设备</h3><p>创建类后，还需要创建设备。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 此为可变参函数</span></span><br><span class="line"><span class="keyword">struct</span> device *<span class="title function_">device_create</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="keyword">struct</span> class *class,    <span class="comment">// 创建到哪个class</span></span></span><br><span class="line"><span class="params">    <span class="keyword">struct</span> device *parent,  <span class="comment">// 父设备，一般为NULL</span></span></span><br><span class="line"><span class="params">    <span class="type">dev_t</span> devt,             <span class="comment">// 设备号</span></span></span><br><span class="line"><span class="params">    <span class="type">void</span> *drvdata,          <span class="comment">// 可以用来传递设备驱动的私有数据，不需要则NULL</span></span></span><br><span class="line"><span class="params">    <span class="type">const</span> <span class="type">char</span> *fmt, ...    <span class="comment">//设备名字，如果设置 fmt=xxx，会生成/dev/xxx设备文件</span></span></span><br><span class="line"><span class="params">)</span></span><br></pre></td></tr></table></figure>
-<p>如果需要卸载，则使用删除函数：</p>
-<p><code>void device_destroy(struct class *cls, dev_t devt)</code></p>
-<h3 id="参考示例"><a href="#参考示例" class="headerlink" title="参考示例"></a>参考示例</h3><p>在入口函数中创建类与设备，出口函数删除类和设备：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="keyword">class</span> *<span class="keyword">class</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">device</span> *<span class="title">device</span>;</span></span><br><span class="line"><span class="type">dev_t</span> devid;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> __init <span class="title function_">my_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123; </span><br><span class="line">    <span class="comment">// 创建类</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> =</span> class_create(THIS_MODULE, <span class="string">&quot;XXXX&quot;</span>)</span><br><span class="line">    <span class="comment">// 创建设备</span></span><br><span class="line">    device = device_create(class, <span class="literal">NULL</span>, devid, <span class="literal">NULL</span>, <span class="string">&quot;XXXX&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> __exit <span class="title function_">my_exit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 删除设备</span></span><br><span class="line">    device_destroy(newchrled.class, newchrled.devid);</span><br><span class="line">    <span class="comment">// 删除类</span></span><br><span class="line">    class_destroy(newchrled.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(my_init);</span><br><span class="line">module_exit(my_exit);</span><br></pre></td></tr></table></figure>
-<hr>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -2326,6 +2301,182 @@ add_library(src $&#123;SRC&#125;)
       </tags>
   </entry>
   <entry>
+    <title>【RK3568】Buildroot开发</title>
+    <url>/blog/Rk3568Buildroot/</url>
+    <content><![CDATA[<h1 id="【RK3568】Buildroot开发"><a href="#【RK3568】Buildroot开发" class="headerlink" title="【RK3568】Buildroot开发"></a>【RK3568】Buildroot开发</h1><h1 id="Buildroot目录介绍"><a href="#Buildroot目录介绍" class="headerlink" title="Buildroot目录介绍"></a>Buildroot目录介绍</h1><table>
+<thead>
+<tr>
+<th align="center">说明</th>
+<th align="center">顶层目录名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">arch</td>
+<td align="center">存放 buildroot 支持的所有 CPU 架构相关的配置文件及构建脚本</td>
+</tr>
+<tr>
+<td align="center">board</td>
+<td align="center">存放特定目标平台相关的文件，譬如内核配置或补丁文件、rootfs覆盖文件等</td>
+</tr>
+<tr>
+<td align="center">boot</td>
+<td align="center">存放 buildroot 支持的 BootLoader 相关的补丁、校验文件、构建脚本、配置选项等</td>
+</tr>
+<tr>
+<td align="center">build</td>
+<td align="center">Buildroot 编译系统相关组件configs 存放了所有目标平台的</td>
+</tr>
+<tr>
+<td align="center">configs</td>
+<td align="center">存放了所有目标平台的 defconfig 配置文件</td>
+</tr>
+<tr>
+<td align="center">dl</td>
+<td align="center">download 的缩写，该目录用于存放下载的各种开源软件包，譬如alsa-lib 库、bluez 库、bzip2、curl 工具等；在编译过程中，buildroot会从网络下载所需软件包、并将其放置在 dl&#x2F;目录下；如果 buildroot下载某软件包时失败、无法下载成功，此时我们也可以自己手动下载该软件包、并将其拷贝至 dl 目录下。所有软件包只需下载一次即可，不是每次编译都要下载一次（除非删除 dl 目录），只要 dl 目录下存在该软件包就不用下载了；所以往往第一次编译会比较慢，因为下载过程会占用很多时间</td>
+</tr>
+<tr>
+<td align="center">docs</td>
+<td align="center">存放相关的参考文档</td>
+</tr>
+<tr>
+<td align="center">fs</td>
+<td align="center">存放各种文件系统的源代码</td>
+</tr>
+<tr>
+<td align="center">linux</td>
+<td align="center">存放 linux 的构建脚本和配置选项</td>
+</tr>
+<tr>
+<td align="center">output</td>
+<td align="center">该文件夹会在编译 buildroot 后出现，output 目录用于存放编译过程中输出的各种文件，包括各种编译生成的中间目标文件、可执行文件、lib 库以及最终烧录到开发板的 rootfs 镜像等</td>
+</tr>
+<tr>
+<td align="center">package</td>
+<td align="center">存放所有 package（软件包）的构建脚本、配置选项；每个软件包目录下（package&#x2F;<package_name>&#x2F;）都有一个 Config.in 文件和<package_name>.mk 文件（其实就是 Makefile 文件）；如果需要添加一个新的 package，则需对 package&#x2F;目录进行改动。</td>
+</tr>
+<tr>
+<td align="center">support</td>
+<td align="center">存放一些为 buildroot 提供功能支持的脚本、配置文件等</td>
+</tr>
+<tr>
+<td align="center">to loc ha in</td>
+<td align="center">存放制作各种交叉编译工具链的构建脚本和相关文件，binutils、gcc、gdb、kernel-header 和 uClibc</td>
+</tr>
+<tr>
+<td align="center">utils</td>
+<td align="center">存放一些 buildroot 的实用脚本和工具</td>
+</tr>
+</tbody></table>
+<h1 id="常见编译指令"><a href="#常见编译指令" class="headerlink" title="常见编译指令"></a>常见编译指令</h1><p>在buildroot跟目录下可以直接使用make命令编译buildroot，也可以单独指定packge进行编译，具体见make help提示。</p>
+<h2 id="编译跟文件系统"><a href="#编译跟文件系统" class="headerlink" title="编译跟文件系统"></a>编译跟文件系统</h2><p>编译之前，先进行配置；进入到 buildroot 目录下，执行如下命令进行配置（以 rk3568 平台为例）：</p>
+<blockquote>
+<p>source build&#x2F;envsetup.sh rockchip_rk3568</p>
+</blockquote>
+<p>命令中最后一个参数（rockchip_rk3568）用于指定目标平台的 defconfig 配置文件（不带  _defconfig  后缀），所有目标平台的 defconfig 配置文件都存放在<Buildroot>&#x2F;configs** 目录下，在</p>
+<p>该目录下可以找到 rk3568 的配置文件 <strong>rockchip_rk3568_defconfig</strong>，如下所示：</p>
+<p><img src="/picture/tech/buildroot/buidroot1.png" alt="配置文件"></p>
+<p>配置后直接：</p>
+<blockquote>
+<p>make 或 make all  </p>
+<p>make -j20 或 make all -j20 </p>
+</blockquote>
+<h2 id="编译package"><a href="#编译package" class="headerlink" title="编译package"></a>编译package</h2><p>编译之前，先进行配置。进入到 buildroot 目录下，执行如下命令进行配置（以 rk3568 平台为例）：</p>
+<blockquote>
+<p>source build&#x2F;envsetup.sh rockchip_rk3568</p>
+</blockquote>
+<p>配置完成后，执行如下命令编译指定的 package：</p>
+<blockquote>
+<p>make <package_name></p>
+</blockquote>
+<p>参数<package_name>用于指定 package 的名字，譬如 myh_package：</p>
+<blockquote>
+<p>make myh_package</p>
+</blockquote>
+<h2 id="Buildroot清除"><a href="#Buildroot清除" class="headerlink" title="Buildroot清除"></a>Buildroot清除</h2><p>执行如下可删除所有构建生成的文件（包括 build、host、staging and target trees、images 和 toolchain）：</p>
+<blockquote>
+<p>make clean</p>
+</blockquote>
+<p>执行如下命令可删除所有构建时生成的文件以及相关配置（彻底清除，相当于删除 output目录）：</p>
+<blockquote>
+<p>make distclean</p>
+</blockquote>
+<p>执行如下命令可删除指定 package 的构建目录：</p>
+<blockquote>
+<p>make <package_name>-dirclean</p>
+</blockquote>
+<h1 id="添加Package详解"><a href="#添加Package详解" class="headerlink" title="添加Package详解"></a>添加Package详解</h1><p> package_name 对应的便是 buildroot&#x2F;package&#x2F;文件夹中的某个目录对应的名字（或某个子目录对应的名字），并且该目录中存在 Config.in 配置文件（用于定义 package 配置选项）以及<package_name>.mk 文件（Makefile 文件，用于定义 package 的构建逻辑）。比如：</p>
+<blockquote>
+<p>rkwifibt       → 	package&#x2F;rockchip&#x2F;rkwifibt&#x2F;</p>
+<p>rknpu          → 	package&#x2F;rockchip&#x2F;rknpu&#x2F;</p>
+<p>rkupdate	→ 	package&#x2F;rockchip&#x2F;rkupdate&#x2F;</p>
+</blockquote>
+<p>package（软件包）的构建过程可以分解为：configure（配置）、build（编译）、install（安装），其执行顺序为：<strong>配置</strong>→<strong>编译</strong>→<strong>安装</strong>，每一步可单独执行，执行如下命令：</p>
+<blockquote>
+<p>make <package_name>-configure     #执行配置命令</p>
+<p>make <package_name>-build             #执行编译命令</p>
+<p>make <package_name>-install            #执行安装命令</p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>utils&#x2F;brmake <package_name>-configure   #执行配置命令</p>
+<p>utils&#x2F;brmake <package_name>-build           #执行编译命令</p>
+<p>utils&#x2F;brmake <package_name>-install          #执行安装命令</p>
+</blockquote>
+<p>以 rkwifibt 为例：</p>
+<blockquote>
+<p>utils&#x2F;brmake rkwifibt-configure </p>
+<p>utils&#x2F;brmake rkwifibt-build         </p>
+<p>utils&#x2F;brmake rkwifibt-install      </p>
+</blockquote>
+<p>与之对应的还有：reconfigure（重新配置）、rebuild（重新编译）、reinstall（重新安装）：</p>
+<blockquote>
+<p>make <package_name>-reconfigure   #从配置阶段开始，重新启动 package 的构建过程</p>
+<p>make <package_name>-rebuild           #从编译阶段开始，重新启动 package 的构建过程</p>
+<p>make <package_name>-reinstall         #从安装阶段开始，重新启动 package 的构建过程</p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>utils&#x2F;brmake <package_name>-reconfigure  #从配置阶段开始，重新启动 package 的构建过程</p>
+<p>utils&#x2F;brmake <package_name>-rebuild          #从编译阶段开始，重新启动 package 的构建过程</p>
+<p>utils&#x2F;brmake <package_name>-reinstall        #从安装阶段开始，重新启动 package 的构建过程</p>
+</blockquote>
+<p>以 rkwifibt 为例：</p>
+<blockquote>
+<p>utils&#x2F;brmake rkwifibt-reconfigure </p>
+<p>utils&#x2F;brmake rkwifibt-rebuild        </p>
+<p>utils&#x2F;brmake rkwifibt-reinstall       </p>
+</blockquote>
+<h1 id="添加package"><a href="#添加package" class="headerlink" title="添加package"></a>添加package</h1><ol>
+<li>添加代码，编写makefile&#x2F;cmake。</li>
+<li>Buildroot&#x2F;package目录下创建目录，并在其中编写Config.in和mypackage.mk。</li>
+<li>修改package&#x2F;Config.in，添加mypackage。</li>
+<li>mkae menuconfig 在Target packages中使能mypackage。</li>
+<li>执行make mypackage-rebuild&#x2F;make mypackage。</li>
+</ol>
+<p>随后可执行文件会生成在output&#x2F;rockchip_rk3568&#x2F;target&#x2F;usr&#x2F;bin目录。编译烧写rootfs到板子即可使用。</p>
+<p><img src="/picture/tech/buildroot/buidroot2.png" alt="生成的package文件"></p>
+<h1 id="编译RK3568根文件系统镜像rootfs-img"><a href="#编译RK3568根文件系统镜像rootfs-img" class="headerlink" title="编译RK3568根文件系统镜像rootfs.img"></a>编译RK3568根文件系统镜像rootfs.img</h1><ol>
+<li>配置defconfig：source build&#x2F;envsetup.sh rockchip_rk3568</li>
+<li>make -j20 或 make all -j20 或 utils&#x2F;brmake -j20</li>
+</ol>
+<p>命令中最后一个参数（rockchip_rk3568）用于指定目标平台的 defconfig 配置文件（不带**_defconfig** 后缀），目标平台的 defconfig 配置文件都存放在**<Buildroot>&#x2F;configs** 目录下，在该目录下可以找到 rk3568 的配置文件 <strong>rockchip_rk3568_defconfig</strong>。编译成功后会输出到output目录。</p>
+<h1 id="output目录介绍"><a href="#output目录介绍" class="headerlink" title="output目录介绍"></a>output目录介绍</h1><p>output&#x2F;</p>
+<p>├── rockchip_rk3568</p>
+<p>├── build #包含所有构建的软件包，包括 buildroot 在宿主机上所需的工具以及为目标平台编译的软件包</p>
+<p>├── host #包含为 Ubuntu 主机（宿主机）构建的工具，以及目标工具链</p>
+<p>├── images #存放最终编译输出的镜</p>
+<p>├── Makefile</p>
+<p>├── staging #一个指向 host&#x2F;目录中目标工具链 sysroot 的符号链接</p>
+<p>└── target #根文件系统系统目录，用来创建根文件系统镜像，rootfs.img 镜像的内容就是该目录下的内容</p>
+]]></content>
+      <categories>
+        <category>RK3568</category>
+      </categories>
+      <tags>
+        <tag>rk3568</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【Linux】高频问题linux系统</title>
     <url>/blog/LinuxSysQues/</url>
     <content><![CDATA[<h1 id="【Linux】高频问题linux系统"><a href="#【Linux】高频问题linux系统" class="headerlink" title="【Linux】高频问题linux系统"></a>【Linux】高频问题linux系统</h1><h3 id="用户空间和内核空间通信的方式有什么"><a href="#用户空间和内核空间通信的方式有什么" class="headerlink" title="用户空间和内核空间通信的方式有什么"></a>用户空间和内核空间通信的方式有什么</h3><p><strong>系统调用：</strong></p>
@@ -2535,182 +2686,6 @@ add_library(src $&#123;SRC&#125;)
       </tags>
   </entry>
   <entry>
-    <title>【RK3568】Buildroot开发</title>
-    <url>/blog/Rk3568Buildroot/</url>
-    <content><![CDATA[<h1 id="【RK3568】Buildroot开发"><a href="#【RK3568】Buildroot开发" class="headerlink" title="【RK3568】Buildroot开发"></a>【RK3568】Buildroot开发</h1><h1 id="Buildroot目录介绍"><a href="#Buildroot目录介绍" class="headerlink" title="Buildroot目录介绍"></a>Buildroot目录介绍</h1><table>
-<thead>
-<tr>
-<th align="center">说明</th>
-<th align="center">顶层目录名</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">arch</td>
-<td align="center">存放 buildroot 支持的所有 CPU 架构相关的配置文件及构建脚本</td>
-</tr>
-<tr>
-<td align="center">board</td>
-<td align="center">存放特定目标平台相关的文件，譬如内核配置或补丁文件、rootfs覆盖文件等</td>
-</tr>
-<tr>
-<td align="center">boot</td>
-<td align="center">存放 buildroot 支持的 BootLoader 相关的补丁、校验文件、构建脚本、配置选项等</td>
-</tr>
-<tr>
-<td align="center">build</td>
-<td align="center">Buildroot 编译系统相关组件configs 存放了所有目标平台的</td>
-</tr>
-<tr>
-<td align="center">configs</td>
-<td align="center">存放了所有目标平台的 defconfig 配置文件</td>
-</tr>
-<tr>
-<td align="center">dl</td>
-<td align="center">download 的缩写，该目录用于存放下载的各种开源软件包，譬如alsa-lib 库、bluez 库、bzip2、curl 工具等；在编译过程中，buildroot会从网络下载所需软件包、并将其放置在 dl&#x2F;目录下；如果 buildroot下载某软件包时失败、无法下载成功，此时我们也可以自己手动下载该软件包、并将其拷贝至 dl 目录下。所有软件包只需下载一次即可，不是每次编译都要下载一次（除非删除 dl 目录），只要 dl 目录下存在该软件包就不用下载了；所以往往第一次编译会比较慢，因为下载过程会占用很多时间</td>
-</tr>
-<tr>
-<td align="center">docs</td>
-<td align="center">存放相关的参考文档</td>
-</tr>
-<tr>
-<td align="center">fs</td>
-<td align="center">存放各种文件系统的源代码</td>
-</tr>
-<tr>
-<td align="center">linux</td>
-<td align="center">存放 linux 的构建脚本和配置选项</td>
-</tr>
-<tr>
-<td align="center">output</td>
-<td align="center">该文件夹会在编译 buildroot 后出现，output 目录用于存放编译过程中输出的各种文件，包括各种编译生成的中间目标文件、可执行文件、lib 库以及最终烧录到开发板的 rootfs 镜像等</td>
-</tr>
-<tr>
-<td align="center">package</td>
-<td align="center">存放所有 package（软件包）的构建脚本、配置选项；每个软件包目录下（package&#x2F;<package_name>&#x2F;）都有一个 Config.in 文件和<package_name>.mk 文件（其实就是 Makefile 文件）；如果需要添加一个新的 package，则需对 package&#x2F;目录进行改动。</td>
-</tr>
-<tr>
-<td align="center">support</td>
-<td align="center">存放一些为 buildroot 提供功能支持的脚本、配置文件等</td>
-</tr>
-<tr>
-<td align="center">to loc ha in</td>
-<td align="center">存放制作各种交叉编译工具链的构建脚本和相关文件，binutils、gcc、gdb、kernel-header 和 uClibc</td>
-</tr>
-<tr>
-<td align="center">utils</td>
-<td align="center">存放一些 buildroot 的实用脚本和工具</td>
-</tr>
-</tbody></table>
-<h1 id="常见编译指令"><a href="#常见编译指令" class="headerlink" title="常见编译指令"></a>常见编译指令</h1><p>在buildroot跟目录下可以直接使用make命令编译buildroot，也可以单独指定packge进行编译，具体见make help提示。</p>
-<h2 id="编译跟文件系统"><a href="#编译跟文件系统" class="headerlink" title="编译跟文件系统"></a>编译跟文件系统</h2><p>编译之前，先进行配置；进入到 buildroot 目录下，执行如下命令进行配置（以 rk3568 平台为例）：</p>
-<blockquote>
-<p>source build&#x2F;envsetup.sh rockchip_rk3568</p>
-</blockquote>
-<p>命令中最后一个参数（rockchip_rk3568）用于指定目标平台的 defconfig 配置文件（不带  _defconfig  后缀），所有目标平台的 defconfig 配置文件都存放在<Buildroot>&#x2F;configs** 目录下，在</p>
-<p>该目录下可以找到 rk3568 的配置文件 <strong>rockchip_rk3568_defconfig</strong>，如下所示：</p>
-<p><img src="/picture/tech/buildroot/buidroot1.png" alt="配置文件"></p>
-<p>配置后直接：</p>
-<blockquote>
-<p>make 或 make all  </p>
-<p>make -j20 或 make all -j20 </p>
-</blockquote>
-<h2 id="编译package"><a href="#编译package" class="headerlink" title="编译package"></a>编译package</h2><p>编译之前，先进行配置。进入到 buildroot 目录下，执行如下命令进行配置（以 rk3568 平台为例）：</p>
-<blockquote>
-<p>source build&#x2F;envsetup.sh rockchip_rk3568</p>
-</blockquote>
-<p>配置完成后，执行如下命令编译指定的 package：</p>
-<blockquote>
-<p>make <package_name></p>
-</blockquote>
-<p>参数<package_name>用于指定 package 的名字，譬如 myh_package：</p>
-<blockquote>
-<p>make myh_package</p>
-</blockquote>
-<h2 id="Buildroot清除"><a href="#Buildroot清除" class="headerlink" title="Buildroot清除"></a>Buildroot清除</h2><p>执行如下可删除所有构建生成的文件（包括 build、host、staging and target trees、images 和 toolchain）：</p>
-<blockquote>
-<p>make clean</p>
-</blockquote>
-<p>执行如下命令可删除所有构建时生成的文件以及相关配置（彻底清除，相当于删除 output目录）：</p>
-<blockquote>
-<p>make distclean</p>
-</blockquote>
-<p>执行如下命令可删除指定 package 的构建目录：</p>
-<blockquote>
-<p>make <package_name>-dirclean</p>
-</blockquote>
-<h1 id="添加Package详解"><a href="#添加Package详解" class="headerlink" title="添加Package详解"></a>添加Package详解</h1><p> package_name 对应的便是 buildroot&#x2F;package&#x2F;文件夹中的某个目录对应的名字（或某个子目录对应的名字），并且该目录中存在 Config.in 配置文件（用于定义 package 配置选项）以及<package_name>.mk 文件（Makefile 文件，用于定义 package 的构建逻辑）。比如：</p>
-<blockquote>
-<p>rkwifibt       → 	package&#x2F;rockchip&#x2F;rkwifibt&#x2F;</p>
-<p>rknpu          → 	package&#x2F;rockchip&#x2F;rknpu&#x2F;</p>
-<p>rkupdate	→ 	package&#x2F;rockchip&#x2F;rkupdate&#x2F;</p>
-</blockquote>
-<p>package（软件包）的构建过程可以分解为：configure（配置）、build（编译）、install（安装），其执行顺序为：<strong>配置</strong>→<strong>编译</strong>→<strong>安装</strong>，每一步可单独执行，执行如下命令：</p>
-<blockquote>
-<p>make <package_name>-configure     #执行配置命令</p>
-<p>make <package_name>-build             #执行编译命令</p>
-<p>make <package_name>-install            #执行安装命令</p>
-</blockquote>
-<p>或者</p>
-<blockquote>
-<p>utils&#x2F;brmake <package_name>-configure   #执行配置命令</p>
-<p>utils&#x2F;brmake <package_name>-build           #执行编译命令</p>
-<p>utils&#x2F;brmake <package_name>-install          #执行安装命令</p>
-</blockquote>
-<p>以 rkwifibt 为例：</p>
-<blockquote>
-<p>utils&#x2F;brmake rkwifibt-configure </p>
-<p>utils&#x2F;brmake rkwifibt-build         </p>
-<p>utils&#x2F;brmake rkwifibt-install      </p>
-</blockquote>
-<p>与之对应的还有：reconfigure（重新配置）、rebuild（重新编译）、reinstall（重新安装）：</p>
-<blockquote>
-<p>make <package_name>-reconfigure   #从配置阶段开始，重新启动 package 的构建过程</p>
-<p>make <package_name>-rebuild           #从编译阶段开始，重新启动 package 的构建过程</p>
-<p>make <package_name>-reinstall         #从安装阶段开始，重新启动 package 的构建过程</p>
-</blockquote>
-<p>或者</p>
-<blockquote>
-<p>utils&#x2F;brmake <package_name>-reconfigure  #从配置阶段开始，重新启动 package 的构建过程</p>
-<p>utils&#x2F;brmake <package_name>-rebuild          #从编译阶段开始，重新启动 package 的构建过程</p>
-<p>utils&#x2F;brmake <package_name>-reinstall        #从安装阶段开始，重新启动 package 的构建过程</p>
-</blockquote>
-<p>以 rkwifibt 为例：</p>
-<blockquote>
-<p>utils&#x2F;brmake rkwifibt-reconfigure </p>
-<p>utils&#x2F;brmake rkwifibt-rebuild        </p>
-<p>utils&#x2F;brmake rkwifibt-reinstall       </p>
-</blockquote>
-<h1 id="添加package"><a href="#添加package" class="headerlink" title="添加package"></a>添加package</h1><ol>
-<li>添加代码，编写makefile&#x2F;cmake。</li>
-<li>Buildroot&#x2F;package目录下创建目录，并在其中编写Config.in和mypackage.mk。</li>
-<li>修改package&#x2F;Config.in，添加mypackage。</li>
-<li>mkae menuconfig 在Target packages中使能mypackage。</li>
-<li>执行make mypackage-rebuild&#x2F;make mypackage。</li>
-</ol>
-<p>随后可执行文件会生成在output&#x2F;rockchip_rk3568&#x2F;target&#x2F;usr&#x2F;bin目录。编译烧写rootfs到板子即可使用。</p>
-<p><img src="/picture/tech/buildroot/buidroot2.png" alt="生成的package文件"></p>
-<h1 id="编译RK3568根文件系统镜像rootfs-img"><a href="#编译RK3568根文件系统镜像rootfs-img" class="headerlink" title="编译RK3568根文件系统镜像rootfs.img"></a>编译RK3568根文件系统镜像rootfs.img</h1><ol>
-<li>配置defconfig：source build&#x2F;envsetup.sh rockchip_rk3568</li>
-<li>make -j20 或 make all -j20 或 utils&#x2F;brmake -j20</li>
-</ol>
-<p>命令中最后一个参数（rockchip_rk3568）用于指定目标平台的 defconfig 配置文件（不带**_defconfig** 后缀），目标平台的 defconfig 配置文件都存放在**<Buildroot>&#x2F;configs** 目录下，在该目录下可以找到 rk3568 的配置文件 <strong>rockchip_rk3568_defconfig</strong>。编译成功后会输出到output目录。</p>
-<h1 id="output目录介绍"><a href="#output目录介绍" class="headerlink" title="output目录介绍"></a>output目录介绍</h1><p>output&#x2F;</p>
-<p>├── rockchip_rk3568</p>
-<p>├── build #包含所有构建的软件包，包括 buildroot 在宿主机上所需的工具以及为目标平台编译的软件包</p>
-<p>├── host #包含为 Ubuntu 主机（宿主机）构建的工具，以及目标工具链</p>
-<p>├── images #存放最终编译输出的镜</p>
-<p>├── Makefile</p>
-<p>├── staging #一个指向 host&#x2F;目录中目标工具链 sysroot 的符号链接</p>
-<p>└── target #根文件系统系统目录，用来创建根文件系统镜像，rootfs.img 镜像的内容就是该目录下的内容</p>
-]]></content>
-      <categories>
-        <category>RK3568</category>
-      </categories>
-      <tags>
-        <tag>rk3568</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【RK3568】U-BOOT启动流程</title>
     <url>/blog/Rk3568Uboot/</url>
     <content><![CDATA[<h1 id="【RK3568】U-BOOT启动流程"><a href="#【RK3568】U-BOOT启动流程" class="headerlink" title="【RK3568】U-BOOT启动流程"></a>【RK3568】U-BOOT启动流程</h1><p>RK平台的U-Boot 启动流程如下，仅列出⼀些重要步骤：</p>
@@ -2862,7 +2837,7 @@ add_library(src $&#123;SRC&#125;)
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cmake 最低版本</span></span><br><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="comment"># 输出CMake的版本信息</span></span><br><span class="line"><span class="keyword">message</span>(STATUS <span class="string">&quot;cmake version $&#123;CMAKE_VERSION&#125;&quot;</span>)</span><br><span class="line"><span class="comment"># 交叉编译工具链的路径</span></span><br><span class="line"><span class="keyword">set</span>(TOOLCHAIN_DIR /opt/atk-dlrk356x-toolchain)</span><br><span class="line"><span class="comment"># C++编译器和C编译器的路径</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_COMPILER <span class="variable">$&#123;TOOLCHAIN_DIR&#125;</span>/bin/aarch64-buildroot-linux-gnu-g++)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_C_COMPILER <span class="variable">$&#123;TOOLCHAIN_DIR&#125;</span>/bin/aarch64-buildroot-linux-gnu-gcc)</span><br><span class="line"><span class="comment"># 设置系统根目录（sysroot）路径，包含目标系统的头文件和库文件</span></span><br><span class="line"><span class="keyword">set</span>(SYSROOT <span class="variable">$&#123;TOOLCHAIN_DIR&#125;</span>/aarch64-buildroot-linux-gnu/sysroot/usr/<span class="keyword">include</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_SYSROOT <span class="variable">$&#123;TOOLCHAIN_DIR&#125;</span>/aarch64-buildroot-linux-gnu/sysroot)</span><br><span class="line"><span class="comment"># C++11标准</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">11</span>)</span><br><span class="line"><span class="comment"># 链接的OpenCV库的名称</span></span><br><span class="line"><span class="keyword">set</span>(OPENCV_LIBS opencv_core opencv_videoio opencv_video opencv_highgui opencv_imgcodecs opencv_imgproc)</span><br><span class="line"><span class="comment"># 将交叉编译环境中的头文件目录添加到项目</span></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;SYSROOT&#125;</span>)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;SYSROOT&#125;</span>/opencv4)</span><br><span class="line"><span class="comment">#生成 opencv_test 执行程序</span></span><br><span class="line"><span class="keyword">project</span>(opencv)</span><br><span class="line"><span class="keyword">add_executable</span>(opencvTest opencvTest.cpp)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(opencvTest <span class="variable">$&#123;OPENCV_LIBS&#125;</span>)</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>在CMakeLists.txt目录下创建build文件夹，进入build中，输入make ..创建Makefile，随后输入make编译程序。使用scp（scp opencvTest <a href="mailto:&#114;&#111;&#111;&#x74;&#64;&#x31;&#x36;&#57;&#46;&#50;&#x35;&#52;&#x2e;&#120;&#x78;&#x78;&#46;&#x78;&#120;&#120;">&#114;&#111;&#111;&#x74;&#64;&#x31;&#x36;&#57;&#46;&#50;&#x35;&#52;&#x2e;&#120;&#x78;&#x78;&#46;&#x78;&#120;&#120;</a>:&#x2F;opt&#x2F;apps&#x2F;src&#x2F;mySrc）传输<strong>可执行文件</strong>和<strong>图片</strong>到开发板，运行代码。效果如图。</p>
+<p>在CMakeLists.txt目录下创建build文件夹，进入build中，输入make ..创建Makefile，随后输入make编译程序。使用scp（scp opencvTest <a href="mailto:&#114;&#x6f;&#111;&#116;&#x40;&#49;&#54;&#57;&#x2e;&#50;&#53;&#52;&#x2e;&#x78;&#x78;&#x78;&#46;&#x78;&#120;&#x78;">&#114;&#x6f;&#111;&#116;&#x40;&#49;&#54;&#57;&#x2e;&#50;&#53;&#52;&#x2e;&#x78;&#x78;&#x78;&#46;&#x78;&#120;&#x78;</a>:&#x2F;opt&#x2F;apps&#x2F;src&#x2F;mySrc）传输<strong>可执行文件</strong>和<strong>图片</strong>到开发板，运行代码。效果如图。</p>
 </blockquote>
 <p><img src="/picture/tech/usb%E8%A7%86%E9%A2%91/usb_video3.png" alt="运行代码显示图片"></p>
 <h2 id="OpenCV视频常见保存格式"><a href="#OpenCV视频常见保存格式" class="headerlink" title="OpenCV视频常见保存格式"></a>OpenCV视频常见保存格式</h2><ol>
@@ -2890,46 +2865,6 @@ add_library(src $&#123;SRC&#125;)
       </categories>
       <tags>
         <tag>rk3568</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Tool】clang-format代码格式化工具</title>
-    <url>/blog/ToolClangFormat/</url>
-    <content><![CDATA[<h2 id="clang-format有什么用？"><a href="#clang-format有什么用？" class="headerlink" title="clang-format有什么用？"></a>clang-format有什么用？</h2><p>clang-format是一个由Clang项目提供的工具，用于对C、C++、Objective-C和Objective-C++代码进行格式化。它可以根据预定义的样式或用户自定义的样式规则，自动调整代码的缩进、空格、换行等格式，以提高代码的可读性和一致性。<br>通过使用clang-format，您可以避免手动进行代码格式化的繁琐过程，节省时间和精力。它可以应用于单个文件或整个代码库，并且可以与各种编辑器和集成开发环境（IDE）集成，例如Visual Studio Code、Xcode、Eclipse等。<br>clang-format提供了多个预定义的代码样式选项，例如Google、LLVM、WebKit等。此外，还可以通过.clang-format文件或命令行参数自定义样式规则，以满足个人或项目的需求。<br>总而言之，可帮助开发人员在编写C、C++、Objective-C和Objective-C++代码时保持一致的代码风格，并提高代码的可读性和可维护性。</p>
-<h2 id="Use-clang-format-windows"><a href="#Use-clang-format-windows" class="headerlink" title="Use clang-format (windows)"></a>Use clang-format (windows)</h2><p>使用VsCode插件使用，需安装以下插件：</p>
-<ul>
-<li>Clang-Format</li>
-<li>C&#x2F;C++ Extension Pack</li>
-</ul>
-<p>安装完毕后设置clang目录。我的目录在<code>C:\Users\16097\.vscode\extensions\ms-vscode.cpptools-1.17.5-win32-x64\LLVM\bin\clang-format.exe</code>,各位可根据自己的vscode安装插件的位置寻找。</p>
-<p><img src="/picture/tech/clang/clang3.png"></p>
-<h3 id="编写-clang-format"><a href="#编写-clang-format" class="headerlink" title="编写.clang-format"></a>编写.clang-format</h3><p>然后在工程目录下编写<code>.clang-format</code>文件，用于配置格式化的规则。</p>
-<p><img src="/picture/tech/clang/clang1.png"></p>
-<p>以下是我自己的配置，仅供参考，可自行去官网查询如何设置。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">Language:        Cpp</span><br><span class="line"># BasedOnStyle:  LLVM</span><br><span class="line">AccessModifierOffset: <span class="number">-4</span></span><br><span class="line">AlignAfterOpenBracket: Align</span><br><span class="line">AlignConsecutiveMacros: <span class="literal">true</span></span><br><span class="line">AlignConsecutiveAssignments: <span class="literal">true</span></span><br><span class="line">AlignConsecutiveBitFields: <span class="literal">true</span></span><br><span class="line">AlignConsecutiveDeclarations: <span class="literal">true</span></span><br><span class="line">AlignEscapedNewlines: Right</span><br><span class="line">AlignOperands:   Align</span><br><span class="line">AlignTrailingComments: <span class="literal">true</span></span><br><span class="line">AlignArrayOfStructures: Left</span><br><span class="line">AllowAllArgumentsOnNextLine: <span class="literal">true</span></span><br><span class="line">AllowAllConstructorInitializersOnNextLine: <span class="literal">true</span></span><br><span class="line">AllowAllParametersOfDeclarationOnNextLine: <span class="literal">true</span></span><br><span class="line">AllowShortEnumsOnASingleLine: <span class="literal">true</span></span><br><span class="line">AllowShortBlocksOnASingleLine: Never</span><br><span class="line">AllowShortCaseLabelsOnASingleLine: <span class="literal">false</span></span><br><span class="line">AllowShortFunctionsOnASingleLine: <span class="literal">false</span></span><br><span class="line">AllowShortLambdasOnASingleLine: All</span><br><span class="line">AllowShortIfStatementsOnASingleLine: Never</span><br><span class="line">AllowShortLoopsOnASingleLine: <span class="literal">false</span></span><br><span class="line">AlwaysBreakAfterDefinitionReturnType: None</span><br><span class="line">AlwaysBreakAfterReturnType: None</span><br><span class="line">AlwaysBreakBeforeMultilineStrings: <span class="literal">false</span></span><br><span class="line">AlwaysBreakTemplateDeclarations: MultiLine</span><br><span class="line">BinPackArguments: <span class="literal">true</span></span><br><span class="line">BinPackParameters: <span class="literal">true</span></span><br><span class="line">BraceWrapping:</span><br><span class="line">  AfterCaseLabel:  <span class="literal">false</span></span><br><span class="line">  AfterClass:      <span class="literal">false</span></span><br><span class="line">  AfterControlStatement: Never</span><br><span class="line">  AfterEnum:       <span class="literal">false</span></span><br><span class="line">  AfterFunction:   <span class="literal">false</span></span><br><span class="line">  AfterNamespace:  <span class="literal">false</span></span><br><span class="line">  AfterObjCDeclaration: <span class="literal">false</span></span><br><span class="line">  AfterStruct:     <span class="literal">false</span></span><br><span class="line">  AfterUnion:      <span class="literal">false</span></span><br><span class="line">  AfterExternBlock: <span class="literal">false</span></span><br><span class="line">  BeforeCatch:     <span class="literal">false</span></span><br><span class="line">  BeforeElse:      <span class="literal">false</span></span><br><span class="line">  BeforeLambdaBody: <span class="literal">false</span></span><br><span class="line">  BeforeWhile:     <span class="literal">false</span></span><br><span class="line">  IndentBraces:    <span class="literal">false</span></span><br><span class="line">  SplitEmptyFunction: <span class="literal">true</span></span><br><span class="line">  SplitEmptyRecord: <span class="literal">true</span></span><br><span class="line">  SplitEmptyNamespace: <span class="literal">true</span></span><br><span class="line">BreakBeforeBinaryOperators: None</span><br><span class="line">BreakBeforeBraces: Allman</span><br><span class="line">BreakBeforeInheritanceComma: <span class="literal">false</span></span><br><span class="line">BreakInheritanceList: BeforeColon</span><br><span class="line">BreakBeforeTernaryOperators: <span class="literal">true</span></span><br><span class="line">BreakConstructorInitializersBeforeComma: <span class="literal">false</span></span><br><span class="line">BreakConstructorInitializers: BeforeColon</span><br><span class="line">BreakAfterJavaFieldAnnotations: <span class="literal">false</span></span><br><span class="line">BreakStringLiterals: <span class="literal">true</span></span><br><span class="line">ColumnLimit:     <span class="number">120</span></span><br><span class="line">CommentPragmas:  <span class="string">&#x27;^ IWYU pragma:&#x27;</span></span><br><span class="line">CompactNamespaces: <span class="literal">false</span></span><br><span class="line">ConstructorInitializerAllOnOneLineOrOnePerLine: <span class="literal">false</span></span><br><span class="line">ConstructorInitializerIndentWidth: <span class="number">4</span></span><br><span class="line">ContinuationIndentWidth: <span class="number">4</span></span><br><span class="line">Cpp11BracedListStyle: <span class="literal">true</span></span><br><span class="line">DeriveLineEnding: <span class="literal">true</span></span><br><span class="line">DerivePointerAlignment: <span class="literal">false</span></span><br><span class="line">DisableFormat:   <span class="literal">false</span></span><br><span class="line">ExperimentalAutoDetectBinPacking: <span class="literal">false</span></span><br><span class="line">FixNamespaceComments: <span class="literal">true</span></span><br><span class="line">ForEachMacros:</span><br><span class="line">  - foreach</span><br><span class="line">  - Q_FOREACH</span><br><span class="line">  - BOOST_FOREACH</span><br><span class="line">IncludeBlocks:   Preserve</span><br><span class="line">IncludeCategories:</span><br><span class="line">  - Regex:           <span class="string">&#x27;^&quot;(llvm|llvm-c|clang|clang-c)/&#x27;</span></span><br><span class="line">    Priority:        <span class="number">2</span></span><br><span class="line">    SortPriority:    <span class="number">0</span></span><br><span class="line">  - Regex:           <span class="string">&#x27;^(&lt;|&quot;(gtest|gmock|isl|json)/)&#x27;</span></span><br><span class="line">    Priority:        <span class="number">3</span></span><br><span class="line">    SortPriority:    <span class="number">0</span></span><br><span class="line">  - Regex:           <span class="string">&#x27;.*&#x27;</span></span><br><span class="line">    Priority:        <span class="number">1</span></span><br><span class="line">    SortPriority:    <span class="number">0</span></span><br><span class="line">IncludeIsMainRegex: <span class="string">&#x27;(Test)?$&#x27;</span></span><br><span class="line">IncludeIsMainSourceRegex: <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="string">IndentCaseLabels: true</span></span><br><span class="line"><span class="string">IndentCaseBlocks: false</span></span><br><span class="line"><span class="string">IndentGotoLabels: true</span></span><br><span class="line"><span class="string">IndentPPDirectives: None</span></span><br><span class="line"><span class="string">IndentExternBlock: AfterExternBlock</span></span><br><span class="line"><span class="string">IndentWidth:     4</span></span><br><span class="line"><span class="string">IndentWrappedFunctionNames: false</span></span><br><span class="line"><span class="string">InsertTrailingCommas: None</span></span><br><span class="line"><span class="string">JavaScriptQuotes: Leave</span></span><br><span class="line"><span class="string">JavaScriptWrapImports: true</span></span><br><span class="line"><span class="string">KeepEmptyLinesAtTheStartOfBlocks: true</span></span><br><span class="line"><span class="string">MacroBlockBegin: &#x27;</span>&#x27;</span><br><span class="line">MacroBlockEnd:   <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="string">MaxEmptyLinesToKeep: 1</span></span><br><span class="line"><span class="string">NamespaceIndentation: None</span></span><br><span class="line"><span class="string">ObjCBinPackProtocolList: Auto</span></span><br><span class="line"><span class="string">ObjCBlockIndentWidth: 2</span></span><br><span class="line"><span class="string">ObjCBreakBeforeNestedBlockParam: true</span></span><br><span class="line"><span class="string">ObjCSpaceAfterProperty: false</span></span><br><span class="line"><span class="string">ObjCSpaceBeforeProtocolList: true</span></span><br><span class="line"><span class="string">PenaltyBreakAssignment: 2</span></span><br><span class="line"><span class="string">PenaltyBreakBeforeFirstCallParameter: 19</span></span><br><span class="line"><span class="string">PenaltyBreakComment: 300</span></span><br><span class="line"><span class="string">PenaltyBreakFirstLessLess: 120</span></span><br><span class="line"><span class="string">PenaltyBreakString: 1000</span></span><br><span class="line"><span class="string">PenaltyBreakTemplateDeclaration: 10</span></span><br><span class="line"><span class="string">PenaltyExcessCharacter: 1000000</span></span><br><span class="line"><span class="string">PenaltyReturnTypeOnItsOwnLine: 60</span></span><br><span class="line"><span class="string">PointerAlignment: Right</span></span><br><span class="line"><span class="string">ReflowComments:  true</span></span><br><span class="line"><span class="string">SortIncludes:    true</span></span><br><span class="line"><span class="string">SortUsingDeclarations: true</span></span><br><span class="line"><span class="string">SpaceAfterCStyleCast: false</span></span><br><span class="line"><span class="string">SpaceAfterLogicalNot: false</span></span><br><span class="line"><span class="string">SpaceAfterTemplateKeyword: true</span></span><br><span class="line"><span class="string">SpaceBeforeAssignmentOperators: true</span></span><br><span class="line"><span class="string">SpaceBeforeCpp11BracedList: false</span></span><br><span class="line"><span class="string">SpaceBeforeCtorInitializerColon: true</span></span><br><span class="line"><span class="string">SpaceBeforeInheritanceColon: true</span></span><br><span class="line"><span class="string">SpaceBeforeParens: ControlStatements</span></span><br><span class="line"><span class="string">SpaceBeforeRangeBasedForLoopColon: true</span></span><br><span class="line"><span class="string">SpaceInEmptyBlock: false</span></span><br><span class="line"><span class="string">SpaceInEmptyParentheses: false</span></span><br><span class="line"><span class="string">SpacesBeforeTrailingComments: 1</span></span><br><span class="line"><span class="string">SpacesInAngles:  false</span></span><br><span class="line"><span class="string">SpacesInConditionalStatement: false</span></span><br><span class="line"><span class="string">SpacesInContainerLiterals: true</span></span><br><span class="line"><span class="string">SpacesInCStyleCastParentheses: false</span></span><br><span class="line"><span class="string">SpacesInParentheses: false</span></span><br><span class="line"><span class="string">SpacesInSquareBrackets: false</span></span><br><span class="line"><span class="string">SpaceBeforeSquareBrackets: false</span></span><br><span class="line"><span class="string">Standard:        Latest</span></span><br><span class="line"><span class="string">StatementMacros:</span></span><br><span class="line"><span class="string">  - Q_UNUSED</span></span><br><span class="line"><span class="string">  - QT_REQUIRE_VERSION</span></span><br><span class="line"><span class="string">TabWidth:        4</span></span><br><span class="line"><span class="string">UseCRLF:         false</span></span><br><span class="line"><span class="string">UseTab:          Never</span></span><br><span class="line"><span class="string">WhitespaceSensitiveMacros:</span></span><br><span class="line"><span class="string">  - STRINGIZE</span></span><br><span class="line"><span class="string">  - PP_STRINGIZE</span></span><br><span class="line"><span class="string">  - BOOST_PP_STRINGIZE</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="格式化代码"><a href="#格式化代码" class="headerlink" title="格式化代码"></a>格式化代码</h3><ol>
-<li>使用Vscode快捷键(手动格式化)<code>Shift+Alt+F</code></li>
-<li>自动格式化<br> VsCode设置搜索clang，勾选后下图处，保存文件会自动格式化代码，需要的话可自行开启。</li>
-</ol>
-<p><img src="/picture/tech/clang/clang2.jpg"></p>
-<h2 id="Use-clang-format-linux"><a href="#Use-clang-format-linux" class="headerlink" title="Use clang-format (linux)"></a>Use clang-format (linux)</h2><blockquote>
-<p>安装clang与llvm：sudo apt-get install clang llvm</p>
-</blockquote>
-<h3 id="编写-clang-format-1"><a href="#编写-clang-format-1" class="headerlink" title="编写.clang-format"></a>编写.clang-format</h3><p>可以选择使用默认的Clang样式或创建自定义的.clang-format文件。然后将其置于代码库的根目录中以应用于整个代码库。<br>可以使用以下命令在当前目录生成一个.clang-format文件：<br><code>clang-format -style=llvm -dump-config &gt; .clang-format</code><br><code>clang-format -style=google -dump-config &gt; .clang-format</code><br>或者直接复制上面的~</p>
-<h3 id="格式化代码-1"><a href="#格式化代码-1" class="headerlink" title="格式化代码"></a>格式化代码</h3><ol>
-<li><p>命令行</p>
-<p><code>clang-format -i &lt;filename&gt;</code></p>
-</li>
-<li><p>或集成开发环境（IDE）：clang-format可通过命令行或与许多常见编辑器和IDE集成使用。例如vscode。</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Tool</category>
-      </categories>
-      <tags>
-        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -2982,6 +2917,46 @@ add_library(src $&#123;SRC&#125;)
 <li><strong>[portability]</strong>: 表示可能在不同编译器或平台上导致问题的代码。</li>
 <li><strong>[information]</strong>: 提供有关代码或其结构的一般信息</li>
 </ul>
+]]></content>
+      <categories>
+        <category>Tool</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Tool】clang-format代码格式化工具</title>
+    <url>/blog/ToolClangFormat/</url>
+    <content><![CDATA[<h2 id="clang-format有什么用？"><a href="#clang-format有什么用？" class="headerlink" title="clang-format有什么用？"></a>clang-format有什么用？</h2><p>clang-format是一个由Clang项目提供的工具，用于对C、C++、Objective-C和Objective-C++代码进行格式化。它可以根据预定义的样式或用户自定义的样式规则，自动调整代码的缩进、空格、换行等格式，以提高代码的可读性和一致性。<br>通过使用clang-format，您可以避免手动进行代码格式化的繁琐过程，节省时间和精力。它可以应用于单个文件或整个代码库，并且可以与各种编辑器和集成开发环境（IDE）集成，例如Visual Studio Code、Xcode、Eclipse等。<br>clang-format提供了多个预定义的代码样式选项，例如Google、LLVM、WebKit等。此外，还可以通过.clang-format文件或命令行参数自定义样式规则，以满足个人或项目的需求。<br>总而言之，可帮助开发人员在编写C、C++、Objective-C和Objective-C++代码时保持一致的代码风格，并提高代码的可读性和可维护性。</p>
+<h2 id="Use-clang-format-windows"><a href="#Use-clang-format-windows" class="headerlink" title="Use clang-format (windows)"></a>Use clang-format (windows)</h2><p>使用VsCode插件使用，需安装以下插件：</p>
+<ul>
+<li>Clang-Format</li>
+<li>C&#x2F;C++ Extension Pack</li>
+</ul>
+<p>安装完毕后设置clang目录。我的目录在<code>C:\Users\16097\.vscode\extensions\ms-vscode.cpptools-1.17.5-win32-x64\LLVM\bin\clang-format.exe</code>,各位可根据自己的vscode安装插件的位置寻找。</p>
+<p><img src="/picture/tech/clang/clang3.png"></p>
+<h3 id="编写-clang-format"><a href="#编写-clang-format" class="headerlink" title="编写.clang-format"></a>编写.clang-format</h3><p>然后在工程目录下编写<code>.clang-format</code>文件，用于配置格式化的规则。</p>
+<p><img src="/picture/tech/clang/clang1.png"></p>
+<p>以下是我自己的配置，仅供参考，可自行去官网查询如何设置。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">Language:        Cpp</span><br><span class="line"># BasedOnStyle:  LLVM</span><br><span class="line">AccessModifierOffset: <span class="number">-4</span></span><br><span class="line">AlignAfterOpenBracket: Align</span><br><span class="line">AlignConsecutiveMacros: <span class="literal">true</span></span><br><span class="line">AlignConsecutiveAssignments: <span class="literal">true</span></span><br><span class="line">AlignConsecutiveBitFields: <span class="literal">true</span></span><br><span class="line">AlignConsecutiveDeclarations: <span class="literal">true</span></span><br><span class="line">AlignEscapedNewlines: Right</span><br><span class="line">AlignOperands:   Align</span><br><span class="line">AlignTrailingComments: <span class="literal">true</span></span><br><span class="line">AlignArrayOfStructures: Left</span><br><span class="line">AllowAllArgumentsOnNextLine: <span class="literal">true</span></span><br><span class="line">AllowAllConstructorInitializersOnNextLine: <span class="literal">true</span></span><br><span class="line">AllowAllParametersOfDeclarationOnNextLine: <span class="literal">true</span></span><br><span class="line">AllowShortEnumsOnASingleLine: <span class="literal">true</span></span><br><span class="line">AllowShortBlocksOnASingleLine: Never</span><br><span class="line">AllowShortCaseLabelsOnASingleLine: <span class="literal">false</span></span><br><span class="line">AllowShortFunctionsOnASingleLine: <span class="literal">false</span></span><br><span class="line">AllowShortLambdasOnASingleLine: All</span><br><span class="line">AllowShortIfStatementsOnASingleLine: Never</span><br><span class="line">AllowShortLoopsOnASingleLine: <span class="literal">false</span></span><br><span class="line">AlwaysBreakAfterDefinitionReturnType: None</span><br><span class="line">AlwaysBreakAfterReturnType: None</span><br><span class="line">AlwaysBreakBeforeMultilineStrings: <span class="literal">false</span></span><br><span class="line">AlwaysBreakTemplateDeclarations: MultiLine</span><br><span class="line">BinPackArguments: <span class="literal">true</span></span><br><span class="line">BinPackParameters: <span class="literal">true</span></span><br><span class="line">BraceWrapping:</span><br><span class="line">  AfterCaseLabel:  <span class="literal">false</span></span><br><span class="line">  AfterClass:      <span class="literal">false</span></span><br><span class="line">  AfterControlStatement: Never</span><br><span class="line">  AfterEnum:       <span class="literal">false</span></span><br><span class="line">  AfterFunction:   <span class="literal">false</span></span><br><span class="line">  AfterNamespace:  <span class="literal">false</span></span><br><span class="line">  AfterObjCDeclaration: <span class="literal">false</span></span><br><span class="line">  AfterStruct:     <span class="literal">false</span></span><br><span class="line">  AfterUnion:      <span class="literal">false</span></span><br><span class="line">  AfterExternBlock: <span class="literal">false</span></span><br><span class="line">  BeforeCatch:     <span class="literal">false</span></span><br><span class="line">  BeforeElse:      <span class="literal">false</span></span><br><span class="line">  BeforeLambdaBody: <span class="literal">false</span></span><br><span class="line">  BeforeWhile:     <span class="literal">false</span></span><br><span class="line">  IndentBraces:    <span class="literal">false</span></span><br><span class="line">  SplitEmptyFunction: <span class="literal">true</span></span><br><span class="line">  SplitEmptyRecord: <span class="literal">true</span></span><br><span class="line">  SplitEmptyNamespace: <span class="literal">true</span></span><br><span class="line">BreakBeforeBinaryOperators: None</span><br><span class="line">BreakBeforeBraces: Allman</span><br><span class="line">BreakBeforeInheritanceComma: <span class="literal">false</span></span><br><span class="line">BreakInheritanceList: BeforeColon</span><br><span class="line">BreakBeforeTernaryOperators: <span class="literal">true</span></span><br><span class="line">BreakConstructorInitializersBeforeComma: <span class="literal">false</span></span><br><span class="line">BreakConstructorInitializers: BeforeColon</span><br><span class="line">BreakAfterJavaFieldAnnotations: <span class="literal">false</span></span><br><span class="line">BreakStringLiterals: <span class="literal">true</span></span><br><span class="line">ColumnLimit:     <span class="number">120</span></span><br><span class="line">CommentPragmas:  <span class="string">&#x27;^ IWYU pragma:&#x27;</span></span><br><span class="line">CompactNamespaces: <span class="literal">false</span></span><br><span class="line">ConstructorInitializerAllOnOneLineOrOnePerLine: <span class="literal">false</span></span><br><span class="line">ConstructorInitializerIndentWidth: <span class="number">4</span></span><br><span class="line">ContinuationIndentWidth: <span class="number">4</span></span><br><span class="line">Cpp11BracedListStyle: <span class="literal">true</span></span><br><span class="line">DeriveLineEnding: <span class="literal">true</span></span><br><span class="line">DerivePointerAlignment: <span class="literal">false</span></span><br><span class="line">DisableFormat:   <span class="literal">false</span></span><br><span class="line">ExperimentalAutoDetectBinPacking: <span class="literal">false</span></span><br><span class="line">FixNamespaceComments: <span class="literal">true</span></span><br><span class="line">ForEachMacros:</span><br><span class="line">  - foreach</span><br><span class="line">  - Q_FOREACH</span><br><span class="line">  - BOOST_FOREACH</span><br><span class="line">IncludeBlocks:   Preserve</span><br><span class="line">IncludeCategories:</span><br><span class="line">  - Regex:           <span class="string">&#x27;^&quot;(llvm|llvm-c|clang|clang-c)/&#x27;</span></span><br><span class="line">    Priority:        <span class="number">2</span></span><br><span class="line">    SortPriority:    <span class="number">0</span></span><br><span class="line">  - Regex:           <span class="string">&#x27;^(&lt;|&quot;(gtest|gmock|isl|json)/)&#x27;</span></span><br><span class="line">    Priority:        <span class="number">3</span></span><br><span class="line">    SortPriority:    <span class="number">0</span></span><br><span class="line">  - Regex:           <span class="string">&#x27;.*&#x27;</span></span><br><span class="line">    Priority:        <span class="number">1</span></span><br><span class="line">    SortPriority:    <span class="number">0</span></span><br><span class="line">IncludeIsMainRegex: <span class="string">&#x27;(Test)?$&#x27;</span></span><br><span class="line">IncludeIsMainSourceRegex: <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="string">IndentCaseLabels: true</span></span><br><span class="line"><span class="string">IndentCaseBlocks: false</span></span><br><span class="line"><span class="string">IndentGotoLabels: true</span></span><br><span class="line"><span class="string">IndentPPDirectives: None</span></span><br><span class="line"><span class="string">IndentExternBlock: AfterExternBlock</span></span><br><span class="line"><span class="string">IndentWidth:     4</span></span><br><span class="line"><span class="string">IndentWrappedFunctionNames: false</span></span><br><span class="line"><span class="string">InsertTrailingCommas: None</span></span><br><span class="line"><span class="string">JavaScriptQuotes: Leave</span></span><br><span class="line"><span class="string">JavaScriptWrapImports: true</span></span><br><span class="line"><span class="string">KeepEmptyLinesAtTheStartOfBlocks: true</span></span><br><span class="line"><span class="string">MacroBlockBegin: &#x27;</span>&#x27;</span><br><span class="line">MacroBlockEnd:   <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="string">MaxEmptyLinesToKeep: 1</span></span><br><span class="line"><span class="string">NamespaceIndentation: None</span></span><br><span class="line"><span class="string">ObjCBinPackProtocolList: Auto</span></span><br><span class="line"><span class="string">ObjCBlockIndentWidth: 2</span></span><br><span class="line"><span class="string">ObjCBreakBeforeNestedBlockParam: true</span></span><br><span class="line"><span class="string">ObjCSpaceAfterProperty: false</span></span><br><span class="line"><span class="string">ObjCSpaceBeforeProtocolList: true</span></span><br><span class="line"><span class="string">PenaltyBreakAssignment: 2</span></span><br><span class="line"><span class="string">PenaltyBreakBeforeFirstCallParameter: 19</span></span><br><span class="line"><span class="string">PenaltyBreakComment: 300</span></span><br><span class="line"><span class="string">PenaltyBreakFirstLessLess: 120</span></span><br><span class="line"><span class="string">PenaltyBreakString: 1000</span></span><br><span class="line"><span class="string">PenaltyBreakTemplateDeclaration: 10</span></span><br><span class="line"><span class="string">PenaltyExcessCharacter: 1000000</span></span><br><span class="line"><span class="string">PenaltyReturnTypeOnItsOwnLine: 60</span></span><br><span class="line"><span class="string">PointerAlignment: Right</span></span><br><span class="line"><span class="string">ReflowComments:  true</span></span><br><span class="line"><span class="string">SortIncludes:    true</span></span><br><span class="line"><span class="string">SortUsingDeclarations: true</span></span><br><span class="line"><span class="string">SpaceAfterCStyleCast: false</span></span><br><span class="line"><span class="string">SpaceAfterLogicalNot: false</span></span><br><span class="line"><span class="string">SpaceAfterTemplateKeyword: true</span></span><br><span class="line"><span class="string">SpaceBeforeAssignmentOperators: true</span></span><br><span class="line"><span class="string">SpaceBeforeCpp11BracedList: false</span></span><br><span class="line"><span class="string">SpaceBeforeCtorInitializerColon: true</span></span><br><span class="line"><span class="string">SpaceBeforeInheritanceColon: true</span></span><br><span class="line"><span class="string">SpaceBeforeParens: ControlStatements</span></span><br><span class="line"><span class="string">SpaceBeforeRangeBasedForLoopColon: true</span></span><br><span class="line"><span class="string">SpaceInEmptyBlock: false</span></span><br><span class="line"><span class="string">SpaceInEmptyParentheses: false</span></span><br><span class="line"><span class="string">SpacesBeforeTrailingComments: 1</span></span><br><span class="line"><span class="string">SpacesInAngles:  false</span></span><br><span class="line"><span class="string">SpacesInConditionalStatement: false</span></span><br><span class="line"><span class="string">SpacesInContainerLiterals: true</span></span><br><span class="line"><span class="string">SpacesInCStyleCastParentheses: false</span></span><br><span class="line"><span class="string">SpacesInParentheses: false</span></span><br><span class="line"><span class="string">SpacesInSquareBrackets: false</span></span><br><span class="line"><span class="string">SpaceBeforeSquareBrackets: false</span></span><br><span class="line"><span class="string">Standard:        Latest</span></span><br><span class="line"><span class="string">StatementMacros:</span></span><br><span class="line"><span class="string">  - Q_UNUSED</span></span><br><span class="line"><span class="string">  - QT_REQUIRE_VERSION</span></span><br><span class="line"><span class="string">TabWidth:        4</span></span><br><span class="line"><span class="string">UseCRLF:         false</span></span><br><span class="line"><span class="string">UseTab:          Never</span></span><br><span class="line"><span class="string">WhitespaceSensitiveMacros:</span></span><br><span class="line"><span class="string">  - STRINGIZE</span></span><br><span class="line"><span class="string">  - PP_STRINGIZE</span></span><br><span class="line"><span class="string">  - BOOST_PP_STRINGIZE</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="格式化代码"><a href="#格式化代码" class="headerlink" title="格式化代码"></a>格式化代码</h3><ol>
+<li>使用Vscode快捷键(手动格式化)<code>Shift+Alt+F</code></li>
+<li>自动格式化<br> VsCode设置搜索clang，勾选后下图处，保存文件会自动格式化代码，需要的话可自行开启。</li>
+</ol>
+<p><img src="/picture/tech/clang/clang2.jpg"></p>
+<h2 id="Use-clang-format-linux"><a href="#Use-clang-format-linux" class="headerlink" title="Use clang-format (linux)"></a>Use clang-format (linux)</h2><blockquote>
+<p>安装clang与llvm：sudo apt-get install clang llvm</p>
+</blockquote>
+<h3 id="编写-clang-format-1"><a href="#编写-clang-format-1" class="headerlink" title="编写.clang-format"></a>编写.clang-format</h3><p>可以选择使用默认的Clang样式或创建自定义的.clang-format文件。然后将其置于代码库的根目录中以应用于整个代码库。<br>可以使用以下命令在当前目录生成一个.clang-format文件：<br><code>clang-format -style=llvm -dump-config &gt; .clang-format</code><br><code>clang-format -style=google -dump-config &gt; .clang-format</code><br>或者直接复制上面的~</p>
+<h3 id="格式化代码-1"><a href="#格式化代码-1" class="headerlink" title="格式化代码"></a>格式化代码</h3><ol>
+<li><p>命令行</p>
+<p><code>clang-format -i &lt;filename&gt;</code></p>
+</li>
+<li><p>或集成开发环境（IDE）：clang-format可通过命令行或与许多常见编辑器和IDE集成使用。例如vscode。</p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>Tool</category>
